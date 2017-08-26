@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -23,8 +25,39 @@ namespace GMS2TranslationFileInstaller
 
     public partial class MainWindow : Window
     {
-        Version ver = new Version("a.b");
+        //Version ver = new Version("a.b");
         private const string strInstallDirNotFound = "<!未找到GameMaker Studio 2的路径>";
+        private const string strBrowseDirectoryPrompt = "请选择GameMaker Studio 2的安装目录";
+
+        private bool VerifyPath(string path)
+        {
+            string langpath = path + @"\Language";
+            string configpath = path + @"\GameMakerStudio.exe.config";
+            string exepath = path + @"\GameMakerStudio.exe";
+            if (Directory.Exists(langpath))
+            {
+                if(File.Exists(configpath))
+                {
+                    if (File.Exists(exepath))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
 
         public MainWindow()
         {
@@ -34,12 +67,6 @@ namespace GMS2TranslationFileInstaller
         private void Window_Initialized(object sender,EventArgs e)
         {
             ChBoxAutoSearch.IsChecked = true;
-        }
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,11 +90,36 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-
         private void ChBoxAutoSearch_Unchecked(object sender, RoutedEventArgs e)
         {
             BtnInstallDirBrowse.IsEnabled = true;
             TextInstallDir.IsEnabled = true;
         }
+
+        private void BtnInstallDir_Click(object sender,RoutedEventArgs e)
+        {
+            FolderBrowserDialog dial = new FolderBrowserDialog();
+            dial.Description = strBrowseDirectoryPrompt;
+            if(dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                TextInstallDir.Text = dial.SelectedPath;
+            }
+
+        }
     }
+}
+
+public class VerifyMissingConfig : Exception
+{
+
+}
+
+public class VerifyMissingExecutable : Exception
+{
+
+}
+
+public class VerifyMissingLangDir : Exception
+{
+
 }

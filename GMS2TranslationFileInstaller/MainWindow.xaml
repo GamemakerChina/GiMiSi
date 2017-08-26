@@ -9,10 +9,10 @@
     <Grid>
         <TextBlock Name="LabelInstalldir" HorizontalAlignment="Left" Height="16" Margin="42,78,0,0" TextWrapping="Wrap" Text="GameMaker Studio 2 安装路径" VerticalAlignment="Top" Width="190"/>
         <TextBox Name="TextInstallDir" HorizontalAlignment="Left" Height="18" Margin="42,100,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="304" IsEnabled="False"/>
-        <Button Name ="BtnInstallDirBrowse" Content="浏览……" HorizontalAlignment="Left" Height="18" Margin="346,100,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click" IsEnabled="False"/>
+        <Button Name ="BtnInstallDirBrowse" Content="浏览……" HorizontalAlignment="Left" Height="18" Margin="346,100,0,0" VerticalAlignment="Top" Width="54" IsEnabled="False" Click="BtnInstallDir_Click"/>
         <CheckBox Name="ChBoxAutoSearch" Content="自动查找" HorizontalAlignment="Left" Height="14" Margin="42,122,0,0" VerticalAlignment="Top" Width="70" Checked="ChBoxAutoSearch_Checked" Unchecked="ChBoxAutoSearch_Unchecked"/>
         <TextBlock HorizontalAlignment="Left" Height="14" Margin="42,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="24"><Run Text="版本"/><LineBreak/><Run/></TextBlock>
-        <ComboBox HorizontalAlignment="Left" Height="22" Margin="42,161,0,0" VerticalAlignment="Top" Width="358" SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox HorizontalAlignment="Left" Height="22" Margin="42,161,0,0" VerticalAlignment="Top" Width="358" SelectionChanged="ComboBox_SelectionChanged" IsEditable="True"/>
 
     </Grid>
 </Window>
