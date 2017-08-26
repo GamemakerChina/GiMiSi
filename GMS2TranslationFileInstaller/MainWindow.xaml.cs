@@ -23,7 +23,7 @@ namespace GMS2TranslationFileInstaller
 
     public partial class MainWindow : Window
     {
-
+        Version ver = new Version("a.b");
         private const string strInstallDirNotFound = "<!未找到GameMaker Studio 2的路径>";
 
         public MainWindow()

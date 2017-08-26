@@ -5,11 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace GMS2TranslationFileInstaller
 {
+#pragma warning disable CS0661 // 类型定义运算符 == 或运算符 !=，但不重写 Object.GetHashCode()
+#pragma warning disable CS0660 // 类型定义运算符 == 或运算符 !=，但不重写 Object.Equals(object o)
     class Version
+#pragma warning restore CS0660 // 类型定义运算符 == 或运算符 !=，但不重写 Object.Equals(object o)
+#pragma warning restore CS0661 // 类型定义运算符 == 或运算符 !=，但不重写 Object.GetHashCode()
     {
+        public enum Level
+        {
+            Major,
+            Minor,
+            Revision,
+            Build
+        }
+
         private int major;
         public int Major { get => major; set => major = value; }
 
@@ -33,16 +46,32 @@ namespace GMS2TranslationFileInstaller
         }
         public Version(string strVer)
         {
-            Regex regex = new Regex(@"(\d+)\.(\d+)\.(\d+)\.(\d+)");
-            string[] list = new string[4]; 
-            if (regex.IsMatch(strVer))
+            Regex regex = new Regex(@"(\d+)(\.(\d+)){0,3}");
+            string[] list = { "0","0","0","0"};
+            int cnt = 0;
+            try
             {
-                strVer = regex.Match(strVer).ToString();
-                list = strVer.Split('.');
-                Major = Convert.ToInt32(list[0]);
-                Minor = Convert.ToInt32(list[1]);
-                Revision = Convert.ToInt32(list[2]);
-                Build = Convert.ToInt32(list[3]);
+                if (regex.IsMatch(strVer))
+                {
+                    strVer = regex.Match(strVer).ToString();
+                    strVer.Split('.').CopyTo(list,0);
+                    /*foreach (string str in strVer.Split('.'))
+                    {
+                        list[cnt++] = str;
+                    }*/
+                    Major = Convert.ToInt32(list[0]);
+                    Minor = Convert.ToInt32(list[1]);
+                    Revision = Convert.ToInt32(list[2]);
+                    Build = Convert.ToInt32(list[3]);
+                }
+                else
+                {
+                    throw new VersionFormatInvalid();
+                }
+            }
+            catch(VersionFormatInvalid)
+            {
+                MessageBox.Show("版本号格式异常");
             }
         }
 
@@ -127,8 +156,11 @@ namespace GMS2TranslationFileInstaller
             return !(ver1 < ver2);
         }
 
-        
+        class VersionFormatInvalid : Exception
+        {
 
-
+        }
     }
+
+    
 }
