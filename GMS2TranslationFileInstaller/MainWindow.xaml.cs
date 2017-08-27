@@ -88,22 +88,42 @@ namespace GMS2TranslationFileInstaller
         {
             LabelPathWarning.Content = string.Empty;
             ChBoxAutoSearch.IsChecked = true;
-            foreach(var d in dirInf.GetDirectories())
+            foreach (var d in dirInf.GetDirectories())
             {
                 Version ver = new Version(d.Name.Replace('_', '.'));
                 verList.Add(ver);
             }
-            foreach(var v in verList)
+            foreach (var v in verList)
             {
                 ComBoxVerSelector.Items.Add(v);
             }
             ComBoxVerSelector.SelectedItem = progVer;
+            //SnapToProperVersion();
+            //ComBoxVerSelector.SelectedItem = progVer;
+        }
+
+        private void SnapToProperVersion()
+        {
+            for (int i = 0; i < ComBoxVerSelector.Items.Count; i++)
+            {
+                if (progVer == (Version)ComBoxVerSelector.Items[i])
+                {
+                    ComBoxVerSelector.SelectedIndex = i;
+                }
+                else
+                {
+                    if (progVer > (Version)ComBoxVerSelector.Items[i] && (i == ComBoxVerSelector.Items.Count - 1 || progVer < (Version)ComBoxVerSelector.Items[i + 1]))
+                    {
+                        ComBoxVerSelector.SelectedIndex = i;
+                    }
+                }
+            }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string strVer = ComBoxVerSelector.SelectedItem.ToString().Replace('_','.');
-            Version selectedVer = new Version(strVer);
+            //string strVer = ComBoxVerSelector.SelectedItem.ToString().Replace('_','.');
+            Version selectedVer = (Version)ComBoxVerSelector.SelectedValue;
             
         }
 
@@ -115,7 +135,8 @@ namespace GMS2TranslationFileInstaller
                 TextInstallDir.Text = key.GetValue("Install_Dir").ToString();
                 TextInstallDir.IsEnabled = false;
                 BtnInstallDirBrowse.IsEnabled = false;
-                ComBoxVerSelector.SelectedValue = progVer;
+                //ComBoxVerSelector.SelectedValue = progVer;
+                SnapToProperVersion();
                 key.Close();
             }
             catch (System.IO.IOException)
