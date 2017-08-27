@@ -27,8 +27,12 @@ namespace GMS2TranslationFileInstaller
 
     public partial class MainWindow : Window
     {
+        
         private Version progVer = null;
         private List<Version> verList = new List<Version>();
+
+        private Version thresVer = new Version(2,0,6,146);
+        
 
         private const string strInstallDirNotFound = "<!未找到GameMaker Studio 2的路径>";
         private const string strBrowseDirectoryPrompt = "请选择GameMaker Studio 2的安装目录";
@@ -269,6 +273,14 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
+                //System.Windows.Forms.DialogResult result = System.Windows.Forms.DialogResult.None;
+                if(ProperVersion < thresVer)
+                {
+                    if(System.Windows.Forms.MessageBox.Show("由于版本历史原因，修复原文将会替换掉之前的译文，请问是否继续？","历史版本警告",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
                 CopyOrigFile();
                 System.Windows.Forms.MessageBox.Show("原文内容已修复完毕，如果GameMaker Studio 2已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。");
             }
@@ -292,6 +304,13 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
+                if (ProperVersion < thresVer)
+                {
+                    if (System.Windows.Forms.MessageBox.Show("由于版本历史原因，注入译文将会替换掉之前的原文，请问是否继续？", "历史版本警告", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
                 CopyTransFile();
                 System.Windows.Forms.MessageBox.Show("翻译内容已注入完毕，如果GameMaker Studio 2已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。");
             }
@@ -299,8 +318,20 @@ namespace GMS2TranslationFileInstaller
 
         private void CopyTransFile()
         {
-            string srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
-            string destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
+            string srcPath = string.Empty;
+            string destPath = string.Empty;
+            if (ProperVersion >= thresVer)
+            {
+                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
+                destPath = TextInstallDir.Text + @"\Languages\english.csv";
+            }
+            else
+            {
+                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\trans\english.csv";
+                destPath = TextInstallDir.Text + @"\Languages\english.csv";
+            }
+            //string srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
+            //string destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             if (File.Exists(srcPath))
             {
                 File.Copy(srcPath, destPath, true);
@@ -313,8 +344,19 @@ namespace GMS2TranslationFileInstaller
 
         private void CopyOrigFile()
         {
-            string srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
-            string destPath = TextInstallDir.Text + @"\Languages\english.csv";
+            string srcPath = string.Empty;
+            string destPath = string.Empty;
+            if(ProperVersion >= thresVer)
+            {
+                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
+                destPath = TextInstallDir.Text + @"\Languages\english.csv";
+            }
+            else
+            {
+                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\origin\english.csv";
+                destPath = TextInstallDir.Text + @"\Languages\english.csv";
+            }
+
             if (File.Exists(srcPath))
             {
                 File.Copy(srcPath, destPath, true);
@@ -323,6 +365,11 @@ namespace GMS2TranslationFileInstaller
             {
                 System.Windows.Forms.MessageBox.Show("修复失败，未能找到对应版本的原文，请尝试更新后再修复，如果还有问题，请联系QQ群或作者QQ", "原文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -37,13 +37,14 @@ namespace GMS2TranslationFileInstaller
 
         public Version()
         { }
-        public Version(int major,int minor,int revision,int build)
+        public Version(int major, int minor, int revision, int build)
         {
             this.major = major;
             this.minor = minor;
             this.revision = revision;
             this.build = build;
         }
+        
         public Version(string strVer)
         {
             Regex regex = new Regex(@"(\d+)(\.(\d+)){0,3}");

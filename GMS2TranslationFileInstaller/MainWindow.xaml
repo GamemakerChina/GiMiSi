@@ -5,25 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GMS2TranslationFileInstaller"
         mc:Ignorable="d"
-        Title="GameMaker Studio 2 汉化管理器" Height="500.092" Width="460.961" Loaded="Window_Loaded" ResizeMode="CanMinimize">
+        Title="GameMaker Studio 2 汉化管理器" Height="575.092" Width="460.961" Loaded="Window_Loaded" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="228*"/>
             <ColumnDefinition Width="227*"/>
         </Grid.ColumnDefinitions>
         <Button Name="BtnInstallCHN" Content="安装汉化文件&#xD;&#xA;（CHN）" HorizontalAlignment="Left" Height="100" Margin="28,295,0,0" VerticalAlignment="Top" Width="190" FontSize="18" Click="BtnInstallCHN_Click"/>
-        <Button Name="BtnRepairENG" Content="修复英文文件&#xD;&#xA;（ENG）" HorizontalAlignment="Left" Height="100" Margin="10,295,0,0" VerticalAlignment="Top" Width="190" Click="BtnRepairENG_Click" Grid.Column="1" FontSize="18"/>
+        <Button Name="BtnRepairENG" Content="修复英文文件&#xD;&#xA;（ENG）" Height="100" Margin="10,295,27,0" VerticalAlignment="Top" Click="BtnRepairENG_Click" Grid.Column="1" FontSize="18"/>
         <TextBlock Name="LabelInstalldir" HorizontalAlignment="Left" Height="16" Margin="28,151,0,0" TextWrapping="Wrap" Text="GameMaker Studio 2 安装路径" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" FontSize="14" FontWeight="Bold"/>
-        <Label Name="LabelPathWarning" Content="" HorizontalAlignment="Left" Height="25" Margin="109,188,0,0" VerticalAlignment="Top" Width="317" HorizontalContentAlignment="Right" Foreground="Red" Grid.ColumnSpan="2"/>
+        <Label Name="LabelPathWarning" Content="" Height="25" Margin="111,190,27,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Foreground="Red" Grid.ColumnSpan="2"/>
         <TextBox Name="TextInstallDir" HorizontalAlignment="Left" Height="18" Margin="28,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="346" IsEnabled="False" TextChanged="TextInstallDir_Changed" Grid.ColumnSpan="2"/>
-        <ComboBox Name="ComBoxVerSelector" HorizontalAlignment="Left" Height="22" Margin="28,233,0,0" VerticalAlignment="Top" Width="400" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2" MaxHeight="150"/>
-        <Button Name ="BtnInstallDirBrowse" Content="浏览……" Height="18" Margin="148,172,25,0" VerticalAlignment="Top" IsEnabled="False" Click="BtnInstallDir_Click" Grid.Column="1"/>
+        <ComboBox Name="ComBoxVerSelector" Height="22" Margin="28,233,27,0" VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2" MaxHeight="150"/>
+        <Button Name ="BtnInstallDirBrowse" Content="浏览……" Height="18" Margin="146,172,27,0" VerticalAlignment="Top" IsEnabled="False" Click="BtnInstallDir_Click" Grid.Column="1"/>
         <CheckBox Name="ChBoxAutoSearch" Content="自动查找" HorizontalAlignment="Left" Height="14" Margin="28,195,0,0" VerticalAlignment="Top" Width="78" Checked="ChBoxAutoSearch_Checked" Unchecked="ChBoxAutoSearch_Unchecked" FontSize="14"/>
         <TextBlock HorizontalAlignment="Left" Height="14" Margin="28,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="24"><Run Text="版本"/><LineBreak/><Run/></TextBlock>
         <Image HorizontalAlignment="Left" Height="62" Margin="28,59,0,0" VerticalAlignment="Top" Width="190" Source="Banner.png"/>
-        <Image HorizontalAlignment="Left" Height="62" Margin="10,59,0,0" VerticalAlignment="Top" Width="190" Source="logo.png" Hyperlink.Click="GMCN_Link" Grid.Column="1" Cursor="Hand"/>
-        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="56" Margin="28,405,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" FontSize="14"><Run Text="GameMaker开发者之家QQ群："/><Run FontWeight="Bold" Text="235271204"/><Run FontWeight="Bold"/><LineBreak/><Run Text="作者：小太"/><Run Text="（Oberon）&#x9;"/><Run FontWeight="Bold" Text="QQ：360119124"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Run/></TextBlock>
+        <Image Height="62" Margin="10,59,27,0" VerticalAlignment="Top" Source="logo.png" Hyperlink.Click="GMCN_Link" Grid.Column="1" Cursor="Hand"/>
+        <TextBlock Grid.ColumnSpan="2" Height="56" Margin="28,480,27,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"><Run Text="GameMaker开发者之家QQ群："/><Run FontWeight="Bold" Text="235271204"/><Run FontWeight="Bold"/><LineBreak/><Run Text="作者：小太"/><Run Text="（Oberon）&#x9;"/><Run FontWeight="Bold" Text="QQ：360119124"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Run/></TextBlock>
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="35" Margin="28,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" FontSize="24" TextAlignment="Center" Foreground="#7F000000"><Run Text="GameMaker Studio 2 汉化器 "/><Run FontSize="12" Text="v1.0"/></TextBlock>
+        <Button Name="BtnUpdate" Grid.ColumnSpan="2" Content="检查更新" HorizontalAlignment="Left" Height="68" Margin="28,407,0,0" VerticalAlignment="Top" Width="400" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold"/>
 
     </Grid>
 </Window>
