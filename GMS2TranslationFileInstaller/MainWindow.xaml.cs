@@ -322,8 +322,8 @@ namespace GMS2TranslationFileInstaller
             string destPath = string.Empty;
             if (ProperVersion >= thresVer)
             {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
+                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
+                destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             }
             else
             {
@@ -353,7 +353,7 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\origin\english.csv";
+                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\orig\english.csv";
                 destPath = TextInstallDir.Text + @"\Languages\english.csv";
             }
 
@@ -369,7 +369,7 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }

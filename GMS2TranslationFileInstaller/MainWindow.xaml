@@ -24,7 +24,7 @@
         <Image Height="62" Margin="10,59,27,0" VerticalAlignment="Top" Source="logo.png" Hyperlink.Click="GMCN_Link" Grid.Column="1" Cursor="Hand"/>
         <TextBlock Grid.ColumnSpan="2" Height="56" Margin="28,480,27,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"><Run Text="GameMaker开发者之家QQ群："/><Run FontWeight="Bold" Text="235271204"/><Run FontWeight="Bold"/><LineBreak/><Run Text="作者：小太"/><Run Text="（Oberon）&#x9;"/><Run FontWeight="Bold" Text="QQ：360119124"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Run/></TextBlock>
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="35" Margin="28,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" FontSize="24" TextAlignment="Center" Foreground="#7F000000"><Run Text="GameMaker Studio 2 汉化器 "/><Run FontSize="12" Text="v1.0"/></TextBlock>
-        <Button Name="BtnUpdate" Grid.ColumnSpan="2" Content="检查更新" HorizontalAlignment="Left" Height="68" Margin="28,407,0,0" VerticalAlignment="Top" Width="400" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold"/>
+        <Button Name="BtnUpdate" Grid.ColumnSpan="2" Content="检查更新" HorizontalAlignment="Left" Height="68" Margin="28,407,0,0" VerticalAlignment="Top" Width="400" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold" ToolTip="离线体验版暂不支持检查更新"/>
 
     </Grid>
 </Window>
