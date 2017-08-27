@@ -48,7 +48,7 @@ namespace GMS2TranslationFileInstaller
         {
             Regex regex = new Regex(@"(\d+)(\.(\d+)){0,3}");
             string[] list = { "0","0","0","0"};
-            int cnt = 0;
+            //int cnt = 0;
             try
             {
                 if (regex.IsMatch(strVer))
@@ -141,7 +141,7 @@ namespace GMS2TranslationFileInstaller
         }
         public static bool operator==(Version ver1,Version ver2)
         {
-            return ver1.Equals(ver2);
+            return ver1.major == ver2.major && ver1.minor == ver2.minor && ver1.revision == ver2.revision && ver1.build == ver2.build;
         }
         public static bool operator!=(Version ver1,Version ver2)
         {
