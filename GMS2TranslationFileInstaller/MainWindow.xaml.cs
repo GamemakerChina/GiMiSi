@@ -98,36 +98,59 @@ namespace GMS2TranslationFileInstaller
                 ComBoxVerSelector.Items.Add(v);
             }
             //ComBoxVerSelector.SelectedValue = progVer;
-            object selection = progVer;
+            //object selection = progVer;
             //ComBoxVerSelector.SelectedItem = selection;
             
-            SnapToProperVersion();
-            //ComBoxVerSelector.SelectedItem = progVer;
+            //SnapToProperVersion();
+            ComBoxVerSelector.SelectedItem = progVer;
         }
 
-        private void SnapToProperVersion()
+        private Version ProperVersion
         {
-            for (int i = 0; i < ComBoxVerSelector.Items.Count; i++)
+            get
             {
-                if (progVer == (Version)ComBoxVerSelector.Items[i])
+
+                for (int i = 0; i < ComBoxVerSelector.Items.Count; i++)
                 {
-                    ComBoxVerSelector.SelectedIndex = i;
-                }
-                else
-                {
-                    if (progVer > (Version)ComBoxVerSelector.Items[i] && (i == ComBoxVerSelector.Items.Count - 1 || progVer < (Version)ComBoxVerSelector.Items[i + 1]))
+                    if (progVer == (Version)ComBoxVerSelector.Items[i])
                     {
-                        ComBoxVerSelector.SelectedIndex = i;
+                        return ComBoxVerSelector.Items[i] as Version;
+
+                    }
+                    else
+                    {
+                        if (progVer > (Version)ComBoxVerSelector.Items[i] && (i == ComBoxVerSelector.Items.Count - 1 || progVer < (Version)ComBoxVerSelector.Items[i + 1]))
+                        {
+                            return ComBoxVerSelector.Items[i] as Version;
+                        }
                     }
                 }
+                return null;
             }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //string strVer = ComBoxVerSelector.SelectedItem.ToString().Replace('_','.');
-            Version selectedVer = (Version)ComBoxVerSelector.SelectedValue;
-            
+
+            Version selectedVer = ComBoxVerSelector.SelectedValue as Version;
+            Color c;
+            if(selectedVer == progVer)
+            {
+                c = Color.FromRgb(0, 0, 0);
+            }
+            else
+            {
+                if(selectedVer == ProperVersion)
+                {
+                    c = Color.FromRgb(0, 255, 0);
+                }
+                else
+                {
+                    c = Color.FromRgb(255, 0, 0);
+                }
+            }
+            ComBoxVerSelector.Foreground = new SolidColorBrush(c);
         }
 
         private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
@@ -198,7 +221,7 @@ namespace GMS2TranslationFileInstaller
                     ComBoxVerSelector.IsEnabled = true;
                     //ComBoxVerSelector.Text = fileVer.ProductVersion;
                     progVer = new Version(fileVer.ProductVersion);
-                    ComBoxVerSelector.SelectedIndex = 0;
+                    //ComBoxVerSelector.SelectedIndex = -1;
                     BtnInstallCHN.IsEnabled = true;
                     BtnRepairENG.IsEnabled = true;
                 }
@@ -207,7 +230,7 @@ namespace GMS2TranslationFileInstaller
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
                     LabelPathWarning.Content = strWarningBrokenDirectory;
                     //FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
-                    //ComBoxVerSelector.Text = "无法找到版本";
+                    //ComBoxVerSelector.SelectedIndex = -1;
                     ComBoxVerSelector.IsEnabled = false;
                     BtnInstallCHN.IsEnabled = false;
                     BtnRepairENG.IsEnabled = false;
@@ -215,7 +238,7 @@ namespace GMS2TranslationFileInstaller
                 catch (VerifyMissingConfigException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                    LabelPathWarning.Content = "能够进行安装，但GameMaker Studio 2可能已损坏";
+                    LabelPathWarning.Content = "能够进行安装，但GameMaker Studio 2的关键组件可能已损坏\n建议您重新安装GameMaker Studio 2之后再安装";
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.SelectedItem = new Version(fileVer.ProductVersion);
                     //ComBoxVerSelector.Text = fileVer.ProductVersion;
@@ -225,6 +248,7 @@ namespace GMS2TranslationFileInstaller
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
                     LabelPathWarning.Content = strWarningBrokenDirectory;
                     //ComBoxVerSelector.Text = "无法找到版本";
+                    ComBoxVerSelector.SelectedIndex = -1;
                     ComBoxVerSelector.IsEnabled = false;
                     BtnInstallCHN.IsEnabled = false;
                     BtnRepairENG.IsEnabled = false;
@@ -233,11 +257,24 @@ namespace GMS2TranslationFileInstaller
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnRepairENG_Click(object sender, RoutedEventArgs e)
         {
+            //Debug.WriteLine("{0}\t{1}", ComBoxVerSelector.SelectedItem, ComBoxVerSelector.SelectedIndex);
+            if (!(progVer == (Version)ComBoxVerSelector.SelectedItem))
+            {
+                if (System.Windows.Forms.MessageBox.Show("版本号与检测到的版本号不一致，执意进行安装可能会导致兼容性问题，您确定要继续安装吗？", "版本一致性警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+                {
+                    CopyOrigFile();
+                }
+            }
+            else
+            {
+                CopyOrigFile();
+                System.Windows.Forms.MessageBox.Show("原文内容已修复完毕，如果GameMaker Studio 2已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。");
+            }
 
         }
-        
+
         private void GMCN_Link(object sender,RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.gamemaker.cn/");
@@ -245,7 +282,7 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnInstallCHN_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("{0}\t{1}",ComBoxVerSelector.SelectedItem,ComBoxVerSelector.SelectedIndex);
+            //Debug.WriteLine("{0}\t{1}",ComBoxVerSelector.SelectedItem,ComBoxVerSelector.SelectedIndex);
             if (!(progVer==(Version)ComBoxVerSelector.SelectedItem))
             {
                 if(System.Windows.Forms.MessageBox.Show("版本号与检测到的版本号不一致，执意进行安装可能会导致兼容性问题，您确定要继续安装吗？", "版本一致性警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)==System.Windows.Forms.DialogResult.OK)
@@ -270,7 +307,21 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后汉化，如果还有问题，请联系QQ群或作者QQ","译文缺失",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                System.Windows.Forms.MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后再汉化，如果还有问题，请联系QQ群或作者QQ","译文缺失",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+            }
+        }
+
+        private void CopyOrigFile()
+        {
+            string srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
+            string destPath = TextInstallDir.Text + @"\Languages\english.csv";
+            if (File.Exists(srcPath))
+            {
+                File.Copy(srcPath, destPath, true);
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("修复失败，未能找到对应版本的原文，请尝试更新后再修复，如果还有问题，请联系QQ群或作者QQ", "原文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
     }
