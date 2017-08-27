@@ -156,6 +156,18 @@ namespace GMS2TranslationFileInstaller
             return !(ver1 < ver2);
         }
 
+        public override bool Equals(object obj)
+        {
+            if(obj == null || obj.GetType() != typeof(Version))
+            {
+                return false;
+            }
+            else
+            {
+                return ToString() == (obj as Version).ToString();
+            }
+        }
+
         class VersionFormatInvalid : Exception
         {
 

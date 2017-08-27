@@ -97,8 +97,11 @@ namespace GMS2TranslationFileInstaller
             {
                 ComBoxVerSelector.Items.Add(v);
             }
-            ComBoxVerSelector.SelectedItem = progVer;
-            //SnapToProperVersion();
+            //ComBoxVerSelector.SelectedValue = progVer;
+            object selection = progVer;
+            //ComBoxVerSelector.SelectedItem = selection;
+            
+            SnapToProperVersion();
             //ComBoxVerSelector.SelectedItem = progVer;
         }
 
@@ -135,8 +138,8 @@ namespace GMS2TranslationFileInstaller
                 TextInstallDir.Text = key.GetValue("Install_Dir").ToString();
                 TextInstallDir.IsEnabled = false;
                 BtnInstallDirBrowse.IsEnabled = false;
-                //ComBoxVerSelector.SelectedValue = progVer;
-                SnapToProperVersion();
+                ComBoxVerSelector.SelectedItem = progVer;
+                //SnapToProperVersion();
                 key.Close();
             }
             catch (System.IO.IOException)
@@ -252,9 +255,9 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
-
+                CopyTransFile();
+                System.Windows.Forms.MessageBox.Show("翻译内容已注入完毕，如果GameMaker Studio 2已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。");
             }
-            /**/
         }
 
         private void CopyTransFile()
@@ -263,11 +266,11 @@ namespace GMS2TranslationFileInstaller
             string destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             if (File.Exists(srcPath))
             {
-                //File.Copy(srcPath, "", true);
+                File.Copy(srcPath, destPath, true);
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("汉化失败，请尝试更新后汉化，如果还有问题，请联系QQ群或作者QQ","文件缺失",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                System.Windows.Forms.MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后汉化，如果还有问题，请联系QQ群或作者QQ","译文缺失",MessageBoxButtons.OK,MessageBoxIcon.Stop);
             }
         }
     }
