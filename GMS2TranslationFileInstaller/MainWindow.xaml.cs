@@ -27,13 +27,15 @@ namespace GMS2TranslationFileInstaller
 
     public partial class MainWindow : Window
     {
-        private Version ver = new Version();
+        private Version progVer = new Version();
 
         private const string strInstallDirNotFound = "<!未找到GameMaker Studio 2的路径>";
         private const string strBrowseDirectoryPrompt = "请选择GameMaker Studio 2的安装目录";
         private const string strWarningMissingPath = "请选择GameMaker Studio 2的安装目录";
         private const string strWarningInvalidPath = "文件路径不合法，可能包含无效字符";
         private const string strWarningBrokenDirectory = "该目录下没有安装GameMaker Studio 2或已损坏";
+
+        private DirectoryInfo dirInf = new DirectoryInfo(System.Windows.Forms.Application.StartupPath+@"\vers");
 
         private bool VerifyPath(string path)
         {
@@ -50,20 +52,20 @@ namespace GMS2TranslationFileInstaller
                     }
                     else
                     {
-                        throw new VerifyMissingExecutable();
+                        throw new VerifyMissingExecutableException();
                         //return false;
                         
                     }
                 }
                 else
                 {
-                    throw new VerifyMissingConfig();
+                    throw new VerifyMissingConfigException();
                     //return false;
                 }
             }
             else
             {
-                throw new VerifyMissingLangDir();
+                throw new VerifyMissingLangDirException();
                 //return false;
             }
             
@@ -84,11 +86,18 @@ namespace GMS2TranslationFileInstaller
         {
             LabelPathWarning.Content = string.Empty;
             ChBoxAutoSearch.IsChecked = true;
+            foreach(var d in dirInf.GetDirectories())
+            {                
+                Version ver = new Version(d.Name.Replace('_', '.'));
+                ComBoxVerSelector.Items.Add(ver);
+            }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            string strVer = ComBoxVerSelector.Text.Replace('_','.');
+            Version selectedVer = new Version(strVer);
+            
         }
 
         private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
@@ -99,6 +108,7 @@ namespace GMS2TranslationFileInstaller
                 TextInstallDir.Text = key.GetValue("Install_Dir").ToString();
                 TextInstallDir.IsEnabled = false;
                 BtnInstallDirBrowse.IsEnabled = false;
+                key.Close();
             }
             catch (System.IO.IOException)
             {
@@ -121,7 +131,6 @@ namespace GMS2TranslationFileInstaller
             {
                 TextInstallDir.Text = dial.SelectedPath;
             }
-
         }
 
         private void TextInstallDir_Changed(object sender, TextChangedEventArgs e)
@@ -156,10 +165,11 @@ namespace GMS2TranslationFileInstaller
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.IsEnabled = true;
                     ComBoxVerSelector.Text = fileVer.ProductVersion;
+                    
                     BtnInstallCHN.IsEnabled = true;
                     BtnRepairENG.IsEnabled = true;
                 }
-                catch (VerifyMissingLangDir)
+                catch (VerifyMissingLangDirException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
                     LabelPathWarning.Content = strWarningBrokenDirectory;
@@ -167,14 +177,15 @@ namespace GMS2TranslationFileInstaller
                     ComBoxVerSelector.Text = "无法找到版本";
                     ComBoxVerSelector.IsEnabled = false;
                 }
-                catch (VerifyMissingConfig)
+                catch (VerifyMissingConfigException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
                     LabelPathWarning.Content = "能够进行安装，但GameMaker Studio 2可能已损坏";
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.Text = fileVer.ProductVersion;
+                    
                 }
-                catch (VerifyMissingExecutable)
+                catch (VerifyMissingExecutableException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
                     LabelPathWarning.Content = strWarningBrokenDirectory;
@@ -183,6 +194,7 @@ namespace GMS2TranslationFileInstaller
                     BtnInstallCHN.IsEnabled = false;
                     BtnRepairENG.IsEnabled = false;
                 }
+
             }
 
         }
@@ -191,20 +203,30 @@ namespace GMS2TranslationFileInstaller
         {
 
         }
+        
+        private void GMCN_Link(object sender,RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.gamemaker.cn/");
+        }
     }
 }
 
-public class VerifyMissingConfig : Exception
+public class VerifyMissingConfigException : Exception
 {
 
 }
 
-public class VerifyMissingExecutable : Exception
+public class VerifyMissingExecutableException : Exception
 {
 
 }
 
-public class VerifyMissingLangDir : Exception
+public class VerifyMissingLangDirException : Exception
+{
+
+}
+
+public class LocatingFailedException : Exception
 {
 
 }
