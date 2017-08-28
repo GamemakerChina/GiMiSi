@@ -66,7 +66,7 @@ namespace GMS2TranslationFileInstaller
 
         private void Window_Loaded(object sender,EventArgs e)
         {
-            LabelPathWarning.Content = string.Empty;
+            LabelPathWarning.Text = string.Empty;
             ChBoxAutoSearch.IsChecked = true;
             foreach (var d in dirInf.GetDirectories())
             {
@@ -146,7 +146,7 @@ namespace GMS2TranslationFileInstaller
             if (path == strInstallDirNotFound||path == "")
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255,0,0));
-                LabelPathWarning.Content = strWarningMissingPath;
+                LabelPathWarning.Text = strWarningMissingPath;
                 ComBoxVerSelector.IsEnabled = false;
                 BtnInstallCHN.IsEnabled = false;
                 BtnRepairENG.IsEnabled = false;
@@ -154,7 +154,7 @@ namespace GMS2TranslationFileInstaller
             else if(!PathIsValid(path))
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                LabelPathWarning.Content = strWarningInvalidPath;
+                LabelPathWarning.Text = strWarningInvalidPath;
                 ComBoxVerSelector.IsEnabled = false;
                 BtnInstallCHN.IsEnabled = false;
                 BtnRepairENG.IsEnabled = false;
@@ -162,52 +162,47 @@ namespace GMS2TranslationFileInstaller
             else
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                LabelPathWarning.Content = string.Empty;
+                LabelPathWarning.Text = string.Empty;
                 try
                 {
                     VerifyPath(path);
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.IsEnabled = true;
                     progVer = new Version(fileVer.ProductVersion);
-                    BtnInstallCHN.IsEnabled = true;
-                    BtnRepairENG.IsEnabled = true;
+                    EnableInstallation(false);
                 }
                 catch(VerifyMissingDirException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                    LabelPathWarning.Content = strWarningMissingDirectory;
+                    LabelPathWarning.Text = strWarningMissingDirectory;
                     ComBoxVerSelector.IsEnabled = false;
-                    BtnInstallCHN.IsEnabled = false;
-                    BtnRepairENG.IsEnabled = false;
+                    EnableInstallation(false);
 
                 }
                 catch (VerifyMissingLangDirException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                    LabelPathWarning.Content = strWarningBrokenDirectory;
+                    LabelPathWarning.Text = strWarningBrokenDirectory;
                     ComBoxVerSelector.IsEnabled = false;
-                    BtnInstallCHN.IsEnabled = false;
-                    BtnRepairENG.IsEnabled = false;
+                    EnableInstallation(false);
                 }
                 catch (VerifyMissingExecutableException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                    LabelPathWarning.Content = strWarningBrokenDirectory;
-                    BtnInstallCHN.IsEnabled = false;
-                    BtnRepairENG.IsEnabled = false;
+                    LabelPathWarning.Text = strWarningBrokenDirectory;
+                    EnableInstallation(false);
                 }
                 catch (VerifyMissingConfigException)
                 {
-                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                    LabelPathWarning.Content = strWarningBrokenGMS2;
+                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+                    LabelPathWarning.Text = strWarningBrokenGMS2;
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.SelectedItem = new Version(fileVer.ProductVersion);
-                    BtnInstallCHN.IsEnabled = true;
-                    BtnRepairENG.IsEnabled = true;
+                    EnableInstallation(true);
                 }
             }
-
         }
+
 
         private void GMCN_Link(object sender, RoutedEventArgs e)
         {

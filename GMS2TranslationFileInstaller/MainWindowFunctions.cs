@@ -113,5 +113,13 @@ namespace GMS2TranslationFileInstaller
 
         }
 
+        private void EnableInstallation(bool flag)
+        {
+            BtnInstallCHN.IsEnabled = flag;
+            BtnRepairENG.IsEnabled = flag;
+            BtnActOvInstallCHN.IsEnabled = flag;
+            BtnActOvRepairENG.IsEnabled = flag;
+        }
+
     }
 }
