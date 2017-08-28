@@ -78,6 +78,7 @@ namespace GMS2TranslationFileInstaller
                 ComBoxVerSelector.Items.Add(v);
             }
             ComBoxVerSelector.SelectedItem = progVer;
+            ToolTipService.SetShowDuration(TextAnswer, 10000);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -203,7 +204,6 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-
         private void GMCN_Link(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.gamemaker.cn/");
@@ -262,8 +262,6 @@ namespace GMS2TranslationFileInstaller
             System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
-        #endregion
-
         private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
         {
 
@@ -281,8 +279,10 @@ namespace GMS2TranslationFileInstaller
 
         private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            
+            //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
         }
+        
+        #endregion
     }
 }
 
