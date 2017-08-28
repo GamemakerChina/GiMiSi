@@ -28,7 +28,7 @@
         <Button Name="BtnUpdate" Content="检查更新" Height="103" Margin="27,548,0,0" VerticalAlignment="Top" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold" ToolTip="离线体验版暂不支持检查更新" BorderThickness="4" HorizontalAlignment="Left" Width="455"/>
         <Button x:Name="BtnActOvInstallCHN" Content="安装汉化动作概述文件&#xA;（CHN）" Height="100" Margin="27,426,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvInstallCHN_Click" HorizontalAlignment="Left" Width="217"/>
         <Button x:Name="BtnActOvRepairENG" Content="修复英文动作概述文件&#xA;（ENG）" Height="100" Margin="265,426,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvRepairENG_Click" HorizontalAlignment="Left" Width="217"/>
-        <GridSplitter Width="2" Grid.Column="0" IsEnabled="False" Margin="507,307,0,10" HorizontalAlignment="Left" />
+        <GridSplitter Width="2" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Left" />
         <GridSplitter Grid.Column="1" Margin="0,10" Width="3"/>
         <Button x:Name="BtnTest" Content="测试按钮" Grid.Column="1" Height="100" Margin="27,426,27,0" VerticalAlignment="Top" Click="BtnTest_Click"/>
         <Separator Grid.Column="1" Height="22" Margin="10,145,10,0" VerticalAlignment="Top" IsEnabled="True"/>
