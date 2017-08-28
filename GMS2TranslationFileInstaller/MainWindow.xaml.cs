@@ -32,7 +32,6 @@ namespace GMS2TranslationFileInstaller
         private List<Version> verList = new List<Version>();
 
         private Version thresVer = new Version(2,0,6,146);
-
         private Version ProperVersion
         {
             get
@@ -56,9 +55,7 @@ namespace GMS2TranslationFileInstaller
                 return null;
             }
         }
-
         private DirectoryInfo dirInf = new DirectoryInfo(System.Windows.Forms.Application.StartupPath+@"\vers");
-
 
         #region 控件行为代码
 
