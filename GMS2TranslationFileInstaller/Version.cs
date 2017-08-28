@@ -11,7 +11,6 @@ namespace GMS2TranslationFileInstaller
 {
 
     class Version
-
     {
         public enum Level
         {
@@ -175,6 +174,7 @@ namespace GMS2TranslationFileInstaller
         {
 
         }
+
     }
 
     

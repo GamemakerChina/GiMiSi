@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GMS2TranslationFileInstaller"
         mc:Ignorable="d"
-        Title="GameMaker Studio 2 汉化管理器" Height="768" Width="1024" Loaded="Window_Loaded" ResizeMode="CanMinimize">
+        Name="WinMain" Title="GameMaker Studio 2 汉化管理器" Height="768" Width="1024" Loaded="Window_Loaded" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="256*"/>
             <ColumnDefinition Width="256*"/>
-            <ColumnDefinition Width="512*"/>
+            <ColumnDefinition Width="256*"/>
+            <ColumnDefinition Width="256*"/>
         </Grid.ColumnDefinitions>
         <Button Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="100" Margin="27,307,10,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click"/>
         <Button Name="BtnRepairENG" Content="修复英文界面文件&#xA;（ENG）" Height="100" Margin="10,307,27,0" VerticalAlignment="Top" Click="BtnRepairENG_Click" Grid.Column="1" FontSize="18"/>
         <TextBlock Name="LabelInstalldir" Height="16" Margin="27,151,27,0" TextWrapping="Wrap" Text="GameMaker Studio 2 安装路径" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <Label Name="LabelPathWarning" Content="测试文本" Height="56" Margin="10,167,10,0" VerticalAlignment="Top" Foreground="Red" Grid.Column="2" FontSize="14" FontStyle="Italic"/>
+        <Label Name="LabelPathWarning" Content="测试文本" Height="56" Margin="10,167,10,0" VerticalAlignment="Top" Foreground="Red" Grid.Column="2" FontSize="14" FontStyle="Italic" Grid.ColumnSpan="2"/>
         <TextBox Name="TextInstallDir" Height="18" Margin="27,172,76,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" Grid.ColumnSpan="2"/>
         <ComboBox Name="ComBoxVerSelector" Margin="27,233,27,0" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2" MaxHeight="150" Height="24" VerticalAlignment="Top"/>
         <Button Name ="BtnInstallDirBrowse" Content="浏览……" Height="18" Margin="178,172,27,0" VerticalAlignment="Top" IsEnabled="False" Click="BtnInstallDir_Click" Grid.Column="1"/>
@@ -26,6 +27,9 @@
         <TextBlock Grid.ColumnSpan="2" Height="56" Margin="27,673,27,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"><Run Text="GameMaker开发者之家QQ群："/><Run FontWeight="Bold" Text="235271204"/><Run FontWeight="Bold"/><LineBreak/><Run Text="作者：小太"/><Run Text="（Oberon）&#x9;"/><Run FontWeight="Bold" Text="QQ：360119124"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Run/></TextBlock>
         <TextBlock Grid.ColumnSpan="2" Height="35" Margin="27,10,27,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" TextAlignment="Center" Foreground="#7F000000"><Run Text="GameMaker Studio 2 汉化器 "/><Run FontSize="12" Text="v1.0"/></TextBlock>
         <Button Name="BtnUpdate" Grid.ColumnSpan="2" Content="检查更新" Height="103" Margin="27,548,27,0" VerticalAlignment="Top" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold" ToolTip="离线体验版暂不支持检查更新" BorderThickness="4"/>
+        <Button x:Name="BtnActOvInstallCHN" Content="安装汉化动作概述文件&#xA;（CHN）" Height="100" Margin="27,426,10,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvInstallCHN_Click"/>
+        <Button x:Name="BtnActOvRepairENG" Content="修复英文动作概述文件&#xA;（ENG）" Height="100" Margin="11,426,27,0" VerticalAlignment="Top" FontSize="18" Grid.Column="1" Click="BtnActOvRepairENG_Click"/>
+        <Button x:Name="BtnTest" Content="测试按钮" Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="26,307,0,0" VerticalAlignment="Top" Width="200" Click="BtnTest_Click"/>
 
     </Grid>
 </Window>

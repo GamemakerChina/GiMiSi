@@ -77,11 +77,6 @@ namespace GMS2TranslationFileInstaller
             {
                 ComBoxVerSelector.Items.Add(v);
             }
-            //ComBoxVerSelector.SelectedValue = progVer;
-            //object selection = progVer;
-            //ComBoxVerSelector.SelectedItem = selection;
-            
-            //SnapToProperVersion();
             ComBoxVerSelector.SelectedItem = progVer;
         }
 
@@ -152,7 +147,6 @@ namespace GMS2TranslationFileInstaller
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255,0,0));
                 LabelPathWarning.Content = strWarningMissingPath;
-                //ComBoxVerSelector.Text = "无法找到版本";
                 ComBoxVerSelector.IsEnabled = false;
                 BtnInstallCHN.IsEnabled = false;
                 BtnRepairENG.IsEnabled = false;
@@ -161,7 +155,6 @@ namespace GMS2TranslationFileInstaller
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                 LabelPathWarning.Content = strWarningInvalidPath;
-                //ComBoxVerSelector.Text = "无法找到版本";
                 ComBoxVerSelector.IsEnabled = false;
                 BtnInstallCHN.IsEnabled = false;
                 BtnRepairENG.IsEnabled = false;
@@ -175,39 +168,42 @@ namespace GMS2TranslationFileInstaller
                     VerifyPath(path);
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.IsEnabled = true;
-                    //ComBoxVerSelector.Text = fileVer.ProductVersion;
                     progVer = new Version(fileVer.ProductVersion);
-                    //ComBoxVerSelector.SelectedIndex = -1;
                     BtnInstallCHN.IsEnabled = true;
                     BtnRepairENG.IsEnabled = true;
+                }
+                catch(VerifyMissingDirException)
+                {
+                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    LabelPathWarning.Content = strWarningMissingDirectory;
+                    ComBoxVerSelector.IsEnabled = false;
+                    BtnInstallCHN.IsEnabled = false;
+                    BtnRepairENG.IsEnabled = false;
+
                 }
                 catch (VerifyMissingLangDirException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
                     LabelPathWarning.Content = strWarningBrokenDirectory;
-                    //FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
-                    //ComBoxVerSelector.SelectedIndex = -1;
                     ComBoxVerSelector.IsEnabled = false;
+                    BtnInstallCHN.IsEnabled = false;
+                    BtnRepairENG.IsEnabled = false;
+                }
+                catch (VerifyMissingExecutableException)
+                {
+                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
+                    LabelPathWarning.Content = strWarningBrokenDirectory;
                     BtnInstallCHN.IsEnabled = false;
                     BtnRepairENG.IsEnabled = false;
                 }
                 catch (VerifyMissingConfigException)
                 {
                     LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                    LabelPathWarning.Content = "能够进行安装，但GameMaker Studio 2的关键组件可能已损坏\n建议您重新安装GameMaker Studio 2之后再安装";
+                    LabelPathWarning.Content = strWarningBrokenGMS2;
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.SelectedItem = new Version(fileVer.ProductVersion);
-                    //ComBoxVerSelector.Text = fileVer.ProductVersion;
-                }
-                catch (VerifyMissingExecutableException)
-                {
-                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                    LabelPathWarning.Content = strWarningBrokenDirectory;
-                    //ComBoxVerSelector.Text = "无法找到版本";
-                    ComBoxVerSelector.SelectedIndex = -1;
-                    ComBoxVerSelector.IsEnabled = false;
-                    BtnInstallCHN.IsEnabled = false;
-                    BtnRepairENG.IsEnabled = false;
+                    BtnInstallCHN.IsEnabled = true;
+                    BtnRepairENG.IsEnabled = true;
                 }
             }
 
@@ -272,6 +268,21 @@ namespace GMS2TranslationFileInstaller
         }
 
         #endregion
+
+        private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnActOvRepairENG_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnTest_Click(object sender, RoutedEventArgs e)
+        {
+            WinMain.Width = 1200;
+        }
     }
 }
 
@@ -292,13 +303,17 @@ public class VerifyMissingLangDirException : Exception
 
 }
 
+public class VerifyMissingDirException : Exception
+{
+
+}
+
 public class LocatingFailedException : Exception
 {
 
 }
 
 #endregion
-
 
 public enum PathState
 {

@@ -17,7 +17,7 @@ namespace GMS2TranslationFileInstaller
     {
         private bool PathIsValid(string path)
         {
-            Regex reg = new Regex(@"^([a-zA-Z]:\\)?[^\/\:\*\?\""\<\>\|\,]+$");
+            Regex reg = new Regex(@"^([a-zA-Z]:(\\|\/))?([^\:\/\*\?\""\<\>\|\,]+)?$");
             return reg.IsMatch(path);
         }
 
@@ -77,30 +77,38 @@ namespace GMS2TranslationFileInstaller
             string langpath = path + @"\Languages";
             string configpath = path + @"\GameMakerStudio.exe.config";
             string exepath = path + @"\GameMakerStudio.exe";
-            if (Directory.Exists(langpath))
+            if(Directory.Exists(path))
             {
-                if (File.Exists(configpath))
+                if (Directory.Exists(langpath))
                 {
-                    if (File.Exists(exepath))
+                    if (File.Exists(configpath))
                     {
-                        return true;
+                        if (File.Exists(exepath))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            throw new VerifyMissingExecutableException();
+                            //return false;
+                        }
                     }
                     else
                     {
-                        throw new VerifyMissingExecutableException();
+                        throw new VerifyMissingConfigException();
                         //return false;
                     }
                 }
                 else
                 {
-                    throw new VerifyMissingConfigException();
+                    throw new VerifyMissingLangDirException();
                     //return false;
                 }
+
             }
             else
             {
-                throw new VerifyMissingLangDirException();
-                //return false;
+                throw new VerifyMissingDirException();
             }
 
         }
