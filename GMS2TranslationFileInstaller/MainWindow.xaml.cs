@@ -169,7 +169,7 @@ namespace GMS2TranslationFileInstaller
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
                     ComBoxVerSelector.IsEnabled = true;
                     progVer = new Version(fileVer.ProductVersion);
-                    EnableInstallation(false);
+                    EnableInstallation(true);
                 }
                 catch(VerifyMissingDirException)
                 {
@@ -277,6 +277,11 @@ namespace GMS2TranslationFileInstaller
         private void BtnTest_Click(object sender, RoutedEventArgs e)
         {
             WinMain.Width = 1200;
+        }
+
+        private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            
         }
     }
 }
