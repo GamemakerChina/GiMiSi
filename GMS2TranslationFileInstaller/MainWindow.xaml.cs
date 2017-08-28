@@ -32,56 +32,35 @@ namespace GMS2TranslationFileInstaller
         private List<Version> verList = new List<Version>();
 
         private Version thresVer = new Version(2,0,6,146);
-        
 
-        private const string strInstallDirNotFound = "<!未找到GameMaker Studio 2的路径>";
-        private const string strBrowseDirectoryPrompt = "请选择GameMaker Studio 2的安装目录";
-        private const string strWarningMissingPath = "请选择GameMaker Studio 2的安装目录";
-        private const string strWarningInvalidPath = "文件路径不合法，可能包含无效字符";
-        private const string strWarningBrokenDirectory = "该目录下没有安装GameMaker Studio 2或已损坏";
-
-        private ListItem item = new ListItem();
-
-        private DirectoryInfo dirInf = new DirectoryInfo(System.Windows.Forms.Application.StartupPath+@"\vers");
-
-        private bool VerifyPath(string path)
+        private Version ProperVersion
         {
-            string langpath = path + @"\Languages";
-            string configpath = path + @"\GameMakerStudio.exe.config";
-            string exepath = path + @"\GameMakerStudio.exe";
-            if (Directory.Exists(langpath))
+            get
             {
-                if(File.Exists(configpath))
+
+                for (int i = 0; i < ComBoxVerSelector.Items.Count; i++)
                 {
-                    if (File.Exists(exepath))
+                    if (progVer == (Version)ComBoxVerSelector.Items[i])
                     {
-                        return true;
+                        return ComBoxVerSelector.Items[i] as Version;
+
                     }
                     else
                     {
-                        throw new VerifyMissingExecutableException();
-                        //return false;
+                        if (progVer > (Version)ComBoxVerSelector.Items[i] && (i == ComBoxVerSelector.Items.Count - 1 || progVer < (Version)ComBoxVerSelector.Items[i + 1]))
+                        {
+                            return ComBoxVerSelector.Items[i] as Version;
+                        }
                     }
                 }
-                else
-                {
-                    throw new VerifyMissingConfigException();
-                    //return false;
-                }
+                return null;
             }
-            else
-            {
-                throw new VerifyMissingLangDirException();
-                //return false;
-            }
-            
         }
 
-        private bool PathIsValid(string path)
-        {
-            Regex reg = new Regex(@"^([a-zA-Z]:\\)?[^\/\:\*\?\""\<\>\|\,]+$");
-            return reg.IsMatch(path);
-        }
+        private DirectoryInfo dirInf = new DirectoryInfo(System.Windows.Forms.Application.StartupPath+@"\vers");
+
+
+        #region 控件行为代码
 
         public MainWindow()
         {
@@ -107,30 +86,6 @@ namespace GMS2TranslationFileInstaller
             
             //SnapToProperVersion();
             ComBoxVerSelector.SelectedItem = progVer;
-        }
-
-        private Version ProperVersion
-        {
-            get
-            {
-
-                for (int i = 0; i < ComBoxVerSelector.Items.Count; i++)
-                {
-                    if (progVer == (Version)ComBoxVerSelector.Items[i])
-                    {
-                        return ComBoxVerSelector.Items[i] as Version;
-
-                    }
-                    else
-                    {
-                        if (progVer > (Version)ComBoxVerSelector.Items[i] && (i == ComBoxVerSelector.Items.Count - 1 || progVer < (Version)ComBoxVerSelector.Items[i + 1]))
-                        {
-                            return ComBoxVerSelector.Items[i] as Version;
-                        }
-                    }
-                }
-                return null;
-            }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -316,63 +271,16 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-        private void CopyTransFile()
-        {
-            string srcPath = string.Empty;
-            string destPath = string.Empty;
-            if (ProperVersion >= thresVer)
-            {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
-                destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
-            }
-            else
-            {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\trans\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
-            }
-            //string srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
-            //string destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
-            if (File.Exists(srcPath))
-            {
-                File.Copy(srcPath, destPath, true);
-            }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后再汉化，如果还有问题，请联系QQ群或作者QQ","译文缺失",MessageBoxButtons.OK,MessageBoxIcon.Stop);
-            }
-        }
-
-        private void CopyOrigFile()
-        {
-            string srcPath = string.Empty;
-            string destPath = string.Empty;
-            if(ProperVersion >= thresVer)
-            {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
-            }
-            else
-            {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\orig\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
-            }
-
-            if (File.Exists(srcPath))
-            {
-                File.Copy(srcPath, destPath, true);
-            }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show("修复失败，未能找到对应版本的原文，请尝试更新后再修复，如果还有问题，请联系QQ群或作者QQ", "原文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
-
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
+
+        #endregion
     }
 }
+
+#region 异常类
 
 public class VerifyMissingConfigException : Exception
 {
@@ -393,6 +301,9 @@ public class LocatingFailedException : Exception
 {
 
 }
+
+#endregion
+
 
 public enum PathState
 {
