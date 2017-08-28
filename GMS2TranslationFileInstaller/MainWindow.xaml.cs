@@ -216,9 +216,13 @@ namespace GMS2TranslationFileInstaller
 
         }
 
+        private void GMCN_Link(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.gamemaker.cn/");
+        }
+
         private void BtnRepairENG_Click(object sender, RoutedEventArgs e)
         {
-            //Debug.WriteLine("{0}\t{1}", ComBoxVerSelector.SelectedItem, ComBoxVerSelector.SelectedIndex);
             if (!(progVer == (Version)ComBoxVerSelector.SelectedItem))
             {
                 if (System.Windows.Forms.MessageBox.Show("版本号与检测到的版本号不一致，执意进行安装可能会导致兼容性问题，您确定要继续安装吗？", "版本一致性警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
@@ -242,14 +246,8 @@ namespace GMS2TranslationFileInstaller
 
         }
 
-        private void GMCN_Link(object sender,RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://www.gamemaker.cn/");
-        }
-
         private void BtnInstallCHN_Click(object sender, RoutedEventArgs e)
         {
-            //Debug.WriteLine("{0}\t{1}",ComBoxVerSelector.SelectedItem,ComBoxVerSelector.SelectedIndex);
             if (!(progVer==(Version)ComBoxVerSelector.SelectedItem))
             {
                 if(System.Windows.Forms.MessageBox.Show("版本号与检测到的版本号不一致，执意进行安装可能会导致兼容性问题，您确定要继续安装吗？", "版本一致性警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)==System.Windows.Forms.DialogResult.OK)
@@ -267,7 +265,7 @@ namespace GMS2TranslationFileInstaller
                     }
                 }
                 CopyTransFile();
-                System.Windows.Forms.MessageBox.Show("翻译内容已注入完毕，如果GameMaker Studio 2已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。");
+                System.Windows.Forms.MessageBox.Show("翻译内容已注入完毕，如果GameMaker Studio 2已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。","翻译完成");
             }
         }
 

@@ -9,11 +9,9 @@ using System.Windows;
 
 namespace GMS2TranslationFileInstaller
 {
-#pragma warning disable CS0661 // 类型定义运算符 == 或运算符 !=，但不重写 Object.GetHashCode()
-#pragma warning disable CS0660 // 类型定义运算符 == 或运算符 !=，但不重写 Object.Equals(object o)
+
     class Version
-#pragma warning restore CS0660 // 类型定义运算符 == 或运算符 !=，但不重写 Object.Equals(object o)
-#pragma warning restore CS0661 // 类型定义运算符 == 或运算符 !=，但不重写 Object.GetHashCode()
+
     {
         public enum Level
         {
@@ -167,6 +165,10 @@ namespace GMS2TranslationFileInstaller
             {
                 return ToString() == (obj as Version).ToString();
             }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         class VersionFormatInvalid : Exception
