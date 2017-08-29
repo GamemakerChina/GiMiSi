@@ -71,8 +71,10 @@ namespace GMS2TranslationFileInstaller
 
         #region 控件行为代码
 
+
         public MainWindow()
         {
+            webClient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(WebC_DownloadCompleted);
             InitializeComponent();
         }
 
@@ -304,7 +306,6 @@ namespace GMS2TranslationFileInstaller
             WindowCollapse();
         }
 
-        #endregion
 
         private void Link2Code_Click(object sender, RoutedEventArgs e)
         {
@@ -315,6 +316,8 @@ namespace GMS2TranslationFileInstaller
         {
             DownloadUpdate();
         }
+
+        #endregion
     }
 }
 

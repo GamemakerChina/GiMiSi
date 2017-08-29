@@ -17,7 +17,6 @@ namespace GMS2TranslationFileInstaller
         {
             webClient.DownloadFileAsync(new Uri("https://liaronce.coding.me/gms2translation/UpdatePackages/vers.zip"), @".\vers.zip");
             webClient.DownloadProgressChanged += WebC_ProgChanged;
-            webClient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(WebC_DownloadCompleted);
             BtnUpdateControl.Content = "更新中";
             BtnUpdateControl.IsEnabled = false;
             ListUpdProcedure.Items.Add("更新中，请稍候……");
