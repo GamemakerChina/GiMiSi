@@ -28,7 +28,7 @@ namespace GMS2TranslationFileInstaller
 
     public partial class MainWindow : Window
     {
-
+        
         private Version progVer = null;
         private List<Version> verList = new List<Version>();
 

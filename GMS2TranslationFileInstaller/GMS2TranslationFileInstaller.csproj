@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="MainWindowFunctions.cs" />
     <Compile Include="MainWindowStrings.cs" />
+    <Compile Include="Network.cs" />
     <Compile Include="Version.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,7 +114,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Installer.nsi" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
