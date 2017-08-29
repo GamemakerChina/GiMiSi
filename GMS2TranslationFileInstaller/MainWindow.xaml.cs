@@ -28,11 +28,11 @@ namespace GMS2TranslationFileInstaller
 
     public partial class MainWindow : Window
     {
-        
+
         private Version progVer = null;
         private List<Version> verList = new List<Version>();
 
-        private Version thresVer = new Version(2,0,6,146);
+        private Version thresVer = new Version(2, 0, 6, 146);
         private Version ProperVersion
         {
             get
@@ -56,6 +56,15 @@ namespace GMS2TranslationFileInstaller
                 return null;
             }
         }
+        private bool IsExpanded
+        {
+            get
+            {
+                return GrdUpdateSection.Visibility == Visibility.Visible;
+            }
+        }
+            
+
         private DirectoryInfo dirInf = new DirectoryInfo(System.Windows.Forms.Application.StartupPath+@"\vers");
 
         #region 控件行为代码
