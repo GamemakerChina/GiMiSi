@@ -310,6 +310,11 @@ namespace GMS2TranslationFileInstaller
         {
             Process.Start((sender as Hyperlink).NavigateUri.AbsoluteUri);
         }
+
+        private void BtnUpdateControl_Click(object sender, RoutedEventArgs e)
+        {
+            DownloadUpdate();
+        }
     }
 }
 

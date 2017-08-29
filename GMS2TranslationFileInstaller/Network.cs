@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows;
 using System.Web;
 using System.Net.Http;
+using System.IO.Compression;
 
 namespace GMS2TranslationFileInstaller
 {
@@ -10,14 +12,12 @@ namespace GMS2TranslationFileInstaller
     {
         private WebClient webClient = new WebClient();
         
-        private void CheckFolder()
-        {
-            
-        }
 
         private void DownloadUpdate()
         {
-
+            webClient.DownloadFile("http://liaronce.coding.me/gms2translation/UpdatePackages/vers.zip", ".\vers.zip");
+            //GZipStream zipStream = new GZipStream()
+            //GZipStream zipStrm = new GZipStream(new FileStream(".\vers.zip", FileMode.Open),CompressionLevel.Optimal);
         }
         
     }
