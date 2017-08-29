@@ -8,6 +8,10 @@ namespace GMS2TranslationFileInstaller
     {
         private WebClient webClient = new WebClient();
         
+        private void CheckFolder()
+        {
+            
+        }
 
         
     }

@@ -47,7 +47,7 @@
         <Button Content="访问GameMaker开发者之家" Grid.Column="1" Height="32" Margin="10,618,10,0" VerticalAlignment="Top" FontSize="16"/>
         <Button Content="访问YoYo Games官方网站" Grid.Column="1" Height="33" Margin="10,580,10,0" VerticalAlignment="Top" FontSize="18"/>
         <GroupBox Grid.Column="1" Header="关于" Height="254" Margin="10,307,10,0" VerticalAlignment="Top">
-            <TextBlock Margin="0,0,0,38" ><Run Text="GameMaker Studio 2 汉化管理器"/><LineBreak/><Run Text="-from GameMaker开发者之家"/><LineBreak/><Run Name="VersionDisplay" Text="版本：{0}"/><LineBreak/><LineBreak/><Run Text="免费软件，请勿用于商业用途"/><LineBreak/><Run Text="软件遵循"/></TextBlock>
+            <TextBlock Margin="0,0,0,38" ><Run Text="GameMaker Studio 2 汉化管理器"/><LineBreak/><Run Text="-from GameMaker开发者之家"/><LineBreak/><Run x:Name="VersionDisplay" Text="版本：{0}"/><LineBreak/><LineBreak/><Run Text="软件遵循"/><Run Text="GNU GPL v3.0协议"/><LineBreak/><Run Text="软件源代码地址："/><LineBreak/><Run/></TextBlock>
         </GroupBox>
     </Grid>
 </Window>

@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Controls;
+using System.Deployment.Application;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -31,6 +32,7 @@ namespace GMS2TranslationFileInstaller
 
         private Version progVer = null;
         private List<Version> verList = new List<Version>();
+        private Version version = new Version(System.Windows.Forms.Application.ProductVersion.ToString());
 
         private Version thresVer = new Version(2, 0, 6, 146);
         private Version ProperVersion
@@ -90,7 +92,7 @@ namespace GMS2TranslationFileInstaller
             ComBoxVerSelector.SelectedItem = progVer;
             ToolTipService.SetShowDuration(TextAnswer, 10000);
             WindowCollapse();
-            VersionDisplay.Text = String.Format(VersionDisplay.Text,);
+            VersionDisplay.Text = String.Format(VersionDisplay.Text,version);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
