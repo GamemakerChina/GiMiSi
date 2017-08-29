@@ -78,9 +78,10 @@ namespace GMS2TranslationFileInstaller
             string langpath = path + @"\Languages";
             string configpath = path + @"\GameMakerStudio.exe.config";
             string exepath = path + @"\GameMakerStudio.exe";
-            if(Directory.Exists(path))
+            string actpath = path + @"\DnDLibs\YoYo Games\Languages";
+            if (Directory.Exists(path))
             {
-                if (Directory.Exists(langpath))
+                if (Directory.Exists(langpath) && Directory.Exists(actpath))
                 {
                     if (File.Exists(configpath))
                     {

@@ -273,6 +273,7 @@ namespace GMS2TranslationFileInstaller
         {
             //System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
             WindowExpand();
+            BtnUpdate.IsEnabled = false;
         }
 
 
@@ -300,6 +301,7 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnUpdateCollapse_Click(object sender, RoutedEventArgs e)
         {
+            BtnUpdate.IsEnabled = true;
             WindowCollapse();
         }
     }
