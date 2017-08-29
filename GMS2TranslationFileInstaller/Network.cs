@@ -2,6 +2,8 @@
 using System.Net;
 using System.Windows;
 
+using System.Net.Http;
+
 namespace GMS2TranslationFileInstaller
 {
     public partial class MainWindow : Window
@@ -12,7 +14,11 @@ namespace GMS2TranslationFileInstaller
         {
             
         }
-
+        private void DownloadUpdate()
+        {
+            //webClient.DownloadDat
+            
+        }
         
     }
 }
