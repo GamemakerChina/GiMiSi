@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Web;
 
 namespace GMS2TranslationFileInstaller
 {
@@ -120,6 +121,21 @@ namespace GMS2TranslationFileInstaller
             BtnActOvInstallCHN.IsEnabled = flag;
             BtnActOvRepairENG.IsEnabled = flag;
         }
+
+        private void WindowCollapse()
+        {
+            GrdUpdateSection.Visibility = Visibility.Hidden;
+            WinMain.Width = 768;
+            GrdMain.ColumnDefinitions[2].Width = new GridLength(0);
+        }
+
+        private void WindowExpand()
+        {
+            WinMain.Width = 1024;
+            GrdMain.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+            GrdUpdateSection.Visibility = Visibility.Visible;
+        }
+
 
     }
 }

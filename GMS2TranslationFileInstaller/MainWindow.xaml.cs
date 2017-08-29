@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Web;
 using System.Text.RegularExpressions;
 
 using Microsoft.Win32;
@@ -79,7 +80,9 @@ namespace GMS2TranslationFileInstaller
             }
             ComBoxVerSelector.SelectedItem = progVer;
             ToolTipService.SetShowDuration(TextAnswer, 10000);
+            WindowCollapse();
         }
+
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -259,8 +262,10 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            //System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            WindowExpand();
         }
+
 
         private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
         {
@@ -274,15 +279,20 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnTest_Click(object sender, RoutedEventArgs e)
         {
-            WinMain.Width = 1200;
+            //WinMain.Width = 1200;
         }
 
         private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
         }
-        
+
         #endregion
+
+        private void BtnUpdateCollapse_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCollapse();
+        }
     }
 }
 
