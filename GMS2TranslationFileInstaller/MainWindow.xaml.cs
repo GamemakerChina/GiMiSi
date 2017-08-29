@@ -90,8 +90,8 @@ namespace GMS2TranslationFileInstaller
             ComBoxVerSelector.SelectedItem = progVer;
             ToolTipService.SetShowDuration(TextAnswer, 10000);
             WindowCollapse();
+            VersionDisplay.Text = String.Format(VersionDisplay.Text,);
         }
-
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -276,7 +276,6 @@ namespace GMS2TranslationFileInstaller
             BtnUpdate.IsEnabled = false;
         }
 
-
         private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
         {
 
@@ -297,13 +296,14 @@ namespace GMS2TranslationFileInstaller
             //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
         }
 
-        #endregion
-
         private void BtnUpdateCollapse_Click(object sender, RoutedEventArgs e)
         {
             BtnUpdate.IsEnabled = true;
             WindowCollapse();
         }
+
+        #endregion
+
 
     }
 }
