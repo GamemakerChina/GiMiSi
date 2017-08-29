@@ -306,7 +306,10 @@ namespace GMS2TranslationFileInstaller
 
         #endregion
 
-
+        private void Link2Code_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start((sender as Hyperlink).NavigateUri.AbsoluteUri);
+        }
     }
 }
 

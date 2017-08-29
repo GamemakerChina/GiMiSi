@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows;
-
+using System.Web;
 using System.Net.Http;
 
 namespace GMS2TranslationFileInstaller
@@ -14,10 +14,10 @@ namespace GMS2TranslationFileInstaller
         {
             
         }
+
         private void DownloadUpdate()
         {
-            //webClient.DownloadDat
-            
+
         }
         
     }
