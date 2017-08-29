@@ -6,6 +6,7 @@ namespace GMS2TranslationFileInstaller
     public partial class MainWindow
     {
         private WebClient webClient = new WebClient();
-
+        
+        
     }
 }
