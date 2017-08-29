@@ -26,7 +26,7 @@
         <Image Height="62" Margin="264,59,0,0" VerticalAlignment="Top" Source="logo.png" Hyperlink.Click="GMCN_Link" Cursor="Hand" HorizontalAlignment="Left" Width="227"/>
         <TextBlock Height="56" Margin="27,673,27,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"><Run Text="GameMaker开发者之家QQ群："/><Run FontWeight="Bold" Text="235271204"/><Run FontWeight="Bold"/><LineBreak/><Run Text="作者：小太"/><Run Text="（Oberon）&#x9;"/><Run FontWeight="Bold" Text="QQ：360119124"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Run/></TextBlock>
         <TextBlock Height="35" Margin="27,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" TextAlignment="Center" Foreground="#7F000000" HorizontalAlignment="Left" Width="455"><Run Text="GameMaker Studio 2 汉化器 "/><Run FontSize="12" Text="v1.0"/></TextBlock>
-        <Button Name="BtnUpdate" Content="检查更新" Height="103" Margin="27,548,0,0" VerticalAlignment="Top" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold" ToolTip="离线体验版暂不支持检查更新" BorderThickness="4" HorizontalAlignment="Left" Width="455"/>
+        <Button Name="BtnUpdate" Content="检查更新→ω→" Height="103" Margin="27,548,0,0" VerticalAlignment="Top" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold" ToolTip="点击可展开更新面板更新译文" BorderThickness="4" HorizontalAlignment="Left" Width="455"/>
         <Button x:Name="BtnActOvInstallCHN" Content="安装汉化动作概述文件&#xA;（CHN）" Height="100" Margin="27,426,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvInstallCHN_Click" HorizontalAlignment="Left" Width="217"/>
         <Button x:Name="BtnActOvRepairENG" Content="修复英文动作概述文件&#xA;（ENG）" Height="100" Margin="265,426,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvRepairENG_Click" HorizontalAlignment="Left" Width="217"/>
         <GridSplitter Width="2" IsEnabled="False" HorizontalAlignment="Left" Margin="510,0,0,10" />
@@ -40,7 +40,7 @@
             <ProgressBar Height="18" Margin="10,172,10,0" VerticalAlignment="Top"/>
             <Button x:Name="BtnUpdateControl" Content="开始更新" Grid.Column="2" Height="84" Margin="0,214,10,0" VerticalAlignment="Top" FontSize="36" HorizontalAlignment="Right" Width="233"/>
             <ListBox Grid.Column="2" Height="344" Margin="0,307,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="233"/>
-            <Button Name="BtnUpdateCollapse" Content="&lt;&lt;&lt;&lt;&lt;&lt;" Grid.Column="2" Margin="10,673,0,10" FontSize="24" HorizontalAlignment="Left" Width="233" Click="BtnUpdateCollapse_Click"/>
+            <Button Name="BtnUpdateCollapse" Content="←A←折叠" Grid.Column="2" Margin="10,673,0,10" FontSize="24" HorizontalAlignment="Left" Width="233" Click="BtnUpdateCollapse_Click" ToolTip="点击可折叠更新面板"/>
         </Grid>
     </Grid>
 </Window>

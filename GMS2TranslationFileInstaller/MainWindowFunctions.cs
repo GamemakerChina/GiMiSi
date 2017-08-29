@@ -124,16 +124,17 @@ namespace GMS2TranslationFileInstaller
 
         private void WindowCollapse()
         {
-            GrdUpdateSection.Visibility = Visibility.Hidden;
             WinMain.Width = 768;
             GrdMain.ColumnDefinitions[2].Width = new GridLength(0);
+            GrdUpdateSection.Visibility = Visibility.Hidden;
         }
 
         private void WindowExpand()
         {
+            GrdUpdateSection.Visibility = Visibility.Visible;
             WinMain.Width = 1024;
             GrdMain.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
-            GrdUpdateSection.Visibility = Visibility.Visible;
+            
         }
 
 
