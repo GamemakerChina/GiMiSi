@@ -37,12 +37,11 @@
         <TextBlock x:Name="TextAnswer" TextDecorations="Underline" Text="为什么要这样？" Grid.Column="1" Height="24" Margin="10,126,158,0" VerticalAlignment="Top" Foreground="#FF00AEFF" MouseEnter="TextAnswer_MouseEnter" ToolTip="如果GameMaker Studio 2已经损坏或未能正确安装，重新安装GameMaker Studio 2之前&#xA;会先卸载之前安装的版本，卸载先前版本便会造成已经汉化完成的文件会被一并卸除，等到&#xA;安装完毕还得重新汉化。" Cursor="Help"/>
         <Grid Name="GrdUpdateSection" Grid.Column="2">
             <TextBlock x:Name="TextUpdatePrompt" TextWrapping="Wrap" Margin="10,10,10,553"><Run Text="如果你发现"/><Run Foreground="Red" Text="汉化/修复失败"/><Run Text="，或"/><Run Foreground="Red" Text="汉化/修复文件发生异常"/><Run Text="，且多次尝试后仍然没有"/><Run Text="改善"/><Run Text="，或者已经安装了"/><Run Foreground="Red" Text="更新版本"/><Run Text="的GameMaker Studio 2，因现有资源不足无法满足最佳汉化体验，您可以通过此面板更新资源。这"/><Run Foreground="Red" Text="可能会修复"/><Run Text="上述原因导致的一些问题。"/><LineBreak/><Run Text="请注意，云端文件更新周期"/><Run Foreground="Red" Text="可能略晚于"/><Run Text="官方发布周期，尽请谅解！"/><LineBreak/><Run Text="如果经过更新后发现仍然异常，可能是因为云端尚未更新，请耐心等待或及时联系作者或QQ群。"/><LineBreak/><Run/></TextBlock>
-            <ProgressBar Height="18" Margin="12,300,10,0" VerticalAlignment="Top"/>
+            <ProgressBar x:Name="ProgDownload" Height="18" Margin="12,300,10,0" VerticalAlignment="Top"/>
             <Button x:Name="BtnUpdateControl" Content="开始更新" Height="84" Margin="0,191,10,0" VerticalAlignment="Top" FontSize="36" HorizontalAlignment="Right" Width="233" Click="BtnUpdateControl_Click"/>
-            <ListBox Height="300" Margin="0,368,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="233"/>
+            <ListBox Name="ListUpdProcedure" Height="300" Margin="0,323,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="233"/>
             <Button Name="BtnUpdateCollapse" Content="←A←折叠" Grid.Column="2" Margin="10,673,0,10" FontSize="24" HorizontalAlignment="Left" Width="233" Click="BtnUpdateCollapse_Click" ToolTip="点击可折叠更新面板"/>
             <TextBlock Text="更新进度" HorizontalAlignment="Left" Margin="12,280,0,0" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Height="14" Margin="12,349,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106"><Run Text="可更新版本"/><LineBreak/><Run/></TextBlock>
         </Grid>
         <Button Content="访问GameMaker开发者之家" Grid.Column="1" Height="32" Margin="10,618,10,0" VerticalAlignment="Top" FontSize="16"/>
         <Button Content="访问YoYo Games官方网站" Grid.Column="1" Height="33" Margin="10,580,10,0" VerticalAlignment="Top" FontSize="18"/>

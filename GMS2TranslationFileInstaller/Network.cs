@@ -15,9 +15,25 @@ namespace GMS2TranslationFileInstaller
 
         private void DownloadUpdate()
         {
-            webClient.DownloadFile("http://liaronce.coding.me/gms2translation/UpdatePackages/vers.zip", ".\vers.zip");
-            //GZipStream zipStream = new GZipStream()
-            //GZipStream zipStrm = new GZipStream(new FileStream(".\vers.zip", FileMode.Open),CompressionLevel.Optimal);
+            webClient.DownloadFileAsync(new Uri("https://liaronce.coding.me/gms2translation/UpdatePackages/vers.zip"), @".\vers.zip");
+            webClient.DownloadProgressChanged += WebC_ProgChanged;
+            webClient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(WebC_DownloadCompleted);
+            BtnUpdateControl.Content = "更新中";
+            BtnUpdateControl.IsEnabled = false;
+            ListUpdProcedure.Items.Add("更新中，请稍候……");
+        }
+
+        private void WebC_ProgChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            ProgDownload.Value = e.ProgressPercentage;
+        }
+
+        private void WebC_DownloadCompleted(object sender,EventArgs e)
+        {
+            BtnUpdateControl.Content = "开始更新";
+            BtnUpdateControl.IsEnabled = true;
+            ListUpdProcedure.Items.Add("更新包下载完毕，正在使更新包生效……");
+            
         }
         
     }
