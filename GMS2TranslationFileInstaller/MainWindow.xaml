@@ -29,18 +29,21 @@
         <Button Name="BtnUpdate" Content="检查更新→ω→" Height="103" Margin="27,548,0,0" VerticalAlignment="Top" FontSize="48" Click="BtnUpdate_Click" FontWeight="Bold" ToolTip="点击可展开更新面板更新译文" BorderThickness="4" HorizontalAlignment="Left" Width="455"/>
         <Button x:Name="BtnActOvInstallCHN" Content="安装汉化动作概述文件&#xA;（CHN）" Height="100" Margin="27,426,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvInstallCHN_Click" HorizontalAlignment="Left" Width="217"/>
         <Button x:Name="BtnActOvRepairENG" Content="修复英文动作概述文件&#xA;（ENG）" Height="100" Margin="265,426,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnActOvRepairENG_Click" HorizontalAlignment="Left" Width="217"/>
-        <GridSplitter Width="2" IsEnabled="False" HorizontalAlignment="Left" Margin="510,0,0,10" />
+        <GridSplitter Grid.Column="0" Width="2" IsEnabled="False" HorizontalAlignment="Left" Margin="507,0,0,10" />
         <GridSplitter Grid.Column="1" Margin="251,10,0,10" Width="2" IsEnabled="False" HorizontalAlignment="Left"/>
         <Separator Grid.Column="1" Height="12" Margin="10,155,10,0" VerticalAlignment="Top" IsEnabled="True"/>
         <Separator Grid.Column="1" Height="12" Margin="10,257,10,0" VerticalAlignment="Top"/>
         <TextBlock Grid.Column="1" Height="111" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="历史版本的可能"/><Run Foreground="Red" FontWeight="Bold" Text="只支持"/><Run Foreground="Red" Text="一个"/><Run Text="语言文件，使用本工具可能会发生"/><Run Foreground="Red" FontWeight="Bold" Text="文件替换"/><Run Text="，请注意！"/><LineBreak/><Run/><LineBreak/><Run Text="如果无法通过自动查找找到安装地址，可通过浏览"/><Run Foreground="Red" Text="手动查找"/><Run Text="安装目录，但无论如何，"/><Run Foreground="Red" Text="请确保"/><Run Foreground="Red" FontWeight="Bold" Text="GameMaker Studio 2已被正确安装"/><Run Text="之后再尝试汉化或修复相应的文件。"/></TextBlock>
-        <TextBlock x:Name="TextAnswer" TextDecorations="Underline" Text="为什么要这样？" Grid.Column="1" Height="24" Margin="10,126,10,0" VerticalAlignment="Top" Foreground="#FF00AEFF" MouseEnter="TextAnswer_MouseEnter" ToolTip="如果GameMaker Studio 2已经损坏或未能正确安装，重新安装GameMaker Studio 2之前会&#xA;先卸载之前安装的版本，卸载先前版本便会造成已经汉化完成的文件会被一并卸除，等到安装完毕还得重新汉化。"/>
+        <TextBlock x:Name="TextAnswer" TextDecorations="Underline" Text="为什么要这样？" Grid.Column="1" Height="24" Margin="10,126,158,0" VerticalAlignment="Top" Foreground="#FF00AEFF" MouseEnter="TextAnswer_MouseEnter" ToolTip="如果GameMaker Studio 2已经损坏或未能正确安装，重新安装GameMaker Studio 2之前&#xA;会先卸载之前安装的版本，卸载先前版本便会造成已经汉化完成的文件会被一并卸除，等到&#xA;安装完毕还得重新汉化。" Cursor="Help"/>
         <Grid Name="GrdUpdateSection" Grid.Column="2">
-            <TextBlock Name="TextUpdatePrompt" Text="123456789" Margin="10,10,10,572"/>
-            <ProgressBar Height="18" Margin="10,172,10,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnUpdateControl" Content="开始更新" Grid.Column="2" Height="84" Margin="0,214,10,0" VerticalAlignment="Top" FontSize="36" HorizontalAlignment="Right" Width="233"/>
-            <ListBox Grid.Column="2" Height="344" Margin="0,307,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="233"/>
+            <TextBlock x:Name="TextUpdatePrompt" TextWrapping="Wrap" Margin="10,10,10,553"><Run Text="如果你发现"/><Run Foreground="Red" Text="汉化/修复失败"/><Run Text="，或"/><Run Foreground="Red" Text="汉化/修复文件发生异常"/><Run Text="，且多次尝试后仍然没有"/><Run Text="改善"/><Run Text="，或者已经安装了"/><Run Foreground="Red" Text="更新版本"/><Run Text="的GameMaker Studio 2，因现有资源不足无法满足最佳汉化体验，您可以通过此面板更新资源。这"/><Run Foreground="Red" Text="可能会修复"/><Run Text="上述原因导致的一些问题。"/><LineBreak/><Run Text="请注意，云端文件更新周期"/><Run Foreground="Red" Text="可能略晚于"/><Run Text="官方发布周期，尽请谅解！"/><LineBreak/><Run Text="如果经过更新后发现仍然异常，可能是因为云端尚未更新，请耐心等待或及时联系作者或QQ群。"/><LineBreak/><Run/></TextBlock>
+            <ProgressBar Height="18" Margin="12,300,10,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnUpdateControl" Content="开始更新" Height="84" Margin="0,191,10,0" VerticalAlignment="Top" FontSize="36" HorizontalAlignment="Right" Width="233"/>
+            <ListBox Height="300" Margin="0,368,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="233"/>
             <Button Name="BtnUpdateCollapse" Content="←A←折叠" Grid.Column="2" Margin="10,673,0,10" FontSize="24" HorizontalAlignment="Left" Width="233" Click="BtnUpdateCollapse_Click" ToolTip="点击可折叠更新面板"/>
+            <TextBlock Text="更新进度" HorizontalAlignment="Left" Margin="12,280,0,0" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Height="14" Margin="12,349,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106"><Run Text="可更新版本"/><LineBreak/><Run/></TextBlock>
         </Grid>
+        <Button Content="屠龙宝刀&#xA;点一送一" Grid.Column="1" HorizontalAlignment="Left" Margin="10,308,0,10" Width="234" FontSize="48"/>
     </Grid>
 </Window>
