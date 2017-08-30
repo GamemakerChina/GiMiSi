@@ -101,7 +101,7 @@ namespace GMS2TranslationFileInstaller
         {
             //string strVer = ComBoxVerSelector.SelectedItem.ToString().Replace('_','.');
 
-            Version selectedVer = ComBoxVerSelector.SelectedValue as Version;
+            Version selectedVer = (sender as System.Windows.Controls.ComboBox).SelectedValue as Version;
             Color c;
             if(selectedVer == progVer)
             {
@@ -118,7 +118,7 @@ namespace GMS2TranslationFileInstaller
                     c = Color.FromRgb(255, 0, 0);
                 }
             }
-            ComBoxVerSelector.Foreground = new SolidColorBrush(c);
+            (sender as System.Windows.Controls.ComboBox).Foreground = new SolidColorBrush(c);
         }
 
         private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace GMS2TranslationFileInstaller
             {
                 TextInstallDir.Text = strInstallDirNotFound;
                 System.Windows.Forms.MessageBox.Show("自动查找未能找到GameMaker Studio 2的安装位置，请检查安装路径或尝试手动查找");
-                ChBoxAutoSearch.IsChecked = false;
+                (sender as System.Windows.Controls.CheckBox).IsChecked = false;
             }
         }
 
@@ -159,7 +159,7 @@ namespace GMS2TranslationFileInstaller
 
         private void TextInstallDir_Changed(object sender, TextChangedEventArgs e)
         {
-            string path = TextInstallDir.Text;
+            string path = (sender as TextBlock).Text;
             if (path == strInstallDirNotFound||path == "")
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255,0,0));
@@ -277,7 +277,7 @@ namespace GMS2TranslationFileInstaller
         {
             //System.Windows.Forms.MessageBox.Show("离线体验版暂不支持在线更新~~Sorry","体验版提醒",MessageBoxButtons.OK,MessageBoxIcon.Information);
             WindowExpand();
-            BtnUpdate.IsEnabled = false;
+            (sender as System.Windows.Controls.Button).IsEnabled = false;
         }
 
         private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
@@ -290,11 +290,6 @@ namespace GMS2TranslationFileInstaller
 
         }
 
-        private void BtnTest_Click(object sender, RoutedEventArgs e)
-        {
-            //WinMain.Width = 1200;
-        }
-
         private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
@@ -305,7 +300,6 @@ namespace GMS2TranslationFileInstaller
             BtnUpdate.IsEnabled = true;
             WindowCollapse();
         }
-
 
         private void Link2Code_Click(object sender, RoutedEventArgs e)
         {

@@ -25,7 +25,6 @@ namespace GMS2TranslationFileInstaller
         private void WebC_ProgChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             ProgDownload.Value = e.ProgressPercentage;
-            
         }
 
         private void WebC_DownloadCompleted(object sender,EventArgs e)
@@ -33,7 +32,6 @@ namespace GMS2TranslationFileInstaller
             BtnUpdateControl.Content = "开始更新";
             BtnUpdateControl.IsEnabled = true;
             ListUpdProcedure.Items.Add("更新包下载完毕，正在使更新包生效……");
-            
         }
         
     }
