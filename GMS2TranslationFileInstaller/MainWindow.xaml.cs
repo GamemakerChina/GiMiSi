@@ -282,12 +282,12 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
         {
-
+            ShowPromptNotImplement();
         }
 
         private void BtnActOvRepairENG_Click(object sender, RoutedEventArgs e)
         {
-
+            ShowPromptNotImplement();
         }
 
         private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)

@@ -163,5 +163,11 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
+        private void ShowPromptNotImplement()
+        {
+            System.Windows.Forms.MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
+
     }
 }
