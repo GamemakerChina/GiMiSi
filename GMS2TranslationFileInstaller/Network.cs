@@ -31,7 +31,16 @@ namespace GMS2TranslationFileInstaller
         {
             BtnUpdateControl.Content = "开始更新";
             BtnUpdateControl.IsEnabled = true;
-            ListUpdProcedure.Items.Add("更新包下载完毕，正在使更新包生效……");
+            ListUpdProcedure.Items.Add("资源更新包下载完毕，正在使更新包生效……");
+            using (FileStream fZip = new FileStream(@".\vers.zip", FileMode.Open))
+            using (ZipArchive zipArch = new ZipArchive(fZip))
+            {
+                //ZipFile.ExtractToDirectory(@".\vers.zip", @".\vers\");
+                DirectoryDestroy(@".\vers");
+                zipArch.ExtractToDirectory(@".\vers");
+                fZip.Close();
+            }
+            ListUpdProcedure.Items.Add("更新包安装完毕，请重新启动本程序！");
         }
         
     }

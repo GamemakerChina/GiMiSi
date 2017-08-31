@@ -159,7 +159,7 @@ namespace GMS2TranslationFileInstaller
 
         private void TextInstallDir_Changed(object sender, TextChangedEventArgs e)
         {
-            string path = (sender as TextBlock).Text;
+            string path = TextInstallDir.Text;
             if (path == strInstallDirNotFound||path == "")
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255,0,0));
