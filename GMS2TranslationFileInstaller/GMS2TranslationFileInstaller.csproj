@@ -155,5 +155,8 @@
   <ItemGroup>
     <Resource Include="720px-GPLv3_Logo.svg.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Release Notes.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -157,7 +157,7 @@ namespace GMS2TranslationFileInstaller
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
