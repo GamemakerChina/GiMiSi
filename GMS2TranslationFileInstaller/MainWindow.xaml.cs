@@ -123,29 +123,56 @@ namespace GMS2TranslationFileInstaller
 
         private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
         {
-            try
+            if(ChBoxSteam.IsChecked == false)
             {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2");
-                TextInstallDir.Text = key.GetValue("Install_Dir").ToString();
-                TextInstallDir.IsEnabled = false;
-                BtnInstallDirBrowse.IsEnabled = false;
-                ComBoxVerSelector.SelectedItem = progVer;
-                //SnapToProperVersion();
-                key.Close();
+                try
+                {
+                    TextInstallDir.Text = GetAutoSearchPath();
+                }
+                catch (System.IO.IOException)
+                {
+                    TextInstallDir.Text = strInstallDirNotFound;
+                    System.Windows.Forms.MessageBox.Show("自动查找未能找到GameMaker Studio 2的安装位置，请检查安装路径或取消勾选自动查找并尝试手动查找，如果您只安装了Steam版，请补充勾选Steam后重试", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
-            catch (System.IO.IOException)
+            else
             {
-                TextInstallDir.Text = strInstallDirNotFound;
-                System.Windows.Forms.MessageBox.Show("自动查找未能找到GameMaker Studio 2的安装位置，请检查安装路径或尝试手动查找");
-                (sender as System.Windows.Controls.CheckBox).IsChecked = false;
+                TextInstallDir.Text = GetAutoSearchPath(Edition.Steam);
             }
+            TextInstallDir.IsEnabled = false;
+            BtnInstallDirBrowse.IsEnabled = false;
+            ComBoxVerSelector.SelectedItem = progVer;
+            //SnapToProperVersion();
+            ChBoxSteam.IsEnabled = true;
         }
 
         private void ChBoxAutoSearch_Unchecked(object sender, RoutedEventArgs e)
         {
             BtnInstallDirBrowse.IsEnabled = true;
             TextInstallDir.IsEnabled = true;
+            ChBoxSteam.IsEnabled = false;
         }
+
+        private void ChBoxSteam_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //RegistryKey keySteam = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410");
+                //RegistryKey keySteam = RegistryHelpers.GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410");
+                TextInstallDir.Text = GetAutoSearchPath(Edition.Steam);
+            }
+            catch (System.IO.IOException)
+            {
+                TextInstallDir.Text = strInstallDirNotFound;
+                System.Windows.Forms.MessageBox.Show("自动查找未能找到GameMaker Studio 2 Steam的安装位置，请检查安装路径或取消勾选自动查找并尝试手动查找", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void ChBoxSteam_Unchecked(object sender,RoutedEventArgs e)
+        {
+            TextInstallDir.Text = GetAutoSearchPath();
+        }
+
 
         private void BtnInstallDir_Click(object sender,RoutedEventArgs e)
         {
@@ -312,6 +339,7 @@ namespace GMS2TranslationFileInstaller
         }
 
         #endregion
+
     }
 }
 
@@ -344,9 +372,8 @@ public class LocatingFailedException : Exception
 
 #endregion
 
-public enum PathState
+public enum Edition
 {
-    Absolute,
-    Relative,
-    Invalid
+    Standalone,
+    Steam
 }

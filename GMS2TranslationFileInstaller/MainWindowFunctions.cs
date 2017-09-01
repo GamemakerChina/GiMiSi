@@ -168,6 +168,22 @@ namespace GMS2TranslationFileInstaller
             System.Windows.Forms.MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
-
+        private string GetAutoSearchPath(Edition edition=Edition.Standalone)
+        {
+            switch(edition)
+            {
+                case Edition.Standalone:
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2"))
+                    {
+                        string str = key.GetValue("Install_Dir").ToString();
+                        key.Close();
+                        return str;
+                    }
+                case Edition.Steam:
+                    return RegistryHelpers.GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410").GetValue("InstallLocation").ToString();
+                default:
+                    return strInstallDirNotFound;
+            }
+        }
     }
 }

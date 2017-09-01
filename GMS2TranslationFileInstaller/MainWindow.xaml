@@ -49,6 +49,7 @@
             <TextBlock Margin="0,0,0,1" ><Run Text="GameMaker Studio 2 汉化管理器"/><LineBreak/><Run Text="-from GameMaker开发者之家"/><LineBreak/><Run Text="版本："/><LineBreak/><Run x:Name="VersionDisplay" FontSize="16" Text="&#x9;{0}"/><LineBreak/><LineBreak/><Run Text="软件遵循"/><Run Text="GNU GPL v3.0协议"/><LineBreak/><Run FontWeight="Bold"/><LineBreak/><Hyperlink Name="Link2Code" FontWeight="Bold" NavigateUri="https://github.com/Oberon-Tonya/GMS2TranslationFileInstaller" Click="Link2Code_Click">软件源代码地址</Hyperlink><LineBreak/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
         </GroupBox>
         <Image Grid.Column="1" HorizontalAlignment="Left" Height="44" Margin="135,420,0,0" VerticalAlignment="Top" Width="102" Source="720px-GPLv3_Logo.svg.png" SnapsToDevicePixels="True"/>
+        <CheckBox x:Name="ChBoxSteam" Content="Steam" HorizontalAlignment="Left" Height="14" Margin="212,195,0,0" VerticalAlignment="Top" Width="84" IsEnabled="False" Checked="ChBoxSteam_Checked" Unchecked="ChBoxSteam_Unchecked" FontSize="14"/>
 
 
     </Grid>
