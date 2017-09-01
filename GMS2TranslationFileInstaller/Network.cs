@@ -36,10 +36,14 @@ namespace GMS2TranslationFileInstaller
             using (ZipArchive zipArch = new ZipArchive(fZip))
             {
                 //ZipFile.ExtractToDirectory(@".\vers.zip", @".\vers\");
-                DirectoryDestroy(@".\vers");
+                if(Directory.Exists(@".\vers"))
+                {
+                    DirectoryDestroy(@".\vers");
+                }
                 zipArch.ExtractToDirectory(@".\vers");
                 fZip.Close();
             }
+            File.Delete(@".\vers.zip");
             ListUpdProcedure.Items.Add("更新包安装完毕，请重新启动本程序！");
         }
         

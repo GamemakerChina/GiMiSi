@@ -80,21 +80,38 @@ namespace GMS2TranslationFileInstaller
 
         private void Window_Loaded(object sender,EventArgs e)
         {
-            LabelPathWarning.Text = string.Empty;
-            ChBoxAutoSearch.IsChecked = true;
-            foreach (var d in dirInf.GetDirectories())
+            if(Directory.Exists(@".\vers"))
             {
-                Version ver = new Version(d.Name.Replace('_', '.'));
-                verList.Add(ver);
+                LabelPathWarning.Text = string.Empty;
+                ChBoxAutoSearch.IsChecked = true;
+                foreach (var d in dirInf.GetDirectories())
+                {
+                    Version ver = new Version(d.Name.Replace('_', '.'));
+                    verList.Add(ver);
+                }
+                foreach (var v in verList)
+                {
+                    ComBoxVerSelector.Items.Add(v);
+                }
+                ComBoxVerSelector.SelectedItem = progVer;
+                ToolTipService.SetShowDuration(TextAnswer, 10000);
+                WindowCollapse();
+                
             }
-            foreach (var v in verList)
+            else
             {
-                ComBoxVerSelector.Items.Add(v);
+                LabelPathWarning.Text = strNeedUpdating;
+                EnableInstallation(false);
+                DialogResult r =  System.Windows.Forms.MessageBox.Show("未找到资源文件，请您更新资源文件，否则将无法使用汉化功能", "首次安装提醒", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if(r == System.Windows.Forms.DialogResult.OK)
+                {
+                    WindowExpand();
+                }
+                ChBoxAutoSearch.IsEnabled = false;
+                ChBoxSteam.IsEnabled = false;
+                TextInstallDir.IsEnabled = false;
             }
-            ComBoxVerSelector.SelectedItem = progVer;
-            ToolTipService.SetShowDuration(TextAnswer, 10000);
-            WindowCollapse();
-            VersionDisplay.Text = String.Format(VersionDisplay.Text,version);
+            VersionDisplay.Text = String.Format(VersionDisplay.Text, version);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
