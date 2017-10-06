@@ -193,9 +193,11 @@ namespace GMS2TranslationFileInstaller
 
         private void BtnInstallDir_Click(object sender,RoutedEventArgs e)
         {
-            FolderBrowserDialog dial = new FolderBrowserDialog();
-            dial.Description = strBrowseDirectoryPrompt;
-            if(dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            FolderBrowserDialog dial = new FolderBrowserDialog
+            {
+                Description = strBrowseDirectoryPrompt
+            };
+            if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 TextInstallDir.Text = dial.SelectedPath;
             }
