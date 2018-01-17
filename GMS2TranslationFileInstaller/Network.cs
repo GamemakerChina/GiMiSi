@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Web;
-using System.Net.Http;
+//using System.Net.Http;
 using System.IO.Compression;
 
 namespace GMS2TranslationFileInstaller
