@@ -1,46 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Web;
+using static System.String;
 
 namespace GMS2TranslationFileInstaller
 {
-    ///<summary>
-    ///MainWindow类的独立函数
-    ///</summary>
-    
+    /// <summary>
+    /// MainWindow类的独立函数
+    /// </summary>
+
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// 验证路径有效性
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <returns>验证结果</returns>
         private bool PathIsValid(string path)
         {
             Regex reg = new Regex(@"^([a-zA-Z]:(\\|\/))?([^\:\/\*\?\""\<\>\|\,]+)?$");
             return reg.IsMatch(path);
         }
 
-        private void CopyTransFile()
+        /// <summary>
+        /// 复制 IDE 汉化文件
+        /// </summary>
+        private void CopyTransFileAsync()
         {
-            string srcPath = string.Empty;
-            string destPath = string.Empty;
-            if (ProperVersion >= thresVer)
+            DownloadFile();
+            var sourcePath = @".\latest\chinese.csv";
+            var targetPath = TextInstallDir.Text + @"\Languages\chinese.csv";
+            if (File.Exists(sourcePath))
             {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
-                destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
-            }
-            else
-            {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\trans\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
-            }
-            //string srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\chinese.csv";
-            //string destPath = TextInstallDir.Text + @"\Languages\chinese.csv";
-            if (File.Exists(srcPath))
-            {
-                File.Copy(srcPath, destPath, true);
+                File.Copy(sourcePath, targetPath, true);
             }
             else
             {
@@ -48,24 +46,17 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
+        /// <summary>
+        /// 复制 IDE 源文件
+        /// </summary>
         private void CopyOrigFile()
         {
-            string srcPath = string.Empty;
-            string destPath = string.Empty;
-            if (ProperVersion >= thresVer)
+            DownloadFile(false);
+            var sourcePath = @".\latest\english.csv";
+            var targetPath = TextInstallDir.Text + @"\Languages\english.csv";
+            if (File.Exists(sourcePath))
             {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
-            }
-            else
-            {
-                srcPath = @".\vers\" + ComBoxVerSelector.Text.Replace('.', '_') + @"\orig\english.csv";
-                destPath = TextInstallDir.Text + @"\Languages\english.csv";
-            }
-
-            if (File.Exists(srcPath))
-            {
-                File.Copy(srcPath, destPath, true);
+                File.Copy(sourcePath, targetPath, true);
             }
             else
             {
@@ -73,15 +64,20 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-        private bool VerifyPath(string path)
+        /// <summary>
+        /// 验证路径
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <returns>验证成功</returns>
+        private static bool VerifyPath(string path)
         {
-            string langpath = path + @"\Languages";
+            string languagePath = path + @"\Languages";
             string configpath = path + @"\GameMakerStudio.exe.config";
             string exepath = path + @"\GameMakerStudio.exe";
             string actpath = path + @"\DnDLibs\YoYo Games\Languages";
             if (Directory.Exists(path))
             {
-                if (Directory.Exists(langpath) && Directory.Exists(actpath))
+                if (Directory.Exists(languagePath) && Directory.Exists(actpath))
                 {
                     if (File.Exists(configpath))
                     {
@@ -115,75 +111,45 @@ namespace GMS2TranslationFileInstaller
 
         }
 
+        /// <summary>
+        /// 安装按钮状态
+        /// </summary>
+        /// <param name="flag">状态值</param>
         private void EnableInstallation(bool flag)
         {
             BtnInstallCHN.IsEnabled = flag;
-            BtnRepairENG.IsEnabled = flag;
-            BtnActOvInstallCHN.IsEnabled = flag;
-            BtnActOvRepairENG.IsEnabled = flag;
+            //BtnRepairENG.IsEnabled = flag;
+            //BtnActOvInstallCHN.IsEnabled = flag;
+            //BtnActOvRepairENG.IsEnabled = flag;
         }
-
-        private void WindowCollapse()
-        {
-            GrdUpdateSection.Visibility = Visibility.Hidden;
-            WinMain.Width = 768;
-            GrdMain.ColumnDefinitions[2].Width = new GridLength(0);
-            
-        }
-
-        private void WindowExpand()
-        {
-            WinMain.Width = 1024;
-            GrdMain.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
-            GrdUpdateSection.Visibility = Visibility.Visible;
-        }
-
-        private void DirectoryDestroy(string pathDir)
-        {
-            try
-            {
-                DirectoryInfo dir = new DirectoryInfo(pathDir);
-                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
-                foreach (FileSystemInfo i in fileinfo)
-                {
-                    if (i is DirectoryInfo)            //判断是否文件夹
-                    {
-                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
-                        subdir.Delete(true);          //删除子目录和文件
-                    }
-                    else
-                    {
-                        File.Delete(i.FullName);      //删除指定文件
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private static void ShowPromptNotImplement()
+        
+        private void ShowPromptNotImplement()
         {
             System.Windows.Forms.MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
-        private static string GetAutoSearchPath(Edition edition=Edition.Standalone)
+        /// <summary>
+        /// 获取自动搜索路径
+        /// </summary>
+        /// <returns>GMS2 安装路径</returns>
+        private string GetAutoSearchPath()
         {
-            switch(edition)
+            string keyString;
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2");
+            if (key != null)
             {
-                case Edition.Standalone:
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2"))
-                    {
-                        string str = key.GetValue("Install_Dir").ToString();
-                        key.Close();
-                        return str;
-                    }
-                case Edition.Steam:
-                    return RegistryHelpers.GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410").GetValue("InstallLocation").ToString();
-                default:
-                    return strInstallDirNotFound;
+                keyString = key.GetValue("Install_Dir").ToString();
+                key.Close();
+                return keyString;
             }
+            keyString = RegistryHelpers
+                .GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410")
+                .GetValue("InstallLocation").ToString();
+            if (IsNullOrEmpty(keyString))
+            {
+                return strInstallDirNotFound;
+            }
+            return keyString;
         }
     }
 }

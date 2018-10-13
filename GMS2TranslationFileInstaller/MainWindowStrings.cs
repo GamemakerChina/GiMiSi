@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
 
 namespace GMS2TranslationFileInstaller
 {
-    public partial class MainWindow:Window
+    public partial class MainWindow : Window
     {
         private const string strNeedUpdating = "你必须安装更新后方能正常使用本软件的功能";
         private const string strInstallDirNotFound = "<!未找到 GameMaker Studio 2 的路径>";
