@@ -20,28 +20,39 @@ namespace GMS2TranslationFileInstaller
             Build
         }
 
-        private int major;
-        public int Major { get => major; set => major = value; }
+        public int Major { get; set; }
 
-        private int minor;
-        public int Minor { get => minor; set => minor = value; }
+        public int Minor { get; set; }
 
-        private int revision;
-        public int Revision { get => revision; set => revision = value; }
+        public int Revision { get; set; }
 
-        private int build;
-        public int Build { get => build; set => build = value; }
+        public int Build { get; set; }
 
+        /// <summary>
+        /// 版本号
+        /// </summary>
         public Version()
         { }
+
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        /// <param name="major">major值</param>
+        /// <param name="minor">minor值</param>
+        /// <param name="revision">revision值</param>
+        /// <param name="build">build值</param>
         public Version(int major, int minor, int revision, int build)
         {
-            this.major = major;
-            this.minor = minor;
-            this.revision = revision;
-            this.build = build;
+            this.Major = major;
+            this.Minor = minor;
+            this.Revision = revision;
+            this.Build = build;
         }
         
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        /// <param name="strVer">版本号字符串</param>
         public Version(string strVer)
         {
             Regex regex = new Regex(@"(\d+)(\.(\d+)){0,3}");
@@ -73,9 +84,13 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
+        /// <summary>
+        /// 版本号转换为字符串
+        /// </summary>
+        /// <returns>版本号字符串</returns>
         public override string ToString()
         {
-            return String.Format("{0}.{1}.{2}.{3}",Major,Minor,Revision,Build);
+            return $"{Major}.{Minor}.{Revision}.{Build}";
         }
         
         public static bool operator<(Version ver1,Version ver2)
@@ -139,7 +154,7 @@ namespace GMS2TranslationFileInstaller
         }
         public static bool operator==(Version ver1,Version ver2)
         {
-            return ver1.major == ver2.major && ver1.minor == ver2.minor && ver1.revision == ver2.revision && ver1.build == ver2.build;
+            return ver1.Major == ver2.Major && ver1.Minor == ver2.Minor && ver1.Revision == ver2.Revision && ver1.Build == ver2.Build;
         }
         public static bool operator!=(Version ver1,Version ver2)
         {
@@ -162,13 +177,10 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
-                return ToString() == (obj as Version).ToString();
+                return ToString() == (obj as Version)?.ToString();
             }
         }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
         class VersionFormatInvalid : Exception
         {

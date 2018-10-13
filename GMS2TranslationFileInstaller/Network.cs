@@ -10,7 +10,7 @@ namespace GMS2TranslationFileInstaller
 {
     public partial class MainWindow : Window
     {
-        private WebClient webClient = new WebClient();
+        private readonly WebClient webClient = new WebClient();
         
 
         private void DownloadUpdate()

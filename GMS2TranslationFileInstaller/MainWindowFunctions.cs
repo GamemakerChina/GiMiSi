@@ -163,12 +163,12 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-        private void ShowPromptNotImplement()
+        private static void ShowPromptNotImplement()
         {
             System.Windows.Forms.MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
-        private string GetAutoSearchPath(Edition edition=Edition.Standalone)
+        private static string GetAutoSearchPath(Edition edition=Edition.Standalone)
         {
             switch(edition)
             {

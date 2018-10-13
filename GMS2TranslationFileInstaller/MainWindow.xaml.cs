@@ -31,10 +31,10 @@ namespace GMS2TranslationFileInstaller
     {
 
         private Version progVer = null;
-        private List<Version> verList = new List<Version>();
-        private Version version = new Version(System.Windows.Forms.Application.ProductVersion.ToString());
+        private readonly List<Version> verList = new List<Version>();
+        private readonly Version version = new Version(System.Windows.Forms.Application.ProductVersion.ToString());
 
-        private Version thresVer = new Version(2, 0, 6, 146);
+        private readonly Version thresVer = new Version(2, 0, 6, 146);
         private Version ProperVersion
         {
             get
