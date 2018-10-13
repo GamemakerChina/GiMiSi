@@ -13,7 +13,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="157" Margin="27,250,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click" HorizontalAlignment="Left" Width="217" IsEnabled="False"/>
-        <Button Grid.Column="0" Name="BtnRepairENG" Content="修复英文界面文件&#xA;（ENG）" Height="157" Margin="264,250,0,0" VerticalAlignment="Top" Click="BtnRepairENG_Click" FontSize="18" HorizontalAlignment="Left" Width="218" IsEnabled="False"/>
+        <Button Grid.Column="0" Name="BtnRepairENG" Content="浏览中文帮助文档" Height="157" Margin="264,250,0,0" VerticalAlignment="Top" Click="BtnRepairENG_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
         <TextBlock Grid.Column="0" Name="LabelInstalldir" Height="16" Margin="27,151,27,0" TextWrapping="Wrap" Text="GameMaker Studio 2 安装路径" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <TextBlock Name="LabelPathWarning" TextWrapping="Wrap" Text="测试文本" Height="90" Margin="10,167,10,0"  VerticalAlignment="Top" Foreground="Red" Grid.Column="1" FontSize="14" FontStyle="Italic" />
         <TextBox Grid.Column="0" Name="TextInstallDir" Height="18" Margin="27,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="406"/>

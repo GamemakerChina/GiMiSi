@@ -148,15 +148,13 @@ namespace GMS2TranslationFileInstaller
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                 LabelPathWarning.Text = strWarningMissingPath;
-                BtnInstallCHN.IsEnabled = false;
-                BtnRepairENG.IsEnabled = false;
+                EnableInstallation(false);
             }
             else if (!PathIsValid(path))
             {
                 LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                 LabelPathWarning.Text = strWarningInvalidPath;
-                BtnInstallCHN.IsEnabled = false;
-                BtnRepairENG.IsEnabled = false;
+                EnableInstallation(false);
             }
             else
             {
@@ -207,12 +205,11 @@ namespace GMS2TranslationFileInstaller
         }
 
         /// <summary>
-        /// 修复英文界面文件
+        /// 浏览中文帮助文档
         /// </summary>
         private void BtnRepairENG_Click(object sender, RoutedEventArgs e)
         {
-            CopyOrigFile();
-            System.Windows.Forms.MessageBox.Show("原文内容已修复完毕，如果 GameMaker Studio 2 已经处于启动状态，请关闭后重新打开，如有发生乱码问题，请更新后重试或联系QQ群或作者。");
+            Process.Start("https://gamemakerchina.github.io/GMS2_manual_en2ch/");
         }
 
         /// <summary>
