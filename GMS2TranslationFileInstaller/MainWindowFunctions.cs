@@ -31,9 +31,9 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 复制 IDE 汉化文件
         /// </summary>
-        private void CopyTransFileAsync()
+        private async void CopyTransFileAsync()
         {
-            DownloadFile();
+            await DownloadFile();
             var sourcePath = @".\latest\chinese.csv";
             var targetPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             if (File.Exists(sourcePath))

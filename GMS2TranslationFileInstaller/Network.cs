@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -18,7 +19,7 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 下载文件
         /// </summary>
-        private void DownloadFile(bool chinese = true)
+        private async Task DownloadFile(bool chinese = true)
         {
             if (!Directory.Exists(@".\latest"))
             {
@@ -26,11 +27,11 @@ namespace GMS2TranslationFileInstaller
             }
             if (chinese)
             {
-                webClient.DownloadFile(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/chinese.csv"), @".\latest\chinese.csv");
+                await webClient.DownloadFileTaskAsync(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/chinese.csv"), @".\latest\chinese.csv");
             }
             else
             {
-                webClient.DownloadFile(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/english.csv"), @".\latest\english.csv");
+                await webClient.DownloadFileTaskAsync(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/english.csv"), @".\latest\english.csv");
             }
         }
 
@@ -49,6 +50,5 @@ namespace GMS2TranslationFileInstaller
         {
 
         }
-
     }
 }
