@@ -19,7 +19,7 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 下载文件
         /// </summary>
-        private async Task DownloadFile(bool chinese = true)
+        private async Task DownloadFileAsync(bool chinese = true)
         {
             if (!Directory.Exists(@".\latest"))
             {

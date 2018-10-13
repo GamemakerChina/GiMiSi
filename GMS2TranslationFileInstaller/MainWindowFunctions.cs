@@ -33,7 +33,7 @@ namespace GMS2TranslationFileInstaller
         /// </summary>
         private async void CopyTransFileAsync()
         {
-            await DownloadFile();
+            await DownloadFileAsync();
             var sourcePath = @".\latest\chinese.csv";
             var targetPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             if (File.Exists(sourcePath))
@@ -46,23 +46,23 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-        /// <summary>
-        /// 复制 IDE 源文件
-        /// </summary>
-        private void CopyOrigFile()
-        {
-            DownloadFile(false);
-            var sourcePath = @".\latest\english.csv";
-            var targetPath = TextInstallDir.Text + @"\Languages\english.csv";
-            if (File.Exists(sourcePath))
-            {
-                File.Copy(sourcePath, targetPath, true);
-            }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show("修复失败，未能找到对应版本的原文，请尝试更新后再修复，如果还有问题，请联系QQ群或作者QQ", "原文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
+        ///// <summary>
+        ///// 复制 IDE 源文件
+        ///// </summary>
+        //private void CopyOrigFile()
+        //{
+        //    DownloadFileAsync(false);
+        //    var sourcePath = @".\latest\english.csv";
+        //    var targetPath = TextInstallDir.Text + @"\Languages\english.csv";
+        //    if (File.Exists(sourcePath))
+        //    {
+        //        File.Copy(sourcePath, targetPath, true);
+        //    }
+        //    else
+        //    {
+        //        System.Windows.Forms.MessageBox.Show("修复失败，未能找到对应版本的原文，请尝试更新后再修复，如果还有问题，请联系QQ群或作者QQ", "原文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //    }
+        //}
 
         /// <summary>
         /// 验证路径
