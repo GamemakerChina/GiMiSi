@@ -266,7 +266,7 @@ namespace GMS2TranslationFileInstaller
 
         private void SaveFont_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            // TODO 保存字体及字号
         }
     }
 }

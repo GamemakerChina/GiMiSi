@@ -89,7 +89,7 @@
                 <LineBreak />
                 <Run FontWeight="Bold" />
                 <LineBreak />
-                <Hyperlink Name="Link2Code" FontWeight="Bold" NavigateUri="https://github.com/tpxxn/GMS2TranslationFileInstaller"
+                <Hyperlink Name="Link2Code" FontWeight="Bold" NavigateUri="https://github.com/GamemakerChina/GMS2TranslationFileInstaller"
                            Click="Link2Code_Click">软件源代码地址</Hyperlink>
                 <LineBreak />
             </TextBlock>
