@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Text;
 using System.Windows;
 using System.IO;
 using System.Linq;
@@ -11,10 +13,12 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Web;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Newtonsoft.Json;
 using static System.String;
+using FontFamily = System.Windows.Media.FontFamily;
 using TextBox = System.Windows.Forms.TextBox;
+using Media = System.Windows.Media;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace GMS2TranslationFileInstaller
 {
@@ -125,6 +129,7 @@ namespace GMS2TranslationFileInstaller
         {
             BtnInstallCHN.IsEnabled = flag;
             GroupBoxFont.IsEnabled = flag;
+            BtnStartGMS2.IsEnabled = flag;
             //BtnRepairENG.IsEnabled = flag;
             //BtnActOvInstallCHN.IsEnabled = flag;
             //BtnActOvRepairENG.IsEnabled = flag;
@@ -193,35 +198,36 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 加载字体
         /// </summary>
-        private void ReadFont()
+        private void LoadFont()
         {
+            if (FontSortedDictionary.Count != 0)
+                return;
             var textBlockOpenSans = new TextBlock()
             {
                 Text = "Open Sans",
                 FontFamily = new FontFamily("Open Sans.ttf")
             };
             ComboBoxFont.Items.Add(textBlockOpenSans);
-            foreach (var fonts in Fonts.SystemFontFamilies)
+            FontSortedDictionary = FontRegedit.ReadFontInformation();
+            foreach (var fonts in FontSortedDictionary)
             {
+                //读取字体文件             
+                var pfc = new PrivateFontCollection();
+                pfc.AddFontFile(fonts.Value);
                 var textBlock = new TextBlock
                 {
-                    Text = fonts.ToString(),
-                    FontFamily = new FontFamily(fonts.ToString())
+                    Text = fonts.Key.Replace(" (TrueType)",""),
+                    FontFamily = new FontFamily(pfc.Families[0].Name)
                 };
+                pfc.Dispose();
                 ComboBoxFont.Items.Add(textBlock);
             }
         }
 
         /// <summary>
-        /// 修改字体
+        /// 字体字典[字体名, 字体文件夹]
         /// </summary>
-        private void ComboBox_Font_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!LoadFont) return;
-            var textList = (from TextBlock textBlock in ComboBoxFont.Items select textBlock.Text).ToList();
-            //mainWindow.FontFamily = new FontFamily(textList[ComboBoxFont.SelectedIndex]);
-            //((TextBlock)((VisualBrush)FindResource("HelpBrush")).Visual).FontFamily = mainWindow.FontFamily;
-        }
+        SortedDictionary<string,string> FontSortedDictionary = new SortedDictionary<string, string>();
 
         /// <summary>
         /// 修改字号
@@ -252,7 +258,7 @@ namespace GMS2TranslationFileInstaller
                     {
                         textbox.Text = "72";
                     }
-                    if (int.Parse(textbox.Text) < 3)
+                    if (int.Parse(textbox.Text) < 1)
                     {
                         textbox.Text = "9";
                     }
@@ -264,9 +270,59 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
+        /// <summary>
+        /// 保存字体及字号设置
+        /// </summary>
         private void SaveFont_OnClick(object sender, RoutedEventArgs e)
         {
-            // TODO 保存字体及字号
+            if (GMS2ProcessIsRun())
+            {
+                System.Windows.MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后应用修改！", "警告");
+                return;
+            }
+            // 复制字体文件
+            var textBlock = (TextBlock)ComboBoxFont.Items[ComboBoxFont.SelectedIndex];
+            if (ComboBoxFont.SelectedIndex != 0)
+            {
+                string sourceFilePath = FontSortedDictionary[textBlock.Text];
+                string destinationFileName = sourceFilePath.Substring(sourceFilePath.LastIndexOf("\\", StringComparison.Ordinal) + 1, sourceFilePath.LastIndexOf(".", StringComparison.Ordinal) - sourceFilePath.LastIndexOf("\\", StringComparison.Ordinal) - 1);
+                string destinationFilePath = TextInstallDir.Text + @"\Fonts\" + destinationFileName + ".ttf";
+                try
+                {
+                    File.Copy(sourceFilePath, destinationFilePath, true);
+                }
+                catch (Exception exception)
+                {
+                    System.Windows.MessageBox.Show("复制字体文件失败！\r\n" + exception, "警告");
+                }
+            }
+            // 打开文件 
+            FileStream fileStream = new FileStream(TextInstallDir.Text + @"\defaults\default_macros.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            // 读取文件的 byte[] 
+            byte[] bytes = new byte[fileStream.Length];
+            fileStream.Read(bytes, 0, bytes.Length);
+            fileStream.Close();
+            // 把 byte[] 转换成 Stream 
+            Stream stream = new MemoryStream(bytes);
+            var default_macrosStr = new StreamReader(stream, Encoding.UTF8).ReadToEnd();
+            var default_macros = JsonConvert.DeserializeObject<default_macrosRootObject>(default_macrosStr);
+            default_macros.default_font = ComboBoxFont.SelectedIndex == 0 ? "Open Sans" : textBlock.Text;
+            default_macros.default_font_size = TextBoxFontSize.Text;
+            var SerializeText = JsonConvert.SerializeObject(default_macros).Replace("{\"system_directory\":", "{\r\n\"system_directory\":").Replace(",", ",\r\n").Replace("\"}", "\"\r\n}");
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(TextInstallDir.Text + @"\defaults\default_macros.json", false))
+                {
+                    writer.WriteLine(SerializeText);
+                    writer.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+                System.Windows.MessageBox.Show("文件写入失败！\r\n" + exception, "警告");
+            }
+            MessageBox.Show("设置成功保存！");
         }
+
     }
 }

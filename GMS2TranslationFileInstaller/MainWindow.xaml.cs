@@ -34,7 +34,7 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 是否加载字体
         /// </summary>
-        public static bool LoadFont;
+        public static bool isLoadFont;
 
         /// <summary>
         /// 版本[Standalone, Steam]
@@ -68,7 +68,6 @@ namespace GMS2TranslationFileInstaller
         {
             VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
             TextInstallDir.Text = strInstallDirNotFound;
-            ReadFont();
             ComboBoxFont.SelectedIndex = 0;
         }
 
@@ -78,8 +77,9 @@ namespace GMS2TranslationFileInstaller
             try
             {
                 TextInstallDir.Text = GetAutoSearchPath();
-                default_macrosDeserialize();
                 TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
+                LoadFont();
+                default_macrosDeserialize();
                 EnableInstallation(true);
             }
             catch (IOException)
@@ -114,8 +114,9 @@ namespace GMS2TranslationFileInstaller
             if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 TextInstallDir.Text = dial.SelectedPath;
-                default_macrosDeserialize();
                 TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
+                LoadFont();
+                default_macrosDeserialize();
             }
         }
 
@@ -239,7 +240,14 @@ namespace GMS2TranslationFileInstaller
         {
             Process.Start((sender as Hyperlink)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
         }
-        
+
+        /// <summary>
+        /// 启动GMS2
+        /// </summary>
+        private void StartGMS2Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(TextInstallDir.Text + "\\GameMakerStudio.exe");
+        }
         #endregion
 
     }
