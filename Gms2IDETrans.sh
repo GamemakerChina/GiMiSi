@@ -1,5 +1,5 @@
 #!/bin/bash
-chmod 777 test.sh
+chmod 777 ./Gms2IDETrans.sh
 #获取用户名
 username=`who am i | awk '{print $1}'`
 # 版本变量
@@ -24,6 +24,7 @@ downloadStand(){
 	echo "------------------------------------------------"
 	echo "正在下载安装版IDE汉化文件..."
 	cd "/Applications/GameMaker Studio 2.app/Contents/MonoBundle/Languages"
+	echo "写入安装版IDE汉化文件需要提升权限，请输入密码"
 	sudo curl -O "https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/macos/chinese.csv"
 	echo "安装版IDE汉化文件下载完成"
 	echo "------------------------------------------------"
