@@ -27,10 +27,12 @@ namespace GMS2TranslationFileInstaller
             }
             if (chinese)
             {
+                DownloadFileName.Text = "chinese.csv";
                 await webClient.DownloadFileTaskAsync(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/chinese.csv"), @".\latest\chinese.csv");
             }
             else
             {
+                DownloadFileName.Text = "english.csv";
                 await webClient.DownloadFileTaskAsync(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/english.csv"), @".\latest\english.csv");
             }
         }
@@ -38,7 +40,7 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 更新百分比
         /// </summary>
-        private void WebC_ProgChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void WebClient_DownloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
         {
             ProgDownload.Value = e.ProgressPercentage;
         }
@@ -46,9 +48,10 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 下载完毕
         /// </summary>
-        private void WebC_DownloadCompleted(object sender, EventArgs e)
+        private void WebClient_DownloadFileCompletedHandler(object sender, EventArgs e)
         {
-
+            ProgDownload.Value = 0;
+            DownloadFileName.Text = string.Empty;
         }
     }
 }
