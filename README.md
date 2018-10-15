@@ -5,6 +5,6 @@
 
 修复小太版本：https://github.com/Oberon-Tonya/GMS2TranslationFileInstaller
 
-需要安装 [.Net Framework 4.5](http://dwz.cn/JhbkNF45)
+需要安装 [.Net Framework 4.5](https://www.microsoft.com/zh-CN/download/details.aspx?id=30653)
 
 macOS sh 脚本前往仓库的 [macOS-sh](https://github.com/GamemakerChina/GMS2TranslationFileInstaller/tree/macOS-sh) 分支
