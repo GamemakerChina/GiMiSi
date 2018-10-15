@@ -3,6 +3,8 @@
 
 使用方法：下载 Gms2IDETrans.sh 拖入终端运行
 
+汉化文件来源：[gms2translation](https://github.com/GamemakerChina/gms2translation/tree/gh-pages) 项目
+
 注意！官网下载的安装版需要提升权限写入，留意输入管理员密码
 
  windows版前往仓库的 [master](https://github.com/GamemakerChina/GMS2TranslationFileInstaller) 分支
