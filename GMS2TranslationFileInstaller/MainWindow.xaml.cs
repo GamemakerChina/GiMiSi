@@ -19,10 +19,6 @@ using System.Windows.Shapes;
 using System.Web;
 using System.Text.RegularExpressions;
 
-using Microsoft.Win32;
-using Button = System.Windows.Controls.Button;
-using ComboBox = System.Windows.Controls.ComboBox;
-
 namespace GMS2TranslationFileInstaller
 {
     /// <summary>
@@ -45,11 +41,6 @@ namespace GMS2TranslationFileInstaller
             Steam
         }
 
-        /// <summary>
-        /// 程序版本
-        /// </summary>
-        private Version programVersion;
-        
         /// <summary>
         /// 版本号
         /// </summary>
@@ -79,7 +70,6 @@ namespace GMS2TranslationFileInstaller
                 TextInstallDir.Text = GetAutoSearchPath();
                 TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
                 LoadFont();
-                default_macrosDeserialize();
                 EnableInstallation(true);
             }
             catch (IOException)
@@ -116,7 +106,6 @@ namespace GMS2TranslationFileInstaller
                 TextInstallDir.Text = dial.SelectedPath;
                 TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
                 LoadFont();
-                default_macrosDeserialize();
             }
         }
 
@@ -125,6 +114,7 @@ namespace GMS2TranslationFileInstaller
         /// </summary>
         private void TextInstallDir_Changed(object sender, TextChangedEventArgs e)
         {
+            GroupBoxFont.IsEnabled = false;
             string path = TextInstallDir.Text;
             if (path == strInstallDirNotFound || path == "")
             {
@@ -147,7 +137,7 @@ namespace GMS2TranslationFileInstaller
                 {
                     VerifyPath(path);
                     FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
-                    programVersion = new Version(fileVer.ProductVersion);
+                    new Version(fileVer.ProductVersion);
                     EnableInstallation(true);
                 }
                 catch (VerifyMissingDirException)

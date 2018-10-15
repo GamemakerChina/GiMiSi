@@ -15,6 +15,7 @@ using System.Web;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using static System.String;
+using static System.Windows.Application;
 using FontFamily = System.Windows.Media.FontFamily;
 using TextBox = System.Windows.Forms.TextBox;
 using Media = System.Windows.Media;
@@ -128,8 +129,8 @@ namespace GMS2TranslationFileInstaller
         private void EnableInstallation(bool flag)
         {
             BtnInstallCHN.IsEnabled = flag;
-            GroupBoxFont.IsEnabled = flag;
             BtnStartGMS2.IsEnabled = flag;
+            GroupBoxFont.IsEnabled = flag;
             //BtnRepairENG.IsEnabled = flag;
             //BtnActOvInstallCHN.IsEnabled = flag;
             //BtnActOvRepairENG.IsEnabled = flag;
@@ -202,7 +203,7 @@ namespace GMS2TranslationFileInstaller
         {
             if (FontSortedDictionary.Count != 0)
                 return;
-            var textBlockOpenSans = new TextBlock()
+            var textBlockOpenSans = new TextBlock
             {
                 Text = "Open Sans",
                 FontFamily = new FontFamily("Open Sans.ttf")
@@ -216,12 +217,13 @@ namespace GMS2TranslationFileInstaller
                 pfc.AddFontFile(fonts.Value);
                 var textBlock = new TextBlock
                 {
-                    Text = fonts.Key.Replace(" (TrueType)",""),
+                    Text = fonts.Key.Replace(" (TrueType)", ""),
                     FontFamily = new FontFamily(pfc.Families[0].Name)
                 };
                 pfc.Dispose();
                 ComboBoxFont.Items.Add(textBlock);
             }
+            default_macrosDeserialize();
         }
 
         /// <summary>

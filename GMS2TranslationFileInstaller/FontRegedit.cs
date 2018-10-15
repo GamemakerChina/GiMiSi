@@ -9,7 +9,7 @@ namespace GMS2TranslationFileInstaller
     internal class FontRegedit
     {
         //[System.Security.Permissions.RegistryPermissionAttribute(System.Security.Permissions.SecurityAction.PermitOnly, Read = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts")]// 约束代码仅可读注册表
-        public static System.Collections.Generic.SortedDictionary<string, string> ReadFontInformation()
+        public static SortedDictionary<string, string> ReadFontInformation()
         {
             var dictionary = new System.Collections.Generic.SortedDictionary<string, string>();
 
