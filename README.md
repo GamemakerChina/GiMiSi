@@ -5,6 +5,7 @@
 1. 下载 Gms2IDETrans.sh
 
 2. 打开终端，输入bash （此处有一个空格）
+
 ![示例图片](https://github.com/GamemakerChina/GMS2TranslationFileInstaller/blob/macOS-sh/ex.png)
 
 3. 将下载的脚本拖入终端，按下回车
