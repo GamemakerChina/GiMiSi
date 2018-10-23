@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace GMS2TranslationFileInstaller
 {
-
-    class default_macrosRootObject
+    internal class default_macrosRootObject
     {
         public string system_directory { get; set; }
         public string system_cache_directory { get; set; }

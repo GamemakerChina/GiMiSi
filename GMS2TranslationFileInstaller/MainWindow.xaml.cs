@@ -60,6 +60,8 @@ namespace GMS2TranslationFileInstaller
             VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
             TextInstallDir.Text = strInstallDirNotFound;
             ComboBoxFont.SelectedIndex = 0;
+            // 下载Runtime Rss文件
+            RuntimeRssDownload();
         }
 
         private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
@@ -69,6 +71,7 @@ namespace GMS2TranslationFileInstaller
             {
                 TextInstallDir.Text = GetAutoSearchPath();
                 TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
+                // 加载字体
                 LoadFont();
                 EnableInstallation(true);
             }
@@ -180,9 +183,17 @@ namespace GMS2TranslationFileInstaller
         /// <summary>
         /// 浏览中文帮助文档
         /// </summary>
-        private void BtnRepairENG_Click(object sender, RoutedEventArgs e)
+        private void BtnManualCHN_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://gamemakerchina.github.io/GMS2_manual_en2ch/");
+        }
+
+        /// <summary>
+        /// 浏览英文帮助文档
+        /// </summary>
+        private void BtnManualENG_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://docs2.yoyogames.com/");
         }
 
         /// <summary>
@@ -202,22 +213,6 @@ namespace GMS2TranslationFileInstaller
                                                  "如有发生乱码问题，请更新后重试或联系QQ群或作者。", "翻译完成");
         }
         
-        /// <summary>
-        /// 安装汉化动作概述文件（未完成）
-        /// </summary>
-        private void BtnActOvInstallCHN_Click(object sender, RoutedEventArgs e)
-        {
-            ShowPromptNotImplement();
-        }
-
-        /// <summary>
-        /// 修复英文动作概述文件（未完成）
-        /// </summary>
-        private void BtnActOvRepairENG_Click(object sender, RoutedEventArgs e)
-        {
-            ShowPromptNotImplement();
-        }
-
         private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
@@ -239,7 +234,6 @@ namespace GMS2TranslationFileInstaller
             Process.Start(TextInstallDir.Text + "\\GameMakerStudio.exe");
         }
         #endregion
-
     }
 }
 

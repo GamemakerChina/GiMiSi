@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Web;
 using System.Windows.Controls;
+using System.Xml.Serialization;
 using static System.String;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -128,8 +129,6 @@ namespace GMS2TranslationFileInstaller
             BtnStartGMS2.IsEnabled = flag;
             //GroupBoxFont.IsEnabled = flag;
             //BtnRepairENG.IsEnabled = flag;
-            //BtnActOvInstallCHN.IsEnabled = flag;
-            //BtnActOvRepairENG.IsEnabled = flag;
         }
         
         private void ShowPromptNotImplement()
@@ -160,6 +159,5 @@ namespace GMS2TranslationFileInstaller
             }
             return keyString;
         }
-
     }
 }
