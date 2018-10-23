@@ -6,7 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using Newtonsoft.Json;
+using Binding = System.Windows.Data.Binding;
+using MessageBox = System.Windows.MessageBox;
 
 namespace GMS2TranslationFileInstaller
 {
@@ -18,6 +21,23 @@ namespace GMS2TranslationFileInstaller
         private static readonly string GMS2ConfigFilePath = Environment.GetEnvironmentVariable("systemdrive") + @"\ProgramData\GameMakerStudio2";
         private readonly string GMS2runtimesPath = GMS2ConfigFilePath + @"\Cache\runtimes";
         private List<Item> zeusRuntimeItem = new List<Item>();
+
+        #region 下载runtime
+        private void RuntimeRssDownloadTask()
+        {
+            // 异步加载runtime，不卡界面
+            Task task = new Task(tb => ActionRuntimeRssDownload(), ComboBoxRuntimeVersion);
+            task.Start();
+        }
+
+        /// <summary>
+        /// RuntimeRssDownload Action
+        /// </summary>
+        private void ActionRuntimeRssDownload()
+        {
+            Action updateAction = RuntimeRssDownload;
+            ComboBoxRuntimeVersion.Dispatcher.BeginInvoke(updateAction);
+        }
 
         private async void RuntimeRssDownload()
         {
@@ -31,14 +51,18 @@ namespace GMS2TranslationFileInstaller
                 {
                     Directory.CreateDirectory(GMS2runtimesPath);
                 }
+                if (File.Exists(@".\rss\Zeus-Runtime.rss"))
+                {
+                    File.Delete(@".\rss\Zeus-Runtime.rss");
+                }
                 await DownloadRssFileAsync();
-                // 打开文件 
+                // 打开文件
                 FileStream fileStream = new FileStream(@".\rss\Zeus-Runtime.rss", FileMode.Open, FileAccess.Read, FileShare.Read);
-                // 读取文件的 byte[] 
+                // 读取文件的 byte[]
                 byte[] bytes = new byte[fileStream.Length];
                 fileStream.Read(bytes, 0, bytes.Length);
                 fileStream.Close();
-                // 把 byte[] 转换成 Stream 
+                // 把 byte[] 转换成 Stream
                 Stream stream = new MemoryStream(bytes);
                 var rssStr = new StreamReader(stream, Encoding.UTF8).ReadToEnd();
                 Rss zeusRuntime = (Rss)XmlHelper.Deserialize(typeof(Rss), rssStr);
@@ -54,6 +78,8 @@ namespace GMS2TranslationFileInstaller
             }
             catch (Exception e)
             {
+                ComboBoxRuntimeVersion.IsEnabled = false;
+                ButtonRuntimeDownload.IsEnabled = false;
                 if (e.ToString().Contains("\r\n"))
                 {
                     GroupBoxRuntime.Header = "Rumtime 安装 - " + e.ToString().Substring(0, e.ToString().IndexOf("\r\n", StringComparison.Ordinal));
@@ -68,6 +94,11 @@ namespace GMS2TranslationFileInstaller
 
         private async void ButtonRuntimeDownload_Click(object sender, RoutedEventArgs e)
         {
+            if (GMS2ProcessIsRun())
+            {
+                MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 下载操作！", "警告");
+                return;
+            }
             GroupBoxIDE.IsEnabled = false;
             string runtimeVersion = ComboBoxRuntimeVersion.Text;
             string runtimeVersionPath = GMS2runtimesPath + @"\runtime-" + runtimeVersion;
@@ -83,17 +114,18 @@ namespace GMS2TranslationFileInstaller
                     }
                     else
                     {
+                        GroupBoxIDE.IsEnabled = true;
                         return;
                     }
                 }
-            }
-            else
-            {
-                Directory.Delete(runtimeVersionPath, true);
+                else
+                {
+                    Directory.Delete(runtimeVersionPath, true);
+                }
             }
             GroupBoxRuntime.IsEnabled = false;
             Directory.CreateDirectory(runtimeVersionPath + @"\download");
-            List<string> runtimeFileUrlList= new List<string>();
+            List<string> runtimeFileUrlList = new List<string>();
             Item runtimeItem = null;
             foreach (var item in zeusRuntimeItem)
             {
@@ -122,7 +154,7 @@ namespace GMS2TranslationFileInstaller
             }
             catch (Exception exception)
             {
-                MessageBox.Show("下载 runtime 文件失败");
+                MessageBox.Show("下载 runtime 文件失败，" + exception.ToString().Substring(0, exception.ToString().IndexOf("\r\n", StringComparison.Ordinal)));
             }
             finally
             {
@@ -131,7 +163,7 @@ namespace GMS2TranslationFileInstaller
             }
         }
 
-        /// <summary>
+        /*/// <summary>
         /// um文档反序列化 - 获取用户id以获取用户配置文件夹名
         /// </summary>
         private string umDeserialize()
@@ -157,7 +189,40 @@ namespace GMS2TranslationFileInstaller
             var um = JsonConvert.DeserializeObject<umRootObject>(umStr);
             // 获取userID以确认文件夹名
             return um.userID;
+        }*/
+        #endregion
+
+        #region 加载已安装runtime
+
+        private void LoadInstalledRuntime()
+        {
+            DataGridInstalledRuntime.Columns.Add(new DataGridTextColumn
+            {
+                Width = 80,
+                Header = "版本号",
+                Binding = new Binding($"[{0}]")
+            });
+            DataGridInstalledRuntime.Columns.Add(new DataGridTextColumn
+            {
+                Width = 420,
+                Header = "位置",
+                Binding = new Binding($"[{1}]")
+            });
+            RefreshInstalledRuntime(null, null);
         }
 
+        private void RefreshInstalledRuntime(object sender, RoutedEventArgs e)
+        {
+            DirectoryInfo Dir = new DirectoryInfo(GMS2runtimesPath);
+            DirectoryInfo[] DirSub = Dir.GetDirectories();
+            List<string[]> installedRuntimeList = new List<string[]>();
+            for (int i = DirSub.Length - 1; i >= 0; i--)
+            {
+                installedRuntimeList.Add(new[] { DirSub[i].Name.Replace("runtime-", ""), GMS2runtimesPath + DirSub[i].Name });
+            }
+            DataGridInstalledRuntime.ItemsSource = installedRuntimeList;
+        }
+
+        #endregion
     }
 }

@@ -48,11 +48,12 @@ namespace GMS2TranslationFileInstaller
             }
             try
             {
+                await Task.Delay(1);
                 await webClient.DownloadFileTaskAsync(new Uri("https://gms.magecorn.com/Zeus-Runtime.rss"), @".\rss\Zeus-Runtime.rss");
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show(e.ToString().Substring(0, e.ToString().IndexOf("\r\n", StringComparison.Ordinal)));
                 throw new Exception("下载 rss 文件失败");
             }
         }
@@ -72,6 +73,7 @@ namespace GMS2TranslationFileInstaller
             }
             catch (Exception e)
             {
+                MessageBox.Show(e.ToString());
                 throw new Exception("下载 runtime 文件失败");
             }
         }

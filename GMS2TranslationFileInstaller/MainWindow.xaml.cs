@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Web;
 using System.Text.RegularExpressions;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace GMS2TranslationFileInstaller
 {
@@ -60,10 +61,14 @@ namespace GMS2TranslationFileInstaller
             VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
             TextInstallDir.Text = strInstallDirNotFound;
             ComboBoxFont.SelectedIndex = 0;
+            LoadInstalledRuntime();
             // 下载Runtime Rss文件
-            RuntimeRssDownload();
+            RuntimeRssDownloadTask();
         }
 
+        /// <summary>
+        /// 自动查找复选框勾选
+        /// </summary>
         private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
         {
             BtnInstallDirBrowse.IsEnabled = false;
@@ -89,6 +94,13 @@ namespace GMS2TranslationFileInstaller
         /// </summary>
         private void ChBoxAutoSearch_Unchecked(object sender, RoutedEventArgs e)
         {
+            if (GroupBoxFont.Header.ToString() == "字体加载中...")
+            {
+                MessageBox.Show("请等待字体加载完毕", "警告");
+                CheckBoxAutoSearch.IsChecked = true;
+                GroupBoxFont.IsEnabled = false;
+                return;
+            }
             TextInstallDir.Text = strInstallDirNotFound;
             TextGMS2Verion.Text = "";
             BtnInstallDirBrowse.IsEnabled = true;

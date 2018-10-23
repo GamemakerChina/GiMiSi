@@ -54,7 +54,10 @@ namespace GMS2TranslationFileInstaller
         private void LoadFont()
         {
             if (FontSortedDictionary.Count != 0)
+            {
+                GroupBoxFont.IsEnabled = true;
                 return;
+            }
             var textBlockOpenSans = new TextBlock
             {
                 Text = "Open Sans",
@@ -63,7 +66,7 @@ namespace GMS2TranslationFileInstaller
             ComboBoxFont.Items.Add(textBlockOpenSans);
 
             // 异步加载字体，不卡界面
-            Task task = new Task(tb => ActionGroupBoxFont(), ComboBoxFont);
+            Task task = new Task(gb => ActionGroupBoxFont(), ComboBoxFont);
             GroupBoxFont.Header = "字体加载中...";
             task.Start();
         }
@@ -90,6 +93,7 @@ namespace GMS2TranslationFileInstaller
             }
             default_macrosDeserialize();
             GroupBoxFont.Header = "字体及字号设置";
+            isLoadFont = true;
             GroupBoxFont.IsEnabled = true;
         }
 
