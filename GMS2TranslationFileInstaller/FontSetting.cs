@@ -73,7 +73,7 @@ namespace GMS2TranslationFileInstaller
         /// </summary>
         private async void UpdateGroupBoxFont()
         {
-            FontSortedDictionary = FontRegedit.ReadFontInformation();
+            FontSortedDictionary = ReadFontInformation();
             foreach (var fonts in FontSortedDictionary)
             {
                 //读取字体文件             
@@ -202,5 +202,31 @@ namespace GMS2TranslationFileInstaller
             MessageBox.Show("设置成功保存！");
         }
 
+        //[System.Security.Permissions.RegistryPermissionAttribute(System.Security.Permissions.SecurityAction.PermitOnly, Read = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts")]// 约束代码仅可读注册表
+        public static SortedDictionary<string, string> ReadFontInformation()
+        {
+            var dictionary = new SortedDictionary<string, string>();
+
+            Microsoft.Win32.RegistryKey localMachineKey = Microsoft.Win32.Registry.LocalMachine;
+            // 打开注册表  
+            Microsoft.Win32.RegistryKey localMachineKeySub = localMachineKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts", false);
+
+            //获取字体名  
+            string[] mynames = localMachineKeySub.GetValueNames();
+
+            foreach (string name in mynames)
+            {
+                //获取字体的文件名  
+                string myvalue = localMachineKeySub.GetValue(name).ToString();
+
+                if (myvalue.Substring(myvalue.Length - 4).ToUpper() == ".TTF" && myvalue.Substring(1, 2).ToUpper() != @":\")
+                {
+                    string val = name.Substring(0, name.Length - 11);
+                    dictionary[val] = @"C:\Windows\Fonts\" + myvalue;
+                }
+            }
+            localMachineKeySub.Close();
+            return dictionary;
+        }
     }
 }

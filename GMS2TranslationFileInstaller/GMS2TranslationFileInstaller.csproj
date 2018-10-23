@@ -107,7 +107,6 @@
   <ItemGroup>
     <Compile Include="AppEntryPoint.cs" />
     <Compile Include="default_macrosJson.cs" />
-    <Compile Include="FontRegedit.cs" />
     <Compile Include="FontSetting.cs" />
     <Compile Include="MainWindowFunctions.cs" />
     <Compile Include="MainWindowStrings.cs" />
