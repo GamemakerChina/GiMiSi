@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -16,6 +17,7 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using static System.String;
 using static System.Windows.Application;
+using ComboBox = System.Windows.Controls.ComboBox;
 using FontFamily = System.Windows.Media.FontFamily;
 using TextBox = System.Windows.Forms.TextBox;
 using Media = System.Windows.Media;
@@ -71,7 +73,7 @@ namespace GMS2TranslationFileInstaller
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后再汉化，如果还有问题，请联系QQ群或作者QQ", "译文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后再汉化，如果还有问题，请联系QQ群或作者QQ", "译文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
         
@@ -130,7 +132,7 @@ namespace GMS2TranslationFileInstaller
         {
             BtnInstallCHN.IsEnabled = flag;
             BtnStartGMS2.IsEnabled = flag;
-            GroupBoxFont.IsEnabled = flag;
+            //GroupBoxFont.IsEnabled = flag;
             //BtnRepairENG.IsEnabled = flag;
             //BtnActOvInstallCHN.IsEnabled = flag;
             //BtnActOvRepairENG.IsEnabled = flag;
@@ -138,7 +140,7 @@ namespace GMS2TranslationFileInstaller
         
         private void ShowPromptNotImplement()
         {
-            System.Windows.Forms.MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         /// <summary>
@@ -209,6 +211,18 @@ namespace GMS2TranslationFileInstaller
                 FontFamily = new FontFamily("Open Sans.ttf")
             };
             ComboBoxFont.Items.Add(textBlockOpenSans);
+
+            // 异步加载字体，不卡界面
+            Task task = new Task(tb => ActionGroupBoxFont(), ComboBoxFont);
+            GroupBoxFont.Header = "字体加载中...";
+            task.Start();
+        }
+
+        /// <summary>
+        /// 更新GroupBoxFont
+        /// </summary>
+        private async void UpdateGroupBoxFont()
+        {
             FontSortedDictionary = FontRegedit.ReadFontInformation();
             foreach (var fonts in FontSortedDictionary)
             {
@@ -222,10 +236,22 @@ namespace GMS2TranslationFileInstaller
                 };
                 pfc.Dispose();
                 ComboBoxFont.Items.Add(textBlock);
+                await Task.Delay(1);
             }
             default_macrosDeserialize();
+            GroupBoxFont.Header = "字体及字号设置";
+            GroupBoxFont.IsEnabled = true;
         }
 
+        /// <summary>
+        /// GroupBoxFont Action
+        /// </summary>
+        private void ActionGroupBoxFont()
+        {
+            Action updateAction = UpdateGroupBoxFont;
+            ComboBoxFont.Dispatcher.BeginInvoke(updateAction);
+        }
+       
         /// <summary>
         /// 字体字典[字体名, 字体文件夹]
         /// </summary>

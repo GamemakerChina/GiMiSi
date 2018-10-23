@@ -140,7 +140,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="GMS2TranslationFileInstaller_TemporaryKey.pfx" />
     <None Include="Installer.nsi" />
     <Resource Include="Open Sans.ttf" />
     <None Include="packages.config" />
