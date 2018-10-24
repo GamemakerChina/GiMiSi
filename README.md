@@ -4,6 +4,8 @@
 
 汉化文件来源：[gms2translation](https://github.com/GamemakerChina/gms2translation/tree/gh-pages) 项目
 
+runtime 镜像来源：[gms2translation](https://gms.magecorn.com/#/) LiarOnce提供的国内镜像源
+
 修复小太版本：https://github.com/Oberon-Tonya/GMS2TranslationFileInstaller
 
 需要安装 [.Net Framework 4.5](https://www.microsoft.com/zh-CN/download/details.aspx?id=30653)
