@@ -1,4 +1,5 @@
-# GMS2TranslationFileInstaller
+# GMS2GiMiSi~
+
  GameMaker Studio 2 IDE 汉化安装器
 
 汉化文件来源：[gms2translation](https://github.com/GamemakerChina/gms2translation/tree/gh-pages) 项目
