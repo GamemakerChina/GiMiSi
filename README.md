@@ -1,4 +1,4 @@
-# GMS2GiMiSi~
+# GMS2 GiMiSi~
 
  GameMaker Studio 2 IDE 汉化及 runtime 管理器
 
