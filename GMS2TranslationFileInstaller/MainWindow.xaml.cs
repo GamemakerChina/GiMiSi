@@ -229,7 +229,15 @@ namespace GMS2TranslationFileInstaller
         {
             //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
         }
-        
+
+        /// <summary>
+        /// Runtime 国内镜像站页面
+        /// </summary>
+        private void Link2RuntimeMirrorSite_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start((sender as Hyperlink)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
+        }
+
         /// <summary>
         /// 源码页面
         /// </summary>

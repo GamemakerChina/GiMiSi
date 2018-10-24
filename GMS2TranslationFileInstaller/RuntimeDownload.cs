@@ -101,6 +101,7 @@ namespace GMS2TranslationFileInstaller
             }
             GroupBoxIDE.IsEnabled = false;
             string runtimeVersion = ComboBoxRuntimeVersion.Text;
+            int gms2Version = ComboBoxGms2Version.SelectedIndex;
             string runtimeVersionPath = GMS2runtimesPath + @"\runtime-" + runtimeVersion;
             if (Directory.Exists(runtimeVersionPath))
             {
@@ -135,13 +136,78 @@ namespace GMS2TranslationFileInstaller
                     break;
                 }
             }
-            runtimeFileUrlList.Add(runtimeItem.Enclosure.Url);
-            foreach (var module in runtimeItem.Enclosure.Module)
+            if (runtimeItem != null)
             {
-                if (module.Name == "windows" || module.Name == "windowsYYC" || module.Name == "linux" ||
-                    module.Name == "linuxYYC" || module.Name == "mac" || module.Name == "macYYC")
+                runtimeFileUrlList.Add(runtimeItem.Enclosure.Url);
+                foreach (var module in runtimeItem.Enclosure.Module)
                 {
-                    runtimeFileUrlList.Add(module.Url);
+                    switch (gms2Version)
+                    {
+                        case 0:// Desktop
+                            if (module.Name == "windows" || module.Name == "windowsYYC" || module.Name == "linux" ||
+                                module.Name == "linuxYYC" || module.Name == "mac" || module.Name == "macYYC")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 1:// Mac
+                            if (module.Name == "mac" || module.Name == "macYYC")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 2:// Windows
+                            if (module.Name == "windows" || module.Name == "windowsYYC")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 3:// Fire
+                            if (module.Name == "amazonfire")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 4:// Web
+                            if (module.Name == "html5")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 5:// Mobile
+                            if (module.Name == "amazonfire" || module.Name == "android" || module.Name == "ios")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 6:// UWP
+                            if (module.Name == "windowsuap")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 7:// PlayStation 4
+                            if (module.Name == "ps4")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 8:// Nintendo Switch
+                            if (module.Name == "switch")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        case 9:// XboxOne
+                            if (module.Name == "xboxone")
+                            {
+                                runtimeFileUrlList.Add(module.Url);
+                            }
+                            break;
+                        default:// 旗舰版
+                                runtimeFileUrlList.Add(module.Url);
+                            break;
+                    }
                 }
             }
             try
@@ -218,9 +284,33 @@ namespace GMS2TranslationFileInstaller
             List<string[]> installedRuntimeList = new List<string[]>();
             for (int i = DirSub.Length - 1; i >= 0; i--)
             {
-                installedRuntimeList.Add(new[] { DirSub[i].Name.Replace("runtime-", ""), GMS2runtimesPath + DirSub[i].Name });
+                installedRuntimeList.Add(new[] { DirSub[i].Name.Replace("runtime-", ""), GMS2runtimesPath + "\\" + DirSub[i].Name });
             }
             DataGridInstalledRuntime.ItemsSource = installedRuntimeList;
+            foreach (var column in DataGridInstalledRuntime.Columns)
+            {
+                column.IsReadOnly = true;
+            }
+        }
+
+        private void DeleteInstalledRuntime(object sender, RoutedEventArgs e)
+        {
+            if (GMS2ProcessIsRun())
+            {
+                MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 删除操作！", "警告");
+                return;
+            }
+            var DialogResult = MessageBox.Show("确定要删除 " + ((string[])DataGridInstalledRuntime.SelectedCells[1].Item)[0] + " 版本runtime吗？",
+                "警告", MessageBoxButton.OKCancel);
+            var runtimePath = ((string[])DataGridInstalledRuntime.SelectedCells[1].Item)[1];
+            if (DialogResult == MessageBoxResult.OK)
+            {
+                if (Directory.Exists(runtimePath))
+                {
+                    Directory.Delete(runtimePath, true);
+                }
+                RefreshInstalledRuntime(null, null);
+            }
         }
 
         #endregion

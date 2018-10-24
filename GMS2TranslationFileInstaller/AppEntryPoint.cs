@@ -78,6 +78,15 @@ namespace GMS2TranslationFileInstaller
 
             private static void App_Startup(object sender, StartupEventArgs e)
             {
+                //添加资源字典
+                ResourceDictionary GuiDictionary = new ResourceDictionary
+                {
+                    Source = new Uri(
+                        "pack://application:,,,/GMS2TranslationFileInstaller;component/Dictionary.xaml",
+                        UriKind.Absolute)
+                };
+                Current.Resources.MergedDictionaries.Add(GuiDictionary);
+
                 var mainWindowShow = new MainWindow();
                 mainWindowShow.InitializeComponent();
                 mainWindowShow.Show();

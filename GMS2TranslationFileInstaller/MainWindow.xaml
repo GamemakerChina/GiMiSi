@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GMS2TranslationFileInstaller"
         mc:Ignorable="d"
-        Name="WinMain" Title="GameMaker Studio 2 汉化及Runtime管理器" Height="700" Width="768" 
+        Name="WinMain" Title="GameMaker Studio 2 汉化及 Runtime 管理器" Height="700" Width="768" 
         Loaded="Window_Loaded" ResizeMode="CanMinimize">
-    
+
     <Grid Name="GrdMain" Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -21,29 +20,41 @@
         <GroupBox Grid.Column="0" x:Name="GroupBoxIDE" HorizontalAlignment="Left" VerticalAlignment="Top" Width="488" Height="233" Margin="10,120,0,0" Header="IDE 汉化">
             <Grid Margin="0,0,0.2,-12.6">
                 <TextBlock Grid.Column="0" x:Name="LabelInstalldir" Height="16" Margin="10,10,44,0" TextWrapping="Wrap" Text="GameMaker Studio 2 安装路径" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-                <TextBox Grid.Column="0" x:Name="TextInstallDir" Height="18" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="401"/>
-                <Button Grid.Column="0" x:Name ="BtnInstallDirBrowse" Content="浏览……" Height="18" Margin="416,31,0,0" VerticalAlignment="Top" Click="BtnInstallDir_Click" HorizontalAlignment="Left" Width="50"/>
-                <CheckBox Grid.Column="0" x:Name="CheckBoxAutoSearch" Content="自动查找" HorizontalAlignment="Left" Height="14" Margin="10,54,0,0" VerticalAlignment="Top" Width="78" Checked="ChBoxAutoSearch_Checked" Unchecked="ChBoxAutoSearch_Unchecked" FontSize="14"/>
-                <TextBlock Grid.Column="0" x:Name="TextGMS2Verion" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="93,54,0,0"/>
-                <Button Grid.Column="0" x:Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="130" Margin="10,77,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click" HorizontalAlignment="Left" Width="233" IsEnabled="False"/>
-                <Button Grid.Column="0" x:Name="BtnManualCHN" Content="浏览中文帮助文档&#xA; （未完全翻译，完成后&#xA;将可以内置进GMS2）" Height="75" Margin="248,77,0,0" VerticalAlignment="Top" Click="BtnManualCHN_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
-                <Button Grid.Column="0" x:Name="BtnManualENG" Content="浏览英文官方帮助文档" Height="50" Margin="248,157,0,0" VerticalAlignment="Top" Click="BtnManualENG_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
+                <TextBox Style="{StaticResource TextBoxStyle}" Grid.Column="0" x:Name="TextInstallDir" Height="18" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="401"/>
+                <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name ="BtnInstallDirBrowse" Content="浏览……" Height="18" Margin="416,31,0,0" VerticalAlignment="Top" Click="BtnInstallDir_Click" HorizontalAlignment="Left" Width="50"/>
+                <CheckBox Style="{StaticResource CheckBoxStyle}" Grid.Column="0" x:Name="CheckBoxAutoSearch" Content="自动查找"  Height="20" Margin="10,54,0,0" Checked="ChBoxAutoSearch_Checked" Unchecked="ChBoxAutoSearch_Unchecked" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
+                <TextBlock Grid.Column="0" x:Name="TextGMS2Verion" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,55,0,0" Height="18"/>
+                <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="130" Margin="10,77,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click" HorizontalAlignment="Left" Width="233" IsEnabled="False"/>
+                <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name="BtnManualCHN" Content="浏览中文帮助文档&#xA; （未完全翻译，完成后&#xA;将可以内置进GMS2）" Height="75" Margin="248,77,0,0" VerticalAlignment="Top" Click="BtnManualCHN_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
+                <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name="BtnManualENG" Content="浏览英文官方帮助文档" Height="50" Margin="248,157,0,0" VerticalAlignment="Top" Click="BtnManualENG_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
             </Grid>
         </GroupBox>
         <GroupBox Grid.Column="0" x:Name="GroupBoxRuntime" HorizontalAlignment="Left" VerticalAlignment="Top" Width="488" Height="232" Margin="10,358,0,0" Header="Runtime 安装包下载">
             <Grid>
-                <TextBlock TextWrapping="Wrap" Text="选择要安装的 runtime 版本" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-                <ComboBox x:Name="ComboBoxRuntimeVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="399" Margin="10,30,0,0"/>
-                <Button x:Name="ButtonRuntimeDownload" Content="下载" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Margin="414,30,0,0" Height="22" Click="ButtonRuntimeDownload_Click"/>
-                <Button Content="刷新" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Margin="175,63,0,0" Height="22" Click="RefreshInstalledRuntime"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" ><Run Text="选择要安装的 runtime 版本及 GMS2 版本 - 来源于 LiarOnce 的 "/><Hyperlink x:Name="Link2RuntimeMirrorSite" FontWeight="Bold" NavigateUri="https://gms.magecorn.com/?tdsourcetag=s_pcqq_aiomsg#/README" Click="Link2RuntimeMirrorSite_Click"><Run Text="Runtime 国内镜像站" /></Hyperlink></TextBlock>
+                <ComboBox x:Name="ComboBoxRuntimeVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="10,30,0,0"/>
+                <ComboBox x:Name="ComboBoxGms2Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="312" Margin="97,30,0,0" SelectedIndex="0">
+                    <TextBlock Text="GameMaker Studio 2 Desktop（包含 windows、mac、linux）"/>
+                    <TextBlock Text="GameMaker Studio 2 Creator Mac"/>
+                    <TextBlock Text="GameMaker Studio 2 Creator Windows"/>
+                    <TextBlock Text="GameMaker Studio 2 Fire"/>
+                    <TextBlock Text="GameMaker Studio 2 Web"/>
+                    <TextBlock Text="GameMaker Studio 2 Mobile"/>
+                    <TextBlock Text="GameMaker Studio 2 UWP"/>
+                    <TextBlock Text="GameMaker Studio 2 PS4（1年订阅许可）"/>
+                    <TextBlock Text="GameMaker Studio 2 Nintendo Switch（1年订阅许可）"/>
+                    <TextBlock Text="GameMaker Studio 2 Xbox One（1年订阅许可）"/>
+                    <TextBlock Text="GameMaker Studio 2 Ultimate（包含所有版本，1年订阅许可）"/>
+                </ComboBox>
+                <Button Style="{StaticResource BtnInfoStyle}" x:Name="ButtonRuntimeDownload" Content="下载" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Margin="414,30,0,0" Height="22" Click="ButtonRuntimeDownload_Click"/>
                 <TextBlock TextWrapping="Wrap" Text="已下载或安装的 runtime 版本" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,65,0,0"/>
-                <DataGrid RowHeaderWidth="0" x:Name="DataGridInstalledRuntime" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="114" VerticalAlignment="Top" Width="455" Margin="10,86,0,0"/>
+                <Button Style="{StaticResource BtnInfoStyle}" Content="刷新" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Margin="175,61,0,0" Height="22" Click="RefreshInstalledRuntime"/>
+                <Button Style="{StaticResource BtnInfoStyle}" Content="删除选中版本 runtime" HorizontalAlignment="Right" VerticalAlignment="Top" Width="129" Margin="0,61,11,0" Height="22" Click="DeleteInstalledRuntime"/>
+                <DataGrid AlternationCount="2" RowHeaderWidth="0" x:Name="DataGridInstalledRuntime" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="114" VerticalAlignment="Top" Width="455" Margin="10,86,0,0"/>
             </Grid>
         </GroupBox>
         <TextBlock Grid.Column="0" Height="56" Margin="28,595,180,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"><Run Text="GameMaker开发者之家QQ群：" /><Run Text=" "/><Run FontWeight="Bold" Text="235271204" /><Run Text=" "/><Run FontWeight="Bold" /><LineBreak /><Run Text="原作者：小太" /><Run Text=" "/><Run Text="（Oberon）&#x9;" /><Run Text=" "/><Run FontWeight="Bold" Text="QQ：360119124" /><LineBreak /><Run Text="更新：tpxxn" /><Run Text=" "/><Run FontWeight="Bold" Text="QQ：351765204" /><LineBreak /></TextBlock>
-        <Button x:Name="BtnStartGMS2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="65" Margin="333,595,0,0" Click="StartGMS2Button_Click">
-            <TextBlock Text="启动&#xA; GameMaker Studio 2" TextAlignment="Center" FontSize="14.5"/>
-        </Button>
+        <Button Style="{StaticResource BtnStartStyle}" x:Name="BtnStartGMS2" Content="              启动&#xA; GameMaker Studio 2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="65" Margin="333,595,0,0" Click="StartGMS2Button_Click"/>
         <GridSplitter Grid.Column="0" Width="2" IsEnabled="False" HorizontalAlignment="Left" Margin="507,0,0,10" />
         <TextBlock Grid.Column="1" Height="67" Margin="13,10,9.6,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="如果无法通过自动查找找到安装地址，可通过浏览" /><Run Text=" "/><Run Foreground="Red" Text="手动查找" /><Run Text=" "/><Run Text="安装目录，但无论如何，" /><Run Text=" "/><Run Foreground="Red" Text="请确保" /><Run Text=" "/><Run Foreground="Red" FontWeight="Bold" Text="GameMaker Studio 2已被正确安装" /><Run Text=" "/><Run Text="之后再尝试汉化或修复相应的文件。" /></TextBlock>
         <TextBlock x:Name="TextAnswer" TextDecorations="Underline" Text="为什么要这样？" Grid.Column="1" Height="24" Margin="13,77,154.6,0" VerticalAlignment="Top" Foreground="#FF00AEFF" MouseEnter="TextAnswer_MouseEnter" ToolTip="如果GameMaker Studio 2已经损坏或未能正确安装，重新安装GameMaker Studio 2之前&#xA;会先卸载之前安装的版本，卸载先前版本便会造成已经汉化完成的文件会被一并卸除，等到&#xA;安装完毕还得重新汉化。" Cursor="Help"/>
@@ -58,14 +69,14 @@
                 </StackPanel>
                 <Grid Margin="0,10,0,0">
                     <TextBlock Text="字号" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
-                    <TextBox x:Name="TextBoxFontSize" Text="9" Width="30" TextAlignment="Center" Cursor="IBeam" TextChanged="FontSize_TextChanged" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0" />
-                    <Button Margin="0,0,10,0" HorizontalAlignment="Right" Content="应用" FontSize="20" Click="SaveFont_OnClick" VerticalAlignment="Center"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" x:Name="TextBoxFontSize" Text="9" Width="30" TextAlignment="Center" Cursor="IBeam" TextChanged="FontSize_TextChanged" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0" />
+                    <Button Style="{StaticResource BtnInfoStyle}" Margin="0,0,10,0" HorizontalAlignment="Right" Content="应用" FontSize="20" Click="SaveFont_OnClick" VerticalAlignment="Center" Width="46"/>
                 </Grid>
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="下载进度" Height="82" Margin="12,394,7.6,0" VerticalAlignment="Top" FontSize="15">
             <StackPanel Margin="0,10,0,0">
-                <ProgressBar x:Name="ProgDownload" Height="18" VerticalAlignment="Top" Margin="5,0"/>
+                <ProgressBar Style="{StaticResource ProgressBarStyle}" x:Name="ProgDownload" Height="18" VerticalAlignment="Top" Margin="5,0"/>
                 <TextBlock  x:Name="DownloadFileName" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
             </StackPanel>
         </GroupBox>
