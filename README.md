@@ -4,7 +4,7 @@
 
 汉化文件来源：[gms2translation](https://github.com/GamemakerChina/gms2translation/tree/gh-pages) 项目
 
-runtime 镜像来源：[gms2translation](https://gms.magecorn.com/#/) LiarOnce提供的国内镜像源
+runtime 镜像来源：[GameMaker Studio 2 Runtime Mirror](https://gms.magecorn.com/#/) LiarOnce提供的国内镜像源
 
 修复小太版本：https://github.com/Oberon-Tonya/GMS2TranslationFileInstaller
 
