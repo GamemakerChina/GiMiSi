@@ -108,7 +108,7 @@ namespace GMS2GiMiSi
                 .GetValue("InstallLocation").ToString();
             if (IsNullOrEmpty(keyString))
             {
-                return strInstallDirNotFound;
+                return "<!未找到 GameMaker Studio 2 的路径>";
             }
             return keyString;
         }

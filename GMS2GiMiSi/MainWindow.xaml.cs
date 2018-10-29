@@ -59,7 +59,7 @@ namespace GMS2GiMiSi
         private void Window_Loaded(object sender, EventArgs e)
         {
             VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
-            TextInstallDir.Text = strInstallDirNotFound;
+            TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
             ComboBoxFont.SelectedIndex = 0;
             LoadInstalledRuntime();
         }

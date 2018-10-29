@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{447B8BEB-8FFE-4356-8C21-2254FEA253F2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GMS2TranslationFileInstaller</RootNamespace>
-    <AssemblyName>GMS2TranslationFileInstaller</AssemblyName>
+    <RootNamespace>GMS2GiMiSi</RootNamespace>
+    <AssemblyName>GMS2GiMiSi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,13 +69,13 @@
     <ManifestCertificateThumbprint>485415F37B9BA333554B41E46D226882748387DB</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>GMS2TranslationFileInstaller_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>GMS2GiMiSi_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>GMS2TranslationFileInstaller.App.EntryPoint</StartupObject>
+    <StartupObject>GMS2GiMiSi.App.EntryPoint</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -107,9 +107,7 @@
   <ItemGroup>
     <Compile Include="AppEntryPoint.cs" />
     <Compile Include="Class\default_macrosRootObject.cs" />
-    <Compile Include="FontSetting.cs" />
     <Compile Include="MainWindowFunctions.cs" />
-    <Compile Include="MainWindowStrings.cs" />
     <Compile Include="Class\Network.cs" />
     <Compile Include="Class\RegistryHelper.cs" />
     <Compile Include="Class\rssXml.cs" />
