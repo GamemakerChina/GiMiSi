@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GMS2GiMiSi
+﻿namespace GMS2GiMiSi.Class
 {
     internal class default_macrosRootObject
     {

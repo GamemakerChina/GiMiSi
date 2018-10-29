@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace GMS2GiMiSi
+namespace GMS2GiMiSi.Class
 {
     [XmlRoot(ElementName = "module")]
     public class Module

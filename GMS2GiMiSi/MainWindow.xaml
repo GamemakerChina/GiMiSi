@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Name="WinMain" Title="GMS2 吉米赛" Height="700" Width="768" 
+        Name="WinMain" Title="GameMaker Studio Z2 吉米赛" Height="700" Width="600" 
         PreviewKeyDown="Window_PreviewKeyDown" PreviewKeyUp="Window_PreviewKeyUp"
         WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" 
         AllowsTransparency="True" WindowStyle="None"
@@ -28,34 +28,29 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="82"/>
             </Grid.RowDefinitions>
             <Grid x:Name="UiGrid" Grid.Row="0">
                 <TextBlock x:Name="UiTitle" Text="GameMaker Studio 2 吉米赛" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" />
                 <Button x:Name="UiBtnClose" Width="25" ToolTip="退出" Click="UI_btn_close_Click" Height="25" HorizontalAlignment="Right" Margin="0,0,10,0" Cursor="Hand" Style="{StaticResource UI_btn_close_Style}" Focusable="False" VerticalAlignment="Center" />
                 <Button x:Name="UiBtnMinimized" Width="25" ToolTip="最小化" Click="UI_btn_minimized_Click" Height="25" HorizontalAlignment="Right" Margin="0,0,35,0" Cursor="Hand" Style="{StaticResource UI_btn_minimized_Style}" Focusable="False" VerticalAlignment="Center" />
             </Grid>
-            <Grid Grid.Row="1">
-                <Frame x:Name="RightFrame" Margin="0,103,0.4,96.8" Background="#FEFFFFFF" NavigationUIVisibility="Hidden"/>
-                <Image Grid.Column="0" Height="62" Margin="335,10,0,0" VerticalAlignment="Top" Source="Resources/Banner.png" HorizontalAlignment="Left" Width="189"/>
-                <Button Grid.Column="0" Focusable="False" Background="{x:Null}" BorderBrush="{x:Null}"  Height="62" Margin="529,10,0,0" VerticalAlignment="Top" Cursor="Hand" HorizontalAlignment="Left" Width="227" Click="GMCN_Link">
-                    <Image Source="Resources/logo.png"/>
-                </Button>
-                <GroupBox Header="下载进度" Height="82" Margin="10,557,10.4,0" VerticalAlignment="Top" FontSize="15">
-                    <StackPanel Margin="0,10,0,0">
-                        <ProgressBar Style="{StaticResource ProgressBarStyle}" x:Name="ProgDownload" Height="18" VerticalAlignment="Top" Margin="5,0"/>
-                        <TextBlock  x:Name="DownloadFileName" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </GroupBox>
-            </Grid>
+            <Frame Grid.Row="1" x:Name="RightFrame" Margin="10" Background="#FEFFFFFF" NavigationUIVisibility="Hidden"/>
+            <GroupBox Grid.Row="2" Header="下载进度" Height="82" Margin="10,0,10,0" VerticalAlignment="Top" FontSize="15">
+                <StackPanel Margin="0,10,0,0">
+                    <ProgressBar Style="{StaticResource ProgressBarStyle}" x:Name="ProgressBarDownload" Height="18" VerticalAlignment="Top" Margin="5,0"/>
+                    <TextBlock  x:Name="DownloadFileName" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                </StackPanel>
+            </GroupBox>
         </Grid>
         <Border x:Name="MainBorder" BorderThickness="1" Grid.ColumnSpan="5" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" BorderBrush="#FF2B2B2B" d:IsLocked="True"/>
-        <Border x:Name="ResizeTopLeft" BorderThickness="0" Grid.Row="0" Grid.Column="0" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeTop" BorderThickness="0" Grid.Row="0" Grid.Column="2" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.RowSpan="2" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeTopRight" BorderThickness="0" Grid.Row="0" Grid.Column="3" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeLeft" BorderThickness="0" Grid.Row="2" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.ColumnSpan="2" Grid.Column="0" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeRight" BorderThickness="0" Grid.Row="2" Grid.Column="3" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.ColumnSpan="2" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeBottomLeft" BorderThickness="0" Grid.Row="3" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="0" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeBottom" BorderThickness="0" Grid.Row="3" Grid.Column="2" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.RowSpan="2" Background="#00000000" d:IsLocked="True" />
-        <Border x:Name="ResizeBottomRight" BorderThickness="0" Grid.Row="3" Grid.Column="3" MouseMove="ResizePressed" MouseDown="ResizePressed" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#00000000" />
+        <Border x:Name="ResizeTopLeft" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeTop" BorderThickness="0" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeTopRight" BorderThickness="0" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeLeft" BorderThickness="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeRight" BorderThickness="0" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeBottomLeft" BorderThickness="0" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="0" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeBottom" BorderThickness="0" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Background="#00000000" d:IsLocked="True" />
+        <Border x:Name="ResizeBottomRight" BorderThickness="0" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#00000000" />
     </Grid>
 </Window>

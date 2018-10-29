@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using Microsoft.Win32;
 
-namespace GMS2GiMiSi
+namespace GMS2GiMiSi.Class
 {
     public class RegistryHelpers
     {

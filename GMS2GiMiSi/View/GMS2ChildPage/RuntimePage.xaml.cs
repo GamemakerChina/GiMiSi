@@ -28,10 +28,11 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             InitializeComponent();
             // 下载Runtime Rss文件
             RuntimeRssDownloadTask();
+            LoadInstalledRuntime();
         }
 
         /// <summary>
-        /// Runtime 国内镜像站页面
+        /// Runtime 国内镜像站页面(来源于LiarOnce)
         /// </summary>
         private void Link2RuntimeMirrorSite_Click(object sender, RoutedEventArgs e)
         {
@@ -78,7 +79,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 {
                     File.Delete(@".\rss\Zeus-Runtime.rss");
                 }
-                await DownloadRssFileAsync();
+                await Network.DownloadRssFileAsync();
                 // 打开文件
                 FileStream fileStream = new FileStream(@".\rss\Zeus-Runtime.rss", FileMode.Open, FileAccess.Read, FileShare.Read);
                 // 读取文件的 byte[]
@@ -105,11 +106,11 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 ButtonRuntimeDownload.IsEnabled = false;
                 if (e.ToString().Contains("\r\n"))
                 {
-                    GroupBoxRuntime.Header = "Rumtime 安装 - " + e.ToString().Substring(0, e.ToString().IndexOf("\r\n", StringComparison.Ordinal));
+                    //GroupBoxRuntime.Header = "Rumtime 安装 - " + e.ToString().Substring(0, e.ToString().IndexOf("\r\n", StringComparison.Ordinal));
                 }
                 else
                 {
-                    GroupBoxRuntime.Header = "Rumtime 安装 - " + e;
+                    //GroupBoxRuntime.Header = "Rumtime 安装 - " + e;
                 }
             }
         }
@@ -122,7 +123,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 下载操作！", "警告");
                 return;
             }
-            GroupBoxIDE.IsEnabled = false;
+            //GroupBoxIDE.IsEnabled = false;
             string runtimeVersion = ComboBoxRuntimeVersion.Text;
             int gms2Version = ComboBoxGms2Version.SelectedIndex;
             string runtimeVersionPath = GMS2runtimesPath + @"\runtime-" + runtimeVersion;
@@ -138,7 +139,6 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                     }
                     else
                     {
-                        GroupBoxIDE.IsEnabled = true;
                         return;
                     }
                 }
@@ -147,7 +147,6 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                     Directory.Delete(runtimeVersionPath, true);
                 }
             }
-            GroupBoxRuntime.IsEnabled = false;
             Directory.CreateDirectory(runtimeVersionPath + @"\download");
             List<string> runtimeFileUrlList = new List<string>();
             Item runtimeItem = null;
@@ -237,18 +236,13 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             {
                 foreach (var runtimeFile in runtimeFileUrlList)
                 {
-                    await DownloadRuntimeFileAsync(runtimeFile, runtimeVersionPath + @"\download");
+                    await Network.DownloadRuntimeFileAsync(runtimeFile, runtimeVersionPath + @"\download");
                 }
                 MessageBox.Show("下载 runtime 成功，请在Gamemaker Stuido 2 偏好设置 - 运行库管理中选择相应版本安装");
             }
             catch (Exception exception)
             {
                 MessageBox.Show("下载 runtime 文件失败，" + exception.ToString().Substring(0, exception.ToString().IndexOf("\r\n", StringComparison.Ordinal)));
-            }
-            finally
-            {
-                GroupBoxRuntime.IsEnabled = true;
-                GroupBoxIDE.IsEnabled = true;
             }
         }
 
@@ -337,5 +331,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         }
 
         #endregion
+
+
     }
 }

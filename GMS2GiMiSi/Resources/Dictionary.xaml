@@ -460,7 +460,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Grid Cursor="{DynamicResource CursorLink}">
+                    <Grid x:Name="Grid" Cursor="{DynamicResource CursorLink}">
                         <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         <Rectangle Visibility="Collapsed" x:Name="Rectangle" Fill="#3399FF" VerticalAlignment="Bottom" Height="3"/>
                     </Grid>
@@ -496,6 +496,9 @@
                         </MultiTrigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Visibility" TargetName="Rectangle" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" TargetName="Grid" Value="Hand"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

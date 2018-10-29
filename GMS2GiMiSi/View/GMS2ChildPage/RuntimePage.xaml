@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GMS2GiMiSi.View.GMS2ChildPage"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="RuntimePage">
+      d:DesignHeight="450"
+      Title="RuntimePage" Width="475.854">
 
     <Grid>
         <Grid>

@@ -14,12 +14,18 @@ namespace GMS2GiMiSi.Class
 {
     public class Network
     {
-        private readonly WebClient webClient = new WebClient();
+        private Network()
+        {
+            webClient.DownloadProgressChanged += WebClient_DownloadProgressChangedHandler;
+            webClient.DownloadFileCompleted += WebClient_DownloadFileCompletedHandler;
+        }
+
+        private static readonly WebClient webClient = new WebClient();
 
         /// <summary>
         /// 下载csv文件
         /// </summary>
-        public async Task DownloadFileAsync(bool chinese = true)
+        public static async Task DownloadFileAsync(bool chinese = true)
         {
             if (!Directory.Exists(@".\latest"))
             {
@@ -27,12 +33,12 @@ namespace GMS2GiMiSi.Class
             }
             if (chinese)
             {
-                DownloadFileName.Text = "chinese.csv";
+                Global.DownloadFileName.Text = "chinese.csv";
                 await webClient.DownloadFileTaskAsync(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/chinese.csv"), @".\latest\chinese.csv");
             }
             else
             {
-                DownloadFileName.Text = "english.csv";
+                Global.DownloadFileName.Text = "english.csv";
                 await webClient.DownloadFileTaskAsync(new Uri("https://raw.githubusercontent.com/GamemakerChina/gms2translation/gh-pages/latest/english.csv"), @".\latest\english.csv");
             }
         }
@@ -40,7 +46,7 @@ namespace GMS2GiMiSi.Class
         /// <summary>
         /// 下载runtime Rss xml文件
         /// </summary>
-        public async Task DownloadRssFileAsync()
+        public static async Task DownloadRssFileAsync()
         {
             if (!Directory.Exists(@".\rss"))
             {
@@ -63,12 +69,12 @@ namespace GMS2GiMiSi.Class
         /// </summary>
         /// <param name="url">下载地址</param>
         /// <param name="path">下载到的位置</param>
-        public async Task DownloadRuntimeFileAsync(string url, string path)
+        public static async Task DownloadRuntimeFileAsync(string url, string path)
         {
             try
             {
                 var filename = url.Substring(url.LastIndexOf("/", StringComparison.Ordinal) + 1, url.Length - url.LastIndexOf("/", StringComparison.Ordinal) - 1);
-                DownloadFileName.Text = filename;
+                Global.DownloadFileName.Text = filename;
                 await webClient.DownloadFileTaskAsync(new Uri(url), path + "\\" + filename);
             }
             catch (Exception e)
@@ -81,18 +87,18 @@ namespace GMS2GiMiSi.Class
         /// <summary>
         /// 更新百分比
         /// </summary>
-        public void WebClient_DownloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
+        private void WebClient_DownloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
         {
-            ProgDownload.Value = e.ProgressPercentage;
+            Global.ProgressBarDownload.Value = e.ProgressPercentage;
         }
 
         /// <summary>
         /// 下载完毕
         /// </summary>
-        public void WebClient_DownloadFileCompletedHandler(object sender, EventArgs e)
+        private void WebClient_DownloadFileCompletedHandler(object sender, EventArgs e)
         {
-            ProgDownload.Value = 0;
-            DownloadFileName.Text = string.Empty;
+            Global.ProgressBarDownload.Value = 0;
+            Global.DownloadFileName.Text = string.Empty;
         }
     }
 }

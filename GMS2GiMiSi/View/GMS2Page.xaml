@@ -13,7 +13,7 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ListBox FocusVisualStyle="{x:Null}" x:Name="TopListBox" Grid.Row="0" SelectionMode="Single" Background="{x:Null}" SelectionChanged="TopListBox_SelectionChanged">
+        <ListBox FocusVisualStyle="{x:Null}" x:Name="TopListBox" Grid.Row="0" BorderBrush="{x:Null}" SelectionMode="Single" Background="{x:Null}" SelectionChanged="TopListBox_SelectionChanged">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Horizontal"/>

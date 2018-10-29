@@ -49,47 +49,6 @@ namespace GMS2GiMiSi
             }
         }
 
-        private void ResizePressed(object sender, MouseEventArgs e)
-        {
-            if (!(sender is FrameworkElement element)) return;
-            var direction = (ResizeDirection)Enum.Parse(typeof(ResizeDirection), element.Name.Replace("Resize", ""));
-
-            switch (direction)
-            {
-                case ResizeDirection.Left:
-                    Cursor = Cursors.ScrollWE;
-                    break;
-                case ResizeDirection.Right:
-                    Cursor = Cursors.ScrollWE;
-                    break;
-                case ResizeDirection.Top:
-                    Cursor = Cursors.SizeNS;
-                    break;
-                case ResizeDirection.Bottom:
-                    Cursor = Cursors.SizeNS;
-                    break;
-                case ResizeDirection.TopLeft:
-                    Cursor = Cursors.SizeNWSE;
-                    break;
-                case ResizeDirection.BottomRight:
-                    Cursor = Cursors.SizeNWSE;
-                    break;
-                case ResizeDirection.TopRight:
-                    Cursor = Cursors.SizeNESW;
-                    break;
-                case ResizeDirection.BottomLeft:
-                    Cursor = Cursors.SizeNESW;
-                    break;
-            }
-            if (e.LeftButton == MouseButtonState.Pressed)
-                ResizeWindow(direction);
-        }
-
-        private void ResizeWindow(ResizeDirection direction)
-        {
-            SendMessage(_hwndSource.Handle, WmSyscommand, (IntPtr)(61440 + direction), IntPtr.Zero);
-        }
-
         /// <summary>
         /// MainWindow拖动窗口
         /// </summary>
@@ -110,7 +69,7 @@ namespace GMS2GiMiSi
             }
             // 如果鼠标位置在标题栏内，允许拖动  
             if (e.LeftButton != MouseButtonState.Pressed || (!inUiGrid && !inRightGridFrame && !inDedicatedServerFrame)) return;
-            Cursor = Cursors.Cross;
+            Cursor = Cursors.SizeAll;
             DragMove();
         }
 
@@ -119,7 +78,7 @@ namespace GMS2GiMiSi
         /// </summary>
         private void MainWindow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Cursor = ((TextBlock)CursorDictionary["CursorPointer"]).Cursor;
+            Cursor = Cursors.Arrow;
         }
 
         #endregion

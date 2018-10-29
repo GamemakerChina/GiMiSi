@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Version = GMS2GiMiSi.Class.Version;
 
 namespace GMS2GiMiSi.View.GMS2ChildPage
 {
@@ -20,9 +22,34 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
     /// </summary>
     public partial class AboutPage : Page
     {
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        private readonly Version version = new Version(System.Windows.Forms.Application.ProductVersion);
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public AboutPage()
         {
             InitializeComponent();
+            VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
+        }
+
+        /// <summary>
+        /// 源码页面
+        /// </summary>
+        private void Link2Code_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start((sender as Hyperlink)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
+        }
+
+        /// <summary>
+        /// GameMake 开发者之家链接
+        /// </summary>
+        private void GMCN_Link(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://www.52gmk.com/");
         }
     }
 }

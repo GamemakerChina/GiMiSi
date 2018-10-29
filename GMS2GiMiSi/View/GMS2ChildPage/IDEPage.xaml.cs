@@ -34,6 +34,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         {
             InitializeComponent();
             TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
+            ComboBoxFont.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -232,7 +233,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private async void CopyTransFileAsync()
         {
-            await DownloadFileAsync();
+            await Network.DownloadFileAsync();
             var sourcePath = @".\latest\chinese.csv";
             var targetPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             if (File.Exists(sourcePath))
@@ -292,7 +293,30 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             Process.Start(TextInstallDir.Text + "\\GameMakerStudio.exe");
         }
 
+        /// <summary>
+        /// 安装按钮状态
+        /// </summary>
+        /// <param name="flag">状态值</param>
+        private void EnableInstallation(bool flag)
+        {
+            BtnInstallCHN.IsEnabled = flag;
+            BtnStartGMS2.IsEnabled = flag;
+            //GroupBoxFont.IsEnabled = flag;
+            //BtnRepairENG.IsEnabled = flag;
+        }
+
+        private void TextAnswer_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            //TextAnswer.Foreground = new SolidColorBrush(Color.FromRgb())
+        }
+
         #region 加载字体
+
+        /// <summary>
+        /// 是否加载字体
+        /// </summary>
+        public static bool isLoadFont;
+
         private string default_font;
         private string default_font_size;
         /// <summary>

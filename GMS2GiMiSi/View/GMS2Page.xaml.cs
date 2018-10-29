@@ -23,6 +23,7 @@ namespace GMS2GiMiSi.View
         public GMS2Page()
         {
             InitializeComponent();
+            RootFrame.Navigate(new GMS2ChildPage.IDEPage());
         }
 
         private void TopListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
