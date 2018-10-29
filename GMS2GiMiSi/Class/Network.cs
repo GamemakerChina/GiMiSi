@@ -10,7 +10,7 @@ using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     public partial class MainWindow : Window
     {

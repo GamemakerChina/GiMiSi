@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Win32;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     public class RegistryHelpers
     {

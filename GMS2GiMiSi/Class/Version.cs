@@ -7,7 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
 
     class Version

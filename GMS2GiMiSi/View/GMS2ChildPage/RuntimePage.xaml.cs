@@ -1,20 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using Newtonsoft.Json;
-using Binding = System.Windows.Data.Binding;
-using MessageBox = System.Windows.MessageBox;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi.View.GMS2ChildPage
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// RuntimePage.xaml 的交互逻辑
+    /// </summary>
+    public partial class RuntimePage : Page
     {
+        public RuntimePage()
+        {
+            InitializeComponent();
+            // 下载Runtime Rss文件
+            RuntimeRssDownloadTask();
+        }
+
+        /// <summary>
+        /// Runtime 国内镜像站页面
+        /// </summary>
+        private void Link2RuntimeMirrorSite_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start((sender as Hyperlink)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
+        }
+
         /// <summary>
         /// GameMaker Studio 2 配置文件夹
         /// </summary>
@@ -205,7 +227,7 @@ namespace GMS2TranslationFileInstaller
                             }
                             break;
                         default:// 旗舰版
-                                runtimeFileUrlList.Add(module.Url);
+                            runtimeFileUrlList.Add(module.Url);
                             break;
                     }
                 }

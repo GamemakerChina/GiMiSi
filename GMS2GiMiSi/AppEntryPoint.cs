@@ -14,7 +14,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     /// <summary>
     /// App.xaml 的交互逻辑
@@ -22,7 +22,7 @@ namespace GMS2TranslationFileInstaller
     public class App : Application
     {
         /// <summary>
-        /// Interaction logic for App.xaml
+        /// 用于 App.xaml 的交互逻辑
         /// </summary>
         private class AppRun : Application
         {
@@ -50,13 +50,13 @@ namespace GMS2TranslationFileInstaller
                 try
                 {
                     var logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                        @"\GMS2TranslationFileInstall\Log\"; //设置文件夹位置
+                        @"\GMS2GiMiSi\Log\"; //设置文件夹位置
                     if (Directory.Exists(logFilePath) == false) //若文件夹不存在
                     {
                         Directory.CreateDirectory(logFilePath);
                     }
                     var logFilename = "log_" + DateTime.Now.ToString("yyyyMMdd") + "_" +
-                        DateTime.Now.ToString("hhmmss") + ".txt"; //设置文件名
+                        DateTime.Now.ToString("hhmmss") + ".log"; //设置文件名
                     var logPath = logFilePath + logFilename;
                     if (!File.Exists(logPath))
                     {
@@ -82,7 +82,7 @@ namespace GMS2TranslationFileInstaller
                 ResourceDictionary GuiDictionary = new ResourceDictionary
                 {
                     Source = new Uri(
-                        "pack://application:,,,/GMS2TranslationFileInstaller;component/Dictionary.xaml",
+                        "pack://application:,,,/GMS2GiMiSi;component/Resources/Dictionary.xaml",
                         UriKind.Absolute)
                 };
                 Current.Resources.MergedDictionaries.Add(GuiDictionary);
@@ -116,7 +116,7 @@ namespace GMS2TranslationFileInstaller
             }
             catch (Exception e)
             {
-                //if (dllName != "GMS2TranslationFileInstaller.resources")
+                //if (dllName != "GMS2GiMiSi.resources")
                 //MessageBox.Show("DLL未能正确加载，详细信息：\r\n" + e.Message + "\r\n" + dllName);
                 return null;
             }
@@ -134,7 +134,7 @@ namespace GMS2TranslationFileInstaller
             [STAThread]
             public static void Main(string[] args)
             {
-                // 工程名("GMS2TranslationFileInstaller")
+                // 工程名("GMS2GiMiSi")
                 var projectName = Assembly.GetExecutingAssembly().GetName().Name;
                 // 单实例监视
                 SingleInstanceWatcher = new Semaphore(0, 1, projectName, out _createdNew);

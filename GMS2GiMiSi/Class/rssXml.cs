@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     [XmlRoot(ElementName = "module")]
     public class Module

@@ -53,7 +53,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -106,18 +106,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppEntryPoint.cs" />
-    <Compile Include="default_macrosRootObject.cs" />
+    <Compile Include="Class\default_macrosRootObject.cs" />
     <Compile Include="FontSetting.cs" />
     <Compile Include="MainWindowFunctions.cs" />
     <Compile Include="MainWindowStrings.cs" />
-    <Compile Include="Network.cs" />
-    <Compile Include="RegistryHelper.cs" />
-    <Compile Include="rssXml.cs" />
-    <Compile Include="RuntimeDownload.cs" />
-    <Compile Include="umJson.cs" />
-    <Compile Include="Version.cs" />
-    <Compile Include="XmlHelper.cs" />
-    <Page Include="Dictionary.xaml">
+    <Compile Include="Class\Network.cs" />
+    <Compile Include="Class\RegistryHelper.cs" />
+    <Compile Include="Class\rssXml.cs" />
+    <Compile Include="Class\umJson.cs" />
+    <Compile Include="Class\Version.cs" />
+    <Compile Include="View\GMS2ChildPage\IDEPage.xaml.cs">
+      <DependentUpon>IDEPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GMS2ChildPage\RuntimePage.xaml.cs">
+      <DependentUpon>RuntimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Class\XmlHelper.cs" />
+    <Page Include="Resources\Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,6 +134,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\GMS2ChildPage\IDEPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GMS2ChildPage\RuntimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -148,7 +161,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Installer.nsi" />
     <Resource Include="Open Sans.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest">
@@ -163,13 +175,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Banner.png" />
+    <Resource Include="Resources\Banner.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="logo.png" />
+    <Resource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -184,13 +196,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="720px-GPLv3_Logo.svg.png" />
+    <Resource Include="Resources\720px-GPLv3_Logo.svg.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Release Notes.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DynamicLinkLibrary\Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\btn\btn_close_1.png" />
+    <Resource Include="Resources\btn\btn_close_2.png" />
+    <Resource Include="Resources\btn\btn_close_3.png" />
+    <Resource Include="Resources\btn\btn_minimized_1.png" />
+    <Resource Include="Resources\btn\btn_minimized_2.png" />
+    <Resource Include="Resources\btn\btn_minimized_3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

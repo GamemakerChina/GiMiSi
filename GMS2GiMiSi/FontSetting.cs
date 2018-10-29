@@ -12,7 +12,7 @@ using System.Windows.Media;
 using Newtonsoft.Json;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     public partial class MainWindow : Window
     {

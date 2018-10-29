@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     internal class default_macrosRootObject
     {

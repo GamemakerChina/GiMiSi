@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     public partial class MainWindow : Window
     {

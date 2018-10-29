@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 using static System.String;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace GMS2TranslationFileInstaller
+namespace GMS2GiMiSi
 {
     /// <summary>
     /// MainWindow类的独立函数
@@ -72,53 +72,6 @@ namespace GMS2TranslationFileInstaller
             }
         }
         
-        /// <summary>
-        /// 验证路径
-        /// </summary>
-        /// <param name="path">路径</param>
-        /// <returns>验证成功</returns>
-        private static bool VerifyPath(string path)
-        {
-            string languagePath = path + @"\Languages";
-            string configpath = path + @"\GameMakerStudio.exe.config";
-            string exepath = path + @"\GameMakerStudio.exe";
-            string actpath = path + @"\DnDLibs\YoYo Games\Languages";
-            if (Directory.Exists(path))
-            {
-                if (Directory.Exists(languagePath) && Directory.Exists(actpath))
-                {
-                    if (File.Exists(configpath))
-                    {
-                        if (File.Exists(exepath))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            throw new VerifyMissingExecutableException();
-                            //return false;
-                        }
-                    }
-                    else
-                    {
-                        throw new VerifyMissingConfigException();
-                        //return false;
-                    }
-                }
-                else
-                {
-                    throw new VerifyMissingLangDirException();
-                    //return false;
-                }
-
-            }
-            else
-            {
-                throw new VerifyMissingDirException();
-            }
-
-        }
-
         /// <summary>
         /// 安装按钮状态
         /// </summary>
