@@ -35,7 +35,7 @@
                 <Button x:Name="UiBtnClose" Width="25" ToolTip="退出" Click="UI_btn_close_Click" Height="25" HorizontalAlignment="Right" Margin="0,0,10,0" Cursor="Hand" Style="{StaticResource UI_btn_close_Style}" Focusable="False" VerticalAlignment="Center" />
                 <Button x:Name="UiBtnMinimized" Width="25" ToolTip="最小化" Click="UI_btn_minimized_Click" Height="25" HorizontalAlignment="Right" Margin="0,0,35,0" Cursor="Hand" Style="{StaticResource UI_btn_minimized_Style}" Focusable="False" VerticalAlignment="Center" />
             </Grid>
-            <Frame Grid.Row="1" x:Name="RightFrame" Margin="10" Background="#FEFFFFFF" NavigationUIVisibility="Hidden"/>
+            <Frame Grid.Row="1" x:Name="RightFrame" Margin="10" Background="#FEFFFFFF" NavigationUIVisibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <GroupBox Grid.Row="2" Header="下载进度" Height="82" Margin="10,0,10,0" VerticalAlignment="Top" FontSize="15">
                 <StackPanel Margin="0,10,0,0">
                     <ProgressBar Style="{StaticResource ProgressBarStyle}" x:Name="ProgressBarDownload" Height="18" VerticalAlignment="Top" Margin="5,0"/>

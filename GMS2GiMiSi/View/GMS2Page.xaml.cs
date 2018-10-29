@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GMS2GiMiSi.Class;
 
 namespace GMS2GiMiSi.View
 {
@@ -38,13 +39,16 @@ namespace GMS2GiMiSi.View
                     switch (listBoxItemName)
                     {
                         case "IDEBoxItem":
-                            RootFrame.Navigate(new GMS2ChildPage.IDEPage());
+                            // IDEPage
+                            RootFrame.Navigate(Global.PageManager[0,0]);
                             break;
                         case "RuntimeBoxItem":
-                            RootFrame.Navigate(new GMS2ChildPage.RuntimePage());
+                            // RuntimePage
+                            RootFrame.Navigate(Global.PageManager[0, 1]);
                             break;
                         case "AboutBoxItem":
-                            RootFrame.Navigate(new GMS2ChildPage.AboutPage());
+                            // AboutPage
+                            RootFrame.Navigate(Global.PageManager[0, 2]);
                             break;
                         default:
                             break;
