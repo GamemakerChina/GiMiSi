@@ -107,12 +107,16 @@
   <ItemGroup>
     <Compile Include="AppEntryPoint.cs" />
     <Compile Include="Class\default_macrosRootObject.cs" />
-    <Compile Include="MainWindowFunctions.cs" />
+    <Compile Include="Class\Global.cs" />
     <Compile Include="Class\Network.cs" />
     <Compile Include="Class\RegistryHelper.cs" />
     <Compile Include="Class\rssXml.cs" />
     <Compile Include="Class\umJson.cs" />
     <Compile Include="Class\Version.cs" />
+    <Compile Include="MainWindowUI.cs" />
+    <Compile Include="View\GMS2ChildPage\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\GMS2ChildPage\IDEPage.xaml.cs">
       <DependentUpon>IDEPage.xaml</DependentUpon>
     </Compile>
@@ -120,6 +124,9 @@
       <DependentUpon>RuntimePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\XmlHelper.cs" />
+    <Compile Include="View\GMS2Page.xaml.cs">
+      <DependentUpon>GMS2Page.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,11 +139,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\GMS2ChildPage\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\GMS2ChildPage\IDEPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GMS2ChildPage\RuntimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GMS2Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

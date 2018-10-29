@@ -1,0 +1,17 @@
+﻿<Page x:Class="GMS2GiMiSi.View.GMS2ChildPage.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GMS2GiMiSi.View.GMS2ChildPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AboutPage">
+
+    <Grid>
+        <TextBlock Margin="5,5,0,1" FontSize="12"><Run Text="GameMaker Studio 2 汉化管理器" /><LineBreak /><Run Text="-from GameMaker开发者之家" /><LineBreak /><Run Text="版本：" /><LineBreak /><Run x:Name="VersionDisplay" Text="&#x9;{0}" /><LineBreak /><LineBreak /><Run Text="软件遵循" /><Run Text=" "/><Run Text="GNU GPL v3.0协议" /><LineBreak /><Run FontWeight="Bold" /><LineBreak /><Hyperlink x:Name="Link2Code" FontWeight="Bold" NavigateUri="https://github.com/GamemakerChina/GMS2GiMiSi"
+                           Click="Link2Code_Click"><Run Text="软件源代码地址"/></Hyperlink><LineBreak /></TextBlock>
+        <Image HorizontalAlignment="Left" Height="44" Margin="182,90,0,0" VerticalAlignment="Top" Width="102" Source="/Resources/720px-GPLv3_Logo.svg.png" SnapsToDevicePixels="True"/>
+        <TextBlock Grid.Column="0" Height="56" Margin="28,200,180,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"><Run Text="GameMaker开发者之家QQ群：" /><Run Text=" "/><Run FontWeight="Bold" Text="235271204" /><Run Text=" "/><Run FontWeight="Bold" /><LineBreak /><Run Text="原作者：小太" /><Run Text=" "/><Run Text="（Oberon）&#x9;" /><Run Text=" "/><Run FontWeight="Bold" Text="QQ：360119124" /><LineBreak /><Run Text="更新：tpxxn" /><Run Text=" "/><Run FontWeight="Bold" Text="QQ：351765204" /><LineBreak /></TextBlock>
+    </Grid>
+</Page>

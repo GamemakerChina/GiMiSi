@@ -17,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GMS2GiMiSi.Class;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using MessageBox = System.Windows.Forms.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
@@ -31,6 +33,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         public IDEPage()
         {
             InitializeComponent();
+            TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
         }
 
         /// <summary>
@@ -39,58 +42,69 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         private void TextInstallDir_Changed(object sender, TextChangedEventArgs e)
         {
             GroupBoxFont.IsEnabled = false;
-            string path = TextInstallDir.Text;
-            if (path == "<!未找到 GameMaker Studio 2 的路径>" || path == "")
-            {
-                LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                LabelPathWarning.Text = "请选择 GameMaker Studio 2 的安装目录";
-                EnableInstallation(false);
-            }
-            else if (!PathIsValid(path))
-            {
-                LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                LabelPathWarning.Text = "文件路径不合法，可能包含无效字符";
-                TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
-                EnableInstallation(false);
-            }
-            else
-            {
-                LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                LabelPathWarning.Text = string.Empty;
-                try
-                {
-                    VerifyPath(path);
-                    FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
-                    new Version(fileVer.ProductVersion);
-                    EnableInstallation(true);
-                }
-                catch (VerifyMissingDirException)
-                {
-                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                    LabelPathWarning.Text = "目标路径不存在";
-                    EnableInstallation(false);
+            //string path = TextInstallDir.Text;
+            //if (path == "<!未找到 GameMaker Studio 2 的路径>" || path == "")
+            //{
+            //    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            //    LabelPathWarning.Text = "请选择 GameMaker Studio 2 的安装目录";
+            //    EnableInstallation(false);
+            //}
+            //else if (!PathIsValid(path))
+            //{
+            //    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            //    LabelPathWarning.Text = "文件路径不合法，可能包含无效字符";
+            //    TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
+            //    EnableInstallation(false);
+            //}
+            //else
+            //{
+            //    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            //    LabelPathWarning.Text = string.Empty;
+            //    try
+            //    {
+            //        VerifyPath(path);
+            //        FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
+            //        new Version(fileVer.ProductVersion);
+            //        EnableInstallation(true);
+            //    }
+            //    catch (VerifyMissingDirException)
+            //    {
+            //        LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            //        LabelPathWarning.Text = "目标路径不存在";
+            //        EnableInstallation(false);
 
-                }
-                catch (VerifyMissingLangDirException)
-                {
-                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                    LabelPathWarning.Text = "该目录下没有安装 GameMaker Studio 2 或已损坏";
-                    EnableInstallation(false);
-                }
-                catch (VerifyMissingExecutableException)
-                {
-                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
-                    LabelPathWarning.Text = "该目录下没有安装 GameMaker Studio 2 或已损坏";
-                    EnableInstallation(false);
-                }
-                catch (VerifyMissingConfigException)
-                {
-                    LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
-                    LabelPathWarning.Text = "能够进行安装，但 GameMaker Studio 2 的关键组件可能已损坏\n建议您重新安装 GameMaker Studio 2 之后再安装";
-                    FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
-                    EnableInstallation(true);
-                }
-            }
+            //    }
+            //    catch (VerifyMissingLangDirException)
+            //    {
+            //        LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
+            //        LabelPathWarning.Text = "该目录下没有安装 GameMaker Studio 2 或已损坏";
+            //        EnableInstallation(false);
+            //    }
+            //    catch (VerifyMissingExecutableException)
+            //    {
+            //        LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 255));
+            //        LabelPathWarning.Text = "该目录下没有安装 GameMaker Studio 2 或已损坏";
+            //        EnableInstallation(false);
+            //    }
+            //    catch (VerifyMissingConfigException)
+            //    {
+            //        LabelPathWarning.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+            //        LabelPathWarning.Text = "能够进行安装，但 GameMaker Studio 2 的关键组件可能已损坏\n建议您重新安装 GameMaker Studio 2 之后再安装";
+            //        FileVersionInfo fileVer = FileVersionInfo.GetVersionInfo(path + @"\GameMakerStudio.exe");
+            //        EnableInstallation(true);
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// 验证路径有效性
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <returns>验证结果</returns>
+        private bool PathIsValid(string path)
+        {
+            Regex reg = new Regex(@"^([a-zA-Z]:(\\|\/))?([^\:\/\*\?\""\<\>\|\,]+)?$");
+            return reg.IsMatch(path);
         }
 
         /// <summary>
@@ -201,7 +215,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private void BtnInstallCHN_Click(object sender, RoutedEventArgs e)
         {
-            if (GMS2ProcessIsRun())
+            if (Global.GMS2ProcessIsRun())
             {
                 System.Windows.MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行汉化操作！", "警告");
                 return;
@@ -213,6 +227,47 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                                                  "如有发生乱码问题，请更新后重试或联系QQ群或作者。", "翻译完成");
         }
 
+        /// <summary>
+        /// 复制 IDE 汉化文件
+        /// </summary>
+        private async void CopyTransFileAsync()
+        {
+            await DownloadFileAsync();
+            var sourcePath = @".\latest\chinese.csv";
+            var targetPath = TextInstallDir.Text + @"\Languages\chinese.csv";
+            if (File.Exists(sourcePath))
+            {
+                File.Copy(sourcePath, targetPath, true);
+            }
+            else
+            {
+                MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后再汉化，如果还有问题，请联系QQ群或作者QQ", "译文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        /// <summary>
+        /// 获取自动搜索路径
+        /// </summary>
+        /// <returns>GMS2 安装路径</returns>
+        private string GetAutoSearchPath()
+        {
+            string keyString;
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2");
+            if (key != null)
+            {
+                keyString = key.GetValue("Install_Dir").ToString();
+                key.Close();
+                return keyString;
+            }
+            keyString = RegistryHelpers
+                .GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410")
+                .GetValue("InstallLocation").ToString();
+            if (string.IsNullOrEmpty(keyString))
+            {
+                return "<!未找到 GameMaker Studio 2 的路径>";
+            }
+            return keyString;
+        }
         /// <summary>
         /// 浏览中文帮助文档
         /// </summary>
@@ -227,6 +282,14 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         private void BtnManualENG_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("http://docs2.yoyogames.com/");
+        }
+
+        /// <summary>
+        /// 启动GMS2
+        /// </summary>
+        private void StartGMS2Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(TextInstallDir.Text + "\\GameMakerStudio.exe");
         }
 
         #region 加载字体
@@ -370,7 +433,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private void SaveFont_OnClick(object sender, RoutedEventArgs e)
         {
-            if (GMS2ProcessIsRun())
+            if (Global.GMS2ProcessIsRun())
             {
                 System.Windows.MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后应用修改！", "警告");
                 return;

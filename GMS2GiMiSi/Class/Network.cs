@@ -10,16 +10,16 @@ using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GMS2GiMiSi
+namespace GMS2GiMiSi.Class
 {
-    public partial class MainWindow : Window
+    public class Network
     {
         private readonly WebClient webClient = new WebClient();
 
         /// <summary>
         /// 下载csv文件
         /// </summary>
-        private async Task DownloadFileAsync(bool chinese = true)
+        public async Task DownloadFileAsync(bool chinese = true)
         {
             if (!Directory.Exists(@".\latest"))
             {
@@ -40,7 +40,7 @@ namespace GMS2GiMiSi
         /// <summary>
         /// 下载runtime Rss xml文件
         /// </summary>
-        private async Task DownloadRssFileAsync()
+        public async Task DownloadRssFileAsync()
         {
             if (!Directory.Exists(@".\rss"))
             {
@@ -63,7 +63,7 @@ namespace GMS2GiMiSi
         /// </summary>
         /// <param name="url">下载地址</param>
         /// <param name="path">下载到的位置</param>
-        private async Task DownloadRuntimeFileAsync(string url, string path)
+        public async Task DownloadRuntimeFileAsync(string url, string path)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace GMS2GiMiSi
         /// <summary>
         /// 更新百分比
         /// </summary>
-        private void WebClient_DownloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
+        public void WebClient_DownloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
         {
             ProgDownload.Value = e.ProgressPercentage;
         }
@@ -89,7 +89,7 @@ namespace GMS2GiMiSi
         /// <summary>
         /// 下载完毕
         /// </summary>
-        private void WebClient_DownloadFileCompletedHandler(object sender, EventArgs e)
+        public void WebClient_DownloadFileCompletedHandler(object sender, EventArgs e)
         {
             ProgDownload.Value = 0;
             DownloadFileName.Text = string.Empty;

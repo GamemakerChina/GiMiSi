@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GMS2GiMiSi.View.GMS2ChildPage"
       mc:Ignorable="d"
-      Title="IDEPage" Width="550" Height="340">
+      Title="IDEPage" Width="550" Height="600">
 
     <Grid>
         <Grid>
@@ -18,5 +18,23 @@
             <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="1" x:Name="BtnManualCHN" Content="浏览中文帮助文档&#xA; （未完全翻译，完成后&#xA;将可以内置进GMS2）" Height="75" Margin="212.3,77,0,0" VerticalAlignment="Top" Click="BtnManualCHN_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
             <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="1" x:Name="BtnManualENG" Content="浏览英文官方帮助文档" Height="50" Margin="212.3,157,0,0" VerticalAlignment="Top" Click="BtnManualENG_Click" FontSize="18" HorizontalAlignment="Left" Width="218"/>
         </Grid>
+        <GroupBox x:Name="GroupBoxFont" IsEnabled="False" Grid.Column="1" Header="软件字体及字号设置" Height="107" Margin="10,230,10,0" VerticalAlignment="Top" FontSize="15">
+            <StackPanel Margin="5,10,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="字体" FontSize="20" />
+                    <ComboBox x:Name="ComboBoxFont" Margin="10,0,0,0" Focusable="False" SelectedIndex="1" IsReadOnly="True" Width="160"/>
+                </StackPanel>
+                <Grid Margin="0,10,0,0">
+                    <TextBlock Text="字号" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" x:Name="TextBoxFontSize" Text="9" Width="30" TextAlignment="Center" Cursor="IBeam" TextChanged="FontSize_TextChanged" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0" />
+                    <Button Style="{StaticResource BtnInfoStyle}" Margin="0,0,10,0" HorizontalAlignment="Right" Content="应用" FontSize="20" Click="SaveFont_OnClick" VerticalAlignment="Center" Width="46"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Margin="10,360,10,0">
+            <TextBlock Height="36" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="如果无法通过自动查找找到安装地址，可通过浏览" /><Run Text=" "/><Run Foreground="Red" Text="手动查找" /><Run Text=" "/><Run Text="安装目录，但无论如何，" /><Run Text=" "/><Run Foreground="Red" Text="请确保" /><Run Text=" "/><Run Foreground="Red" FontWeight="Bold" Text="GameMaker Studio 2已被正确安装" /><Run Text=" "/><Run Text="之后再尝试汉化或修复相应的文件。" /></TextBlock>
+            <TextBlock x:Name="TextAnswer" TextDecorations="Underline" Text="为什么要这样？" Grid.Column="1" Height="24" VerticalAlignment="Top" Foreground="#FF00AEFF" MouseEnter="TextAnswer_MouseEnter" ToolTip="如果GameMaker Studio 2已经损坏或未能正确安装，重新安装GameMaker Studio 2之前&#xA;会先卸载之前安装的版本，卸载先前版本便会造成已经汉化完成的文件会被一并卸除，等到&#xA;安装完毕还得重新汉化。" Cursor="Help"/>
+        </StackPanel>
+        <Button Style="{StaticResource BtnStartStyle}" x:Name="BtnStartGMS2" Content="              启动&#xA; GameMaker Studio 2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="65" Margin="0,450,0,0" Click="StartGMS2Button_Click"/>
     </Grid>
 </Page>

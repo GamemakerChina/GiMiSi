@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Controls;
-using System.Deployment.Application;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,8 +17,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Web;
 using System.Text.RegularExpressions;
+using System.Windows.Interop;
+using GMS2GiMiSi.Properties;
+using GMS2GiMiSi.View;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace GMS2GiMiSi
@@ -54,14 +58,18 @@ namespace GMS2GiMiSi
             InitializeComponent();
             webClient.DownloadProgressChanged += WebClient_DownloadProgressChangedHandler;
             webClient.DownloadFileCompleted += WebClient_DownloadFileCompletedHandler;
+            // 窗口缩放
+            SourceInitialized += delegate (object sender, EventArgs e) { _hwndSource = PresentationSource.FromVisual((Visual)sender) as HwndSource; };
+            MouseMove += Window_MouseMove;
         }
 
         private void Window_Loaded(object sender, EventArgs e)
         {
             VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
-            TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
             ComboBoxFont.SelectedIndex = 0;
             LoadInstalledRuntime();
+            RightFrame.Visibility = Visibility.Visible;
+            RightFrame.NavigationService.Navigate(new GMS2Page());
         }
 
         /// <summary>
@@ -85,14 +93,25 @@ namespace GMS2GiMiSi
             Process.Start((sender as Hyperlink)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
         }
 
-        /// <summary>
-        /// 启动GMS2
-        /// </summary>
-        private void StartGMS2Button_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(TextInstallDir.Text + "\\GameMakerStudio.exe");
-        }
         #endregion
+
+        /// <summary>
+        /// 安装按钮状态
+        /// </summary>
+        /// <param name="flag">状态值</param>
+        private void EnableInstallation(bool flag)
+        {
+            BtnInstallCHN.IsEnabled = flag;
+            BtnStartGMS2.IsEnabled = flag;
+            //GroupBoxFont.IsEnabled = flag;
+            //BtnRepairENG.IsEnabled = flag;
+        }
+
+        private void ShowPromptNotImplement()
+        {
+            MessageBox.Show("501 Not Implemented:\n    非常抱歉，该功能正在上线中，敬请期待！", "Coming soon！", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
     }
 }
 

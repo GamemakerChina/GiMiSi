@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GMS2GiMiSi.Class;
 
 namespace GMS2GiMiSi.View.GMS2ChildPage
 {
@@ -116,7 +117,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
 
         private async void ButtonRuntimeDownload_Click(object sender, RoutedEventArgs e)
         {
-            if (GMS2ProcessIsRun())
+            if (Global.GMS2ProcessIsRun())
             {
                 MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 下载操作！", "警告");
                 return;
@@ -317,7 +318,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
 
         private void DeleteInstalledRuntime(object sender, RoutedEventArgs e)
         {
-            if (GMS2ProcessIsRun())
+            if (Global.GMS2ProcessIsRun())
             {
                 MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 删除操作！", "警告");
                 return;
