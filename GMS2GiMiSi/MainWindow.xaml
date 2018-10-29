@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Name="WinMain" Title="GameMaker Studio Z2 吉米赛" Height="700" Width="600" 
+        Name="WinMain" Title="GameMaker Studio Z2 吉米赛" Height="550" Width="500" 
         PreviewKeyDown="Window_PreviewKeyDown" PreviewKeyUp="Window_PreviewKeyUp"
         WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" 
         AllowsTransparency="True" WindowStyle="None"

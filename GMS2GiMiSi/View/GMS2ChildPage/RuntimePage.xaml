@@ -4,11 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GMS2GiMiSi.View.GMS2ChildPage"
-      mc:Ignorable="d" 
-      d:DesignHeight="450"
-      Title="RuntimePage" Width="475.854">
+      mc:Ignorable="d"
+      Title="RuntimePage" Width="475.854" Height="227.195">
 
-    <Grid>
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
         <Grid>
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" ><Run Text="选择要安装的 runtime 版本及 GMS2 版本 - 来源于 LiarOnce 的 "/><Hyperlink x:Name="Link2RuntimeMirrorSite" FontWeight="Bold" NavigateUri="https://gms.magecorn.com/?tdsourcetag=s_pcqq_aiomsg#/README" Click="Link2RuntimeMirrorSite_Click"><Run Text="Runtime 国内镜像站" /></Hyperlink></TextBlock>
             <ComboBox x:Name="ComboBoxRuntimeVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="10,30,0,0"/>
