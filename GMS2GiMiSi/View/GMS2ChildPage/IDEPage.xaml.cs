@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using GMS2GiMiSi.Class;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Cursors = System.Windows.Input.Cursors;
 using MessageBox = System.Windows.Forms.MessageBox;
 using TextBox = System.Windows.Controls.TextBox;
 
@@ -30,11 +31,107 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
     /// </summary>
     public partial class IDEPage : Page
     {
+
+        /// <summary>
+        /// 版本[Standalone, Steam]
+        /// </summary>
+        public enum Edition
+        {
+            Standalone,
+            Steam
+        }
+
         public IDEPage()
         {
             InitializeComponent();
+            Log.WriteLog(Log.LogLevel.信息, "吉米赛启动...");
             TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
             ComboBoxFont.SelectedIndex = 0;
+            // 加载字体
+            LoadFont();
+        }
+
+        /// <summary>
+        /// 已安装GMS2目录字典
+        /// </summary>
+        private static readonly Dictionary<string, string> installedDictionary = new Dictionary<string, string>();
+
+        /// <summary>
+        /// 自动搜索安装目录
+        /// </summary>
+        private void AutoSearchDirBrowse_OnClick(object sender, RoutedEventArgs e)
+        {
+            Log.WriteLog(Log.LogLevel.信息, "自动搜索安装目录");
+            GetInstalledGMS2Dir();
+        }
+
+        /// <summary>
+        /// 获取安装目录
+        /// </summary>
+        private void GetInstalledGMS2Dir()
+        {
+            GetAutoSearchPath();
+            if (installedDictionary.Count != 0)
+            {
+                Log.WriteLog(Log.LogLevel.信息, "检索到" + installedDictionary.Count + "个版本");
+                GMS2VersionComboBox.Items.Clear();
+                foreach (var key in installedDictionary.Keys)
+                {
+                    var textblock = new TextBlock
+                    {
+                        Text = key,
+                        Cursor = Cursors.Hand
+                    };
+                    GMS2VersionComboBox.Items.Add(textblock);
+                }
+                GMS2VersionComboBox.IsEnabled = true;
+                GMS2VersionComboBox.SelectedIndex = 0;
+                AutoSearchDirButton.IsEnabled = false;
+                BtnInstallCHN.IsEnabled = true;
+                Log.WriteLog(Log.LogLevel.信息, "自动搜索完毕");
+            }
+            else
+            {
+                // TODO 未找到安装路径
+            }
+        }
+
+        /// <summary>
+        /// 获取自动搜索路径
+        /// </summary>
+        /// <returns>GMS2 安装路径</returns>
+        private static void GetAutoSearchPath()
+        {
+            Log.WriteLog(Log.LogLevel.信息, "从注册表获取GameMaker Studio 2安装路径");
+            installedDictionary.Clear();
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2");
+            if (key != null)
+            {
+                // 官网安装板
+                installedDictionary.Add("官网下载版", key.GetValue("Install_Dir").ToString());
+                key.Close();
+            }
+            var steamPath = RegistryHelpers
+                .GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410")
+                .GetValue("InstallLocation").ToString();
+            if (!string.IsNullOrEmpty(steamPath))
+            {
+                installedDictionary.Add("Steam版", steamPath);
+            }
+        }
+
+        private void GMS2VersionComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GMS2VersionComboBox.Items.Count != 0)
+            {
+                var version = ((TextBlock)GMS2VersionComboBox.Items[GMS2VersionComboBox.SelectedIndex]).Text;
+                TextInstallDir.Text = installedDictionary[version];
+                if (isLoadFont)
+                {
+                    default_macrosDeserialize();
+                    GroupBoxFont.IsEnabled = true;
+                }
+            }
         }
 
         /// <summary>
@@ -160,57 +257,30 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private void BtnInstallDir_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog dial = new FolderBrowserDialog
+            Log.WriteLog(Log.LogLevel.信息, "手动选择安装目录");
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "请选择 GameMaker Studio 2 的安装目录"
             };
-            if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                TextInstallDir.Text = dial.SelectedPath;
-                TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
-                LoadFont();
+                Log.WriteLog(Log.LogLevel.信息, "已选择目录：" + folderBrowserDialog.SelectedPath);
+                TextInstallDir.Text = folderBrowserDialog.SelectedPath;
+                installedDictionary.Clear();
+                var version = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
+                GMS2VersionComboBox.Items.Clear();
+                GMS2VersionComboBox.IsEnabled = true;
+                GMS2VersionComboBox.Items.Add(new TextBlock
+                {
+                    Text = version,
+                    Cursor = Cursors.Hand
+                });
+                installedDictionary.Add(version, TextInstallDir.Text);
+                GMS2VersionComboBox.SelectedIndex = 0;
+                AutoSearchDirButton.IsEnabled = true;
+                BtnInstallCHN.IsEnabled = true;
+                Log.WriteLog(Log.LogLevel.信息, "手动选择安装目录完毕");
             }
-        }
-
-        /// <summary>
-        /// 自动查找复选框勾选
-        /// </summary>
-        private void ChBoxAutoSearch_Checked(object sender, RoutedEventArgs e)
-        {
-            BtnInstallDirBrowse.IsEnabled = false;
-            try
-            {
-                TextInstallDir.Text = GetAutoSearchPath();
-                TextGMS2Verion.Text = TextInstallDir.Text.Contains(@"common\GameMaker Studio 2") ? "Steam版" : "官网下载版";
-                // 加载字体
-                LoadFont();
-                EnableInstallation(true);
-            }
-            catch (IOException)
-            {
-                TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
-                EnableInstallation(false);
-                System.Windows.Forms.MessageBox.Show("自动查找未能找到 GameMaker Studio 2 的安装位置，请检查安装路径或取消勾选自动查找并尝试手动查找", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            //SnapToProperVersion();
-        }
-
-        /// <summary>
-        /// 自动查找复选框取消勾选
-        /// </summary>
-        private void ChBoxAutoSearch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (GroupBoxFont.Header.ToString() == "字体加载中...")
-            {
-                MessageBox.Show("请等待字体加载完毕", "警告");
-                CheckBoxAutoSearch.IsChecked = true;
-                GroupBoxFont.IsEnabled = false;
-                return;
-            }
-            TextInstallDir.Text = "<!未找到 GameMaker Studio 2 的路径>";
-            TextGMS2Verion.Text = "";
-            BtnInstallDirBrowse.IsEnabled = true;
-            EnableInstallation(false);
         }
 
         /// <summary>
@@ -248,29 +318,6 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             }
         }
 
-        /// <summary>
-        /// 获取自动搜索路径
-        /// </summary>
-        /// <returns>GMS2 安装路径</returns>
-        private string GetAutoSearchPath()
-        {
-            string keyString;
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2");
-            if (key != null)
-            {
-                keyString = key.GetValue("Install_Dir").ToString();
-                key.Close();
-                return keyString;
-            }
-            keyString = RegistryHelpers
-                .GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410")
-                .GetValue("InstallLocation").ToString();
-            if (string.IsNullOrEmpty(keyString))
-            {
-                return "<!未找到 GameMaker Studio 2 的路径>";
-            }
-            return keyString;
-        }
         /// <summary>
         /// 浏览中文帮助文档
         /// </summary>
@@ -326,6 +373,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private void default_macrosDeserialize()
         {
+            Log.WriteLog(Log.LogLevel.信息, "开始反序列化 default_macros.json");
             // 打开文件 
             FileStream fileStream = new FileStream(TextInstallDir.Text + @"\defaults\default_macros.json", FileMode.Open, FileAccess.Read, FileShare.Read);
             // 读取文件的 byte[] 
@@ -348,6 +396,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 }
             }
             TextBoxFontSize.Text = default_font_size;
+            Log.WriteLog(Log.LogLevel.信息, "反序列化 default_macros.json 完毕");
         }
 
         /// <summary>
@@ -355,6 +404,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private void LoadFont()
         {
+            Log.WriteLog(Log.LogLevel.信息, "加载初始 Open Sans 字体");
             if (FontSortedDictionary.Count != 0)
             {
                 GroupBoxFont.IsEnabled = true;
@@ -368,6 +418,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             ComboBoxFont.Items.Add(textBlockOpenSans);
 
             // 异步加载字体，不卡界面
+            Log.WriteLog(Log.LogLevel.信息, "开始异步加载字体");
             Task task = new Task(gb => ActionGroupBoxFont(), ComboBoxFont);
             GroupBoxFont.Header = "字体加载中...";
             task.Start();
@@ -378,10 +429,12 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private async void UpdateGroupBoxFont()
         {
+            Log.WriteLog(Log.LogLevel.信息, "从注册表获取系统已安装字体");
             FontSortedDictionary = ReadFontInformation();
+            Log.WriteLog(Log.LogLevel.信息, "加载字体");
             foreach (var fonts in FontSortedDictionary)
             {
-                //读取字体文件             
+                // 读取字体文件             
                 var pfc = new PrivateFontCollection();
                 pfc.AddFontFile(fonts.Value);
                 var textBlock = new TextBlock
@@ -393,10 +446,14 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 ComboBoxFont.Items.Add(textBlock);
                 await Task.Delay(1);
             }
-            default_macrosDeserialize();
             GroupBoxFont.Header = "字体及字号设置";
+            if (TextInstallDir.Text != "<!未找到 GameMaker Studio 2 的路径>")
+            {
+                default_macrosDeserialize();
+                GroupBoxFont.IsEnabled = true;
+            }
             isLoadFont = true;
-            GroupBoxFont.IsEnabled = true;
+            Log.WriteLog(Log.LogLevel.信息, "异步加载字体完毕");
         }
 
         /// <summary>
@@ -406,6 +463,34 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         {
             Action updateAction = UpdateGroupBoxFont;
             ComboBoxFont.Dispatcher.BeginInvoke(updateAction);
+        }
+
+        /// <summary>
+        /// 从注册表读取字体
+        /// </summary>
+        /// <returns>读取的字体的排序字典</returns>
+        //[System.Security.Permissions.RegistryPermissionAttribute(System.Security.Permissions.SecurityAction.PermitOnly, Read = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts")]// 约束代码仅可读注册表
+        public static SortedDictionary<string, string> ReadFontInformation()
+        {
+            var dictionary = new SortedDictionary<string, string>();
+            var localMachineKey = Registry.LocalMachine;
+            // 打开注册表  
+            RegistryKey localMachineKeySub = localMachineKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts", false);
+            //获取字体名  
+            string[] mynames = localMachineKeySub.GetValueNames();
+            foreach (string name in mynames)
+            {
+                //获取字体的文件名  
+                string myvalue = localMachineKeySub.GetValue(name).ToString();
+
+                if (myvalue.Substring(myvalue.Length - 4).ToUpper() == ".TTF" && myvalue.Substring(1, 2).ToUpper() != @":\")
+                {
+                    string val = name.Replace(" (TrueType)", "");
+                    dictionary[val] = Global.WindowsFolder + @"\Windows\Fonts\" + myvalue;
+                }
+            }
+            localMachineKeySub.Close();
+            return dictionary;
         }
 
         /// <summary>
@@ -464,7 +549,37 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 System.Windows.MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后应用修改！", "警告");
                 return;
             }
+            Log.WriteLog(Log.LogLevel.信息, "开始保存字体及字号设置");
+            // 检测多余字体文件
+            Log.WriteLog(Log.LogLevel.信息, "检测多余字体文件");
+            FileInfo[] fontFiles = new DirectoryInfo(TextInstallDir.Text + @"\Fonts\").GetFiles();
+            string[] defaultFontFiles = {
+                "DroidSansMono.ttf","NanumGothic-Bold.ttf","NanumGothic-ExtraBold.ttf","NanumGothic-Regular.ttf",
+                "OpenSans-Bold.ttf", "OpenSans-BoldItalic.ttf","OpenSans-ExtraBold.ttf","OpenSans-ExtraBoldItalic.ttf",
+                "OpenSans-Italic.ttf","OpenSans-Light.ttf","OpenSans-LightItalic.ttf","OpenSans-Regular.ttf",
+                "OpenSans-Semibold.ttf","OpenSans-SemiboldItalic.ttf","Oswald-Bold.ttf","Oswald-Light.ttf",
+                "Oswald-Regular.ttf",
+            };
+            foreach (var file in fontFiles)
+            {
+                var filename = file.Name;
+                bool isDefault = false;
+                foreach (var defaultFontFile in defaultFontFiles)
+                {
+                    if (filename == defaultFontFile)
+                    {
+                        isDefault = true;
+                        break;
+                    }
+                }
+                if (!isDefault)
+                {
+                    Log.WriteLog(Log.LogLevel.信息, "删除多余的 " + filename + " 字体文件");
+                    file.Delete();
+                }
+            }
             // 复制字体文件
+            Log.WriteLog(Log.LogLevel.信息, "开始复制字体文件");
             var textBlock = (TextBlock)ComboBoxFont.Items[ComboBoxFont.SelectedIndex];
             if (ComboBoxFont.SelectedIndex != 0)
             {
@@ -473,13 +588,17 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 string destinationFilePath = TextInstallDir.Text + @"\Fonts\" + destinationFileName + ".ttf";
                 try
                 {
+                    Log.WriteLog(Log.LogLevel.信息, "复制 " + destinationFileName + ".ttf");
                     File.Copy(sourceFilePath, destinationFilePath, true);
+                    Log.WriteLog(Log.LogLevel.信息, "复制字体文件完毕");
                 }
                 catch (Exception exception)
                 {
                     System.Windows.MessageBox.Show("复制字体文件失败！\r\n" + exception, "警告");
+                    Log.WriteLog(Log.LogLevel.警告, "复制字体文件失败");
                 }
             }
+            Log.WriteLog(Log.LogLevel.信息, "写入序列化 default_macros.json 文件");
             // 打开文件 
             FileStream fileStream = new FileStream(TextInstallDir.Text + @"\defaults\default_macros.json", FileMode.Open, FileAccess.Read, FileShare.Read);
             // 读取文件的 byte[] 
@@ -506,31 +625,10 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 System.Windows.MessageBox.Show("文件写入失败！\r\n" + exception, "警告");
             }
             MessageBox.Show("设置成功保存！");
+            Log.WriteLog(Log.LogLevel.信息, "保存字体及字号设置完毕");
         }
 
-        //[System.Security.Permissions.RegistryPermissionAttribute(System.Security.Permissions.SecurityAction.PermitOnly, Read = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts")]// 约束代码仅可读注册表
-        public static SortedDictionary<string, string> ReadFontInformation()
-        {
-            var dictionary = new SortedDictionary<string, string>();
-            var localMachineKey = Registry.LocalMachine;
-            // 打开注册表  
-            RegistryKey localMachineKeySub = localMachineKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts", false);
-            //获取字体名  
-            string[] mynames = localMachineKeySub.GetValueNames();
-            foreach (string name in mynames)
-            {
-                //获取字体的文件名  
-                string myvalue = localMachineKeySub.GetValue(name).ToString();
-
-                if (myvalue.Substring(myvalue.Length - 4).ToUpper() == ".TTF" && myvalue.Substring(1, 2).ToUpper() != @":\")
-                {
-                    string val = name.Replace(" (TrueType)", "");
-                    dictionary[val] = Global.WindowsFolder + @"\Windows\Fonts\" + myvalue;
-                }
-            }
-            localMachineKeySub.Close();
-            return dictionary;
-        }
         #endregion
+
     }
 }

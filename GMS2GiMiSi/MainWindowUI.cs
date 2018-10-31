@@ -98,7 +98,7 @@ namespace GMS2GiMiSi
         /// </summary>
         private void UI_btn_close_Click(object sender, RoutedEventArgs e)
         {
-            Log.WriteLog("吉米赛退出...");
+            Log.WriteLog(Log.LogLevel.信息, "吉米赛退出...");
             Application.Current.Shutdown();
         }
 

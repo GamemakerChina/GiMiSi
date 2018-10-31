@@ -24,9 +24,9 @@ namespace GMS2GiMiSi.View
         public GMS2Page()
         {
             InitializeComponent();
-            RootFrame.Navigate(new GMS2ChildPage.IDEPage());
+            RootFrame.Navigate(Global.PageManager[0, 0]);
             ResourceDictionary.Source =
-                new Uri("pack://application:,,,/GMS2GiMiSi;component/Resources/Dictionary.xaml",
+                new Uri("pack://application:,,,/GMS2GiMiSi;component/Dictionary/ListBoxItemDictionary.xaml",
                     UriKind.Absolute);
         }
 

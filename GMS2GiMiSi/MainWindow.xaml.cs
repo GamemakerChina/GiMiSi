@@ -34,21 +34,11 @@ namespace GMS2GiMiSi
 
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// 版本[Standalone, Steam]
-        /// </summary>
-        public enum Edition
-        {
-            Standalone,
-            Steam
-        }
-
         #region 控件行为代码
 
         public MainWindow()
         {
             InitializeComponent();
-            
             // 窗口缩放
             SourceInitialized += delegate (object sender, EventArgs e) { _hwndSource = PresentationSource.FromVisual((Visual)sender) as HwndSource; };
             MouseMove += Window_MouseMove;

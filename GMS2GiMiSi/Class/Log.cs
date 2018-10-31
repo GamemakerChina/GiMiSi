@@ -1,15 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GMS2GiMiSi.Class
 {
-    internal class Log
+    public class Log
     {
-        public static void WriteLog(string logText)
+        /// <summary>
+        /// 日志级别
+        /// </summary>
+        public enum LogLevel
+        {
+            错误 = 0,
+            警告 = 1,
+            信息 = 2,
+            调试 = 3
+        }
+
+        public static void WriteLog(LogLevel logLevel, string logText)
         {
             try
             {
@@ -28,14 +41,14 @@ namespace GMS2GiMiSi.Class
                 }
                 var fileStream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
                 var streamWriter = new StreamWriter(fileStream);
-                streamWriter.WriteLine(DateTime.Now.ToString("[hh:mm.ss]") + logText);
+                streamWriter.WriteLine(DateTime.Now.ToString("[hh:mm.ss]") + "[" + logLevel + "]" + logText);
                 streamWriter.Flush();
                 streamWriter.Close();
                 fileStream.Close();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                // ignored
+                MessageBox.Show(exception.ToString());
             }
         }
     }

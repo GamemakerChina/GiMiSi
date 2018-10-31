@@ -5,32 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GMS2GiMiSi.View.GMS2ChildPage"
       mc:Ignorable="d"
-      Title="IDEPage" Width="535" Height="355.161">
+      Title="IDEPage" Width="535" Height="400">
 
-    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="356">
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="400">
         <Grid Width="535">
-            <TextBlock Grid.Column="0" x:Name="LabelInstalldir" Height="16" Margin="10,10,43,0" TextWrapping="Wrap" Text="GameMaker Studio 2 安装路径" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-            <TextBox Style="{StaticResource TextBoxStyle}" Grid.Column="0" x:Name="TextInstallDir" Height="18" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="365"/>
-            <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="1" x:Name ="BtnInstallDirBrowse" Content="浏览……" Height="18" Margin="380.3,31,0,0" VerticalAlignment="Top" Click="BtnInstallDir_Click" HorizontalAlignment="Left" Width="50"/>
-            <CheckBox Style="{StaticResource CheckBoxStyle}" Grid.Column="0" x:Name="CheckBoxAutoSearch" Content="自动查找"  Height="20" Margin="10,54,0,0" Checked="ChBoxAutoSearch_Checked" Unchecked="ChBoxAutoSearch_Unchecked" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
-            <TextBlock Grid.Column="1" x:Name="TextGMS2Verion" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,55,0,0" Height="18"/>
-            <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="130" Margin="10,77,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click" HorizontalAlignment="Left" Width="250" IsEnabled="False"/>
-            <Button Style="{StaticResource BtnInfoStyle}" x:Name="BtnManualCHN" Content="浏览中文帮助文档&#xA; （未完全翻译，完成后&#xA;将可以内置进GMS2）" Height="75" Margin="275,77,0,0" VerticalAlignment="Top" Click="BtnManualCHN_Click" FontSize="18" HorizontalAlignment="Left" Width="250"/>
-            <Button Style="{StaticResource BtnInfoStyle}" x:Name="BtnManualENG" Content="浏览英文官方帮助文档" Height="50" Margin="275,157,0,0" VerticalAlignment="Top" Click="BtnManualENG_Click" FontSize="18" HorizontalAlignment="Left" Width="250"/>
+            <TextBlock TextWrapping="Wrap" Text="版本：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontWeight="Bold"/>
+            <TextBlock TextWrapping="Wrap" Text="安装路径：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="116,10,0,0" FontWeight="Bold"/>
+            <ComboBox x:Name="GMS2VersionComboBox" SelectionChanged="GMS2VersionComboBox_OnSelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101" Margin="10,30,0,0" Cursor="Hand" IsEnabled="False" Height="37"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" Grid.Column="0" x:Name="TextInstallDir" Height="37" Margin="116,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="354"/>
+            <Button Style="{StaticResource BtnStartStyle}" x:Name ="BtnInstallDirBrowse" Content="浏览……" Height="37" Margin="475,30,0,0" VerticalAlignment="Top" Click="BtnInstallDir_Click" HorizontalAlignment="Left" Width="50"/>
+            <Button Style="{StaticResource BtnStartStyle}" x:Name ="AutoSearchDirButton" Content="自动查找" Height="37" Margin="10,72,0,0" VerticalAlignment="Top" Click="AutoSearchDirBrowse_OnClick"  HorizontalAlignment="Left" Width="515"/>
+            <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="130" Margin="10,114,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click" HorizontalAlignment="Left" Width="250" IsEnabled="False"/>
+            <Button Style="{StaticResource BtnInfoStyle}" x:Name="BtnManualCHN" Content="浏览中文帮助文档&#xA; （未完全翻译，完成后&#xA;将可以内置进GMS2）" Height="75" Margin="275,114,0,0" VerticalAlignment="Top" Click="BtnManualCHN_Click" FontSize="18" HorizontalAlignment="Left" Width="250"/>
+            <Button Style="{StaticResource BtnInfoStyle}" x:Name="BtnManualENG" Content="浏览英文官方帮助文档" Height="50" Margin="275,194,0,0" VerticalAlignment="Top" Click="BtnManualENG_Click" FontSize="18" HorizontalAlignment="Left" Width="250"/>
         </Grid>
-        <GroupBox x:Name="GroupBoxFont" IsEnabled="False" Header="软件字体及字号设置" Height="107" Margin="10,230,277.2,0" VerticalAlignment="Top" FontSize="15">
+        <GroupBox x:Name="GroupBoxFont" IsEnabled="False" Header="软件字体及字号设置" Height="107" Margin="10,266,277.2,0" VerticalAlignment="Top" FontSize="15">
             <StackPanel Margin="5,10,0,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="字体" FontSize="20" />
-                    <ComboBox x:Name="ComboBoxFont" Margin="10,0,0,0" Focusable="False" SelectedIndex="1" IsReadOnly="True" Width="169"/>
+                    <ComboBox Cursor="Hand" x:Name="ComboBoxFont" Margin="10,0,0,0" Focusable="False" SelectedIndex="1" IsReadOnly="True" Width="169"/>
                 </StackPanel>
                 <Grid Margin="0,10,0,0">
                     <TextBlock Text="字号" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" x:Name="TextBoxFontSize" Text="9" Width="30" TextAlignment="Center" Cursor="IBeam" TextChanged="FontSize_TextChanged" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0" />
+                    <TextBox IsEnabled="False" Style="{StaticResource TextBoxStyle}" x:Name="TextBoxFontSize" Text="9" Width="30" TextAlignment="Center" Cursor="IBeam" TextChanged="FontSize_TextChanged" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0" />
+                    <TextBlock Text="不可用原因" VerticalAlignment="Center" Margin="90,0,0,0"  Foreground="Blue"  TextDecorations="Underline" ToolTip="由于目前设置字体有可能导致 GameMaker Studio 2 对话框显示不全，所以暂时不提供字号修改功能"/>
                     <Button Style="{StaticResource BtnInfoStyle}" Margin="0,0,10,0" HorizontalAlignment="Right" Content="应用" FontSize="20" Click="SaveFont_OnClick" VerticalAlignment="Center" Width="46"/>
                 </Grid>
             </StackPanel>
         </GroupBox>
-        <Button Style="{StaticResource BtnStartStyle}" x:Name="BtnStartGMS2" Content="              启动&#xA; GameMaker Studio 2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="95" Margin="275,242,0,0" Click="StartGMS2Button_Click"/>
+        <Button Style="{StaticResource BtnStartStyle}" x:Name="BtnStartGMS2" Content="              启动&#xA; GameMaker Studio 2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="95" Margin="275,278,0,0" Click="StartGMS2Button_Click"/>
     </Grid>
 </Page>
