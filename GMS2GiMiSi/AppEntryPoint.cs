@@ -56,7 +56,7 @@ namespace GMS2GiMiSi
                     }
                     var fileStream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
                     var streamWriter = new StreamWriter(fileStream);
-                    streamWriter.WriteLine(DateTime.Now.ToString("[hh:mm.ss]")+"错误信息：\r\n" + log);
+                    streamWriter.WriteLine(DateTime.Now.ToString("[hh:mm.ss]") + "错误信息：\r\n" + log);
                     streamWriter.Flush();
                     streamWriter.Close();
                     fileStream.Close();
