@@ -8,9 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GMS2Page">
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" VerticalAlignment="Top" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition x:Name="SecondRowDefinition" Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ListBox FocusVisualStyle="{x:Null}" x:Name="TopListBox" Grid.Row="0" BorderBrush="{x:Null}" SelectionMode="Single" Background="{x:Null}" SelectionChanged="TopListBox_SelectionChanged">
@@ -19,16 +20,29 @@
                     <VirtualizingStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            <ListBoxItem x:Name="IDEBoxItem" IsSelected="True" Style="{StaticResource ListBoxItemStyle}">
-                <TextBlock Text="IDE 汉化" FontSize="18" VerticalAlignment="Center" Margin="20,0"/>
+            <ListBoxItem x:Name="GMS2BoxItem" IsSelected="True" Style="{StaticResource ListBoxItemStyle}">
+                <TextBlock Text="GameMaker Studio 2" FontSize="13" VerticalAlignment="Center" Margin="7,0"/>
             </ListBoxItem>
-            <ListBoxItem x:Name="RuntimeBoxItem" Style="{StaticResource ListBoxItemStyle}">
-                <TextBlock Text="Runtime 管理" FontSize="18" VerticalAlignment="Center" Margin="20,0"/>
+            <ListBoxItem x:Name="GMS1BoxItem" Style="{StaticResource ListBoxItemStyle}" Visibility="Collapsed">
+                <TextBlock Text="GameMaker Studio 1" FontSize="13" VerticalAlignment="Center" Margin="7,0"/>
             </ListBoxItem>
             <ListBoxItem x:Name="AboutBoxItem" Style="{StaticResource ListBoxItemStyle}">
-                <TextBlock Text="关于" FontSize="18" VerticalAlignment="Center" Margin="20,0"/>
+                <TextBlock Text="关于" FontSize="13" VerticalAlignment="Center" Margin="7,0"/>
             </ListBoxItem>
         </ListBox>
-        <Frame x:Name="RootFrame" Grid.Row="1" Margin="0" FocusVisualStyle="{x:Null}"/>
+        <ListBox FocusVisualStyle="{x:Null}" x:Name="SecondListBox" Grid.Row="1" BorderBrush="{x:Null}" SelectionMode="Single" Background="{x:Null}" SelectionChanged="SecondListBox_SelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBoxItem x:Name="IDEBoxItem" IsSelected="True" Style="{StaticResource ListBoxItemStyle}" Tag="Second">
+                <TextBlock Text="IDE 汉化" FontSize="18" VerticalAlignment="Center" Margin="10,0"/>
+            </ListBoxItem>
+            <ListBoxItem x:Name="RuntimeBoxItem" Style="{StaticResource ListBoxItemStyle}" Tag="Second">
+                <TextBlock Text="Runtime 管理" FontSize="18" VerticalAlignment="Center" Margin="10,0"/>
+            </ListBoxItem>
+        </ListBox>
+        <Frame x:Name="RootFrame" Grid.Row="2" Margin="0" FocusVisualStyle="{x:Null}"/>
     </Grid>
 </Page>

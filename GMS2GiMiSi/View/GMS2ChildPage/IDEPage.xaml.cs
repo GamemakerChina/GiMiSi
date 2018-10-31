@@ -43,6 +43,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         private void TextInstallDir_Changed(object sender, TextChangedEventArgs e)
         {
             GroupBoxFont.IsEnabled = false;
+            #region 判断路径
             //string path = TextInstallDir.Text;
             //if (path == "<!未找到 GameMaker Studio 2 的路径>" || path == "")
             //{
@@ -95,6 +96,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             //        EnableInstallation(true);
             //    }
             //}
+            #endregion
         }
 
         /// <summary>
@@ -384,7 +386,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 pfc.AddFontFile(fonts.Value);
                 var textBlock = new TextBlock
                 {
-                    Text = fonts.Key.Replace(" (TrueType)", ""),
+                    Text = fonts.Key,
                     FontFamily = new FontFamily(pfc.Families[0].Name)
                 };
                 pfc.Dispose();
@@ -510,14 +512,11 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         public static SortedDictionary<string, string> ReadFontInformation()
         {
             var dictionary = new SortedDictionary<string, string>();
-
-            Microsoft.Win32.RegistryKey localMachineKey = Microsoft.Win32.Registry.LocalMachine;
+            var localMachineKey = Registry.LocalMachine;
             // 打开注册表  
-            Microsoft.Win32.RegistryKey localMachineKeySub = localMachineKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts", false);
-
+            RegistryKey localMachineKeySub = localMachineKey.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts", false);
             //获取字体名  
             string[] mynames = localMachineKeySub.GetValueNames();
-
             foreach (string name in mynames)
             {
                 //获取字体的文件名  
@@ -525,8 +524,8 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
 
                 if (myvalue.Substring(myvalue.Length - 4).ToUpper() == ".TTF" && myvalue.Substring(1, 2).ToUpper() != @":\")
                 {
-                    string val = name.Substring(0, name.Length - 11);
-                    dictionary[val] = @"C:\Windows\Fonts\" + myvalue;
+                    string val = name.Replace(" (TrueType)", "");
+                    dictionary[val] = Global.WindowsFolder + @"\Windows\Fonts\" + myvalue;
                 }
             }
             localMachineKeySub.Close();

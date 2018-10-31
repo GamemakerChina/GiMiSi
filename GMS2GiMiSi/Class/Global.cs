@@ -11,12 +11,33 @@ namespace GMS2GiMiSi.Class
 {
     public static class Global
     {
+        /// <summary>
+        /// 日志文件名
+        /// </summary>
+        public static string logfileName;
+
+        /// <summary>
+        /// 系统盘盘符
+        /// </summary>
+        public static string WindowsFolder = Environment.ExpandEnvironmentVariables("%systemdrive%");
+
+        /// <summary>
+        /// 下载文件名TextBlock
+        /// </summary>
         public static TextBlock DownloadFileName = null;
+        /// <summary>
+        ///  下载进度条ProgressBar
+        /// </summary>
         public static ProgressBar ProgressBarDownload = null;
 
-        public static Page[,] PageManager = new Page[1, 3]
+        /// <summary>
+        /// 页面管理Page数组
+        /// </summary>
+        public static Page[,] PageManager = new Page[3, 3]
         {
-            { new IDEPage(), new RuntimePage(),new AboutPage()}
+            { new IDEPage(), new RuntimePage(), null},
+            { null, null, null},
+            { new AboutPage(), null, null}
         };
 
         /// <summary>
@@ -35,6 +56,5 @@ namespace GMS2GiMiSi.Class
             }
             return false;
         }
-
     }
 }

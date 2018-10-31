@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Diagnostics;
-using System.Drawing.Text;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows;
+using GMS2GiMiSi.Class;
 
 namespace GMS2GiMiSi
 {
@@ -28,6 +19,7 @@ namespace GMS2GiMiSi
         {
             public AppRun()
             {
+                Global.logfileName = "log_" + DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("hhmmss") + ".log";
                 // TODO
                 Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -55,8 +47,7 @@ namespace GMS2GiMiSi
                     {
                         Directory.CreateDirectory(logFilePath);
                     }
-                    var logFilename = "log_" + DateTime.Now.ToString("yyyyMMdd") + "_" +
-                        DateTime.Now.ToString("hhmmss") + ".log"; //设置文件名
+                    var logFilename = Global.logfileName; //设置文件名
                     var logPath = logFilePath + logFilename;
                     if (!File.Exists(logPath))
                     {
@@ -65,7 +56,7 @@ namespace GMS2GiMiSi
                     }
                     var fileStream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
                     var streamWriter = new StreamWriter(fileStream);
-                    streamWriter.WriteLine("错误信息：\r\n" + log);
+                    streamWriter.WriteLine(DateTime.Now.ToString("[hh:mm.ss]")+"错误信息：\r\n" + log);
                     streamWriter.Flush();
                     streamWriter.Close();
                     fileStream.Close();

@@ -5,6 +5,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="#FF3AB3E1"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -31,6 +32,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="#62D94B"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -259,6 +261,7 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="IsChecked" Value="False"/>
         <Setter Property="Margin" Value="0,20"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
@@ -462,7 +465,7 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Grid x:Name="Grid" Cursor="{DynamicResource CursorLink}">
                         <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        <Rectangle Visibility="Collapsed" x:Name="Rectangle" Fill="#3399FF" VerticalAlignment="Bottom" Height="3"/>
+                        <Rectangle x:Name="Rectangle" Visibility="Collapsed" Fill="#3399FF" VerticalAlignment="Bottom" Height="3"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -491,12 +494,17 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="Selector.IsSelectionActive" Value="True"/>
                                 <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="Tag" Value="Second"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Visibility" TargetName="Rectangle" Value="Visible"/>
                         </MultiTrigger>
-                        <Trigger Property="IsSelected" Value="True">
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="Tag" Value="Second"/>
+                            </MultiTrigger.Conditions>
                             <Setter Property="Visibility" TargetName="Rectangle" Value="Visible"/>
-                        </Trigger>
+                        </MultiTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" TargetName="Grid" Value="Hand"/>
                         </Trigger>

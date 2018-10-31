@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using GMS2GiMiSi.Class;
 using GMS2GiMiSi.Properties;
 using Application = System.Windows.Application;
 using Cursors = System.Windows.Input.Cursors;
@@ -45,7 +46,7 @@ namespace GMS2GiMiSi
             if (Mouse.LeftButton == MouseButtonState.Pressed) return;
             if (e.OriginalSource is FrameworkElement element && !element.Name.Contains("Resize"))
             {
-                Cursor = ((TextBlock)CursorDictionary["CursorPointer"]).Cursor;
+                Cursor = Cursors.Arrow;
             }
         }
 
@@ -97,6 +98,7 @@ namespace GMS2GiMiSi
         /// </summary>
         private void UI_btn_close_Click(object sender, RoutedEventArgs e)
         {
+            Log.WriteLog("吉米赛退出...");
             Application.Current.Shutdown();
         }
 

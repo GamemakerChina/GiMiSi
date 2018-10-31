@@ -108,6 +108,7 @@
     <Compile Include="AppEntryPoint.cs" />
     <Compile Include="Class\default_macrosRootObject.cs" />
     <Compile Include="Class\Global.cs" />
+    <Compile Include="Class\Log.cs" />
     <Compile Include="Class\Network.cs" />
     <Compile Include="Class\RegistryHelper.cs" />
     <Compile Include="Class\rssXml.cs" />
