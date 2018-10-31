@@ -83,6 +83,23 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Visibility" TargetName="Rectangle" Value="Visible"/>
                         </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="Tag" Value="{x:Null}"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Height" TargetName="Rectangle" Value="1.5"/>
+                            <Setter Property="Visibility" TargetName="Rectangle" Value="Visible"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="Tag" Value="{x:Null}"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Height" TargetName="Rectangle" Value="1.5"/>
+                            <Setter Property="Visibility" TargetName="Rectangle" Value="Visible"/>
+                        </MultiTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" TargetName="Grid" Value="Hand"/>
                         </Trigger>

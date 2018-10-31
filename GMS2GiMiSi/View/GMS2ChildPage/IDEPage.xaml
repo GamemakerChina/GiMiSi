@@ -33,6 +33,6 @@
                 </Grid>
             </StackPanel>
         </GroupBox>
-        <Button Style="{StaticResource BtnStartStyle}" x:Name="BtnStartGMS2" Content="              启动&#xA; GameMaker Studio 2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="95" Margin="275,278,0,0" Click="StartGMS2Button_Click"/>
+        <Button FontSize="20" Style="{StaticResource BtnStartStyle}" x:Name="BtnStartGMS2" Content="              启动&#xA; GameMaker Studio 2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="95" Margin="275,278,0,0" Click="StartGMS2Button_Click"/>
     </Grid>
 </Page>

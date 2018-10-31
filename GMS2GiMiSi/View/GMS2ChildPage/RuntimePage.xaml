@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GMS2GiMiSi.View.GMS2ChildPage"
       mc:Ignorable="d"
-      Title="RuntimePage" Width="535" Height="350.213">
+      Title="RuntimePage" Width="535" Height="376.693">
 
-    <Grid VerticalAlignment="Top" Height="350">
+    <Grid VerticalAlignment="Top" Height="377" Margin="0,0,0.2,-0.2">
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" ><Run Text="选择要安装的 runtime 版本及 GMS2 版本 - 来源于 LiarOnce 的 "/><Hyperlink x:Name="Link2RuntimeMirrorSite" FontWeight="Bold" NavigateUri="https://gms.magecorn.com/?tdsourcetag=s_pcqq_aiomsg#/README" Click="Link2RuntimeMirrorSite_Click"><Run Text="Runtime 国内镜像站" /></Hyperlink></TextBlock>
-        <ComboBox x:Name="ComboBoxRuntimeVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="10,30,0,0" Cursor="Hand"/>
+        <ComboBox x:Name="ComboBoxRuntimeVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="10,31,0,0" Cursor="Hand"/>
         <ComboBox x:Name="ComboBoxGms2Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="375" Margin="97,30,0,0" SelectedIndex="0" Cursor="Hand">
             <TextBlock Text="GameMaker Studio 2 Desktop（包含 windows、mac、linux）"/>
             <TextBlock Text="GameMaker Studio 2 Creator Mac"/>
@@ -27,6 +27,6 @@
         <TextBlock TextWrapping="Wrap" Text="已下载或安装的 runtime 版本" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,65,0,0"/>
         <Button Style="{StaticResource BtnInfoStyle}" Content="刷新" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Margin="175,61,0,0" Height="22" Click="RefreshInstalledRuntime"/>
         <Button Style="{StaticResource BtnInfoStyle}" Content="删除选中版本 runtime" HorizontalAlignment="Right" VerticalAlignment="Top" Width="129" Margin="0,62,6.4,0" Height="22" Click="DeleteInstalledRuntime"/>
-        <DataGrid AlternationCount="2" RowHeaderWidth="0" x:Name="DataGridInstalledRuntime" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="254" VerticalAlignment="Top" Width="518" Margin="10,86,0,0"/>
+        <DataGrid AlternationCount="2" RowHeaderWidth="0" x:Name="DataGridInstalledRuntime" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="278" VerticalAlignment="Top" Width="518" Margin="10,89,0,0"/>
     </Grid>
 </Page>

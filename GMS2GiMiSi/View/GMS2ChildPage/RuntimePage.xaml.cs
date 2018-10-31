@@ -50,6 +50,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         private void RuntimeRssDownloadTask()
         {
             // 异步加载runtime，不卡界面
+            Log.WriteLog(Log.LogLevel.信息, "异步更新 Zeus-Runtime.rss");
             Task task = new Task(tb => ActionRuntimeRssDownload(), ComboBoxRuntimeVersion);
             task.Start();
         }
@@ -238,7 +239,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 {
                     await Network.DownloadRuntimeFileAsync(runtimeFile, runtimeVersionPath + @"\download");
                 }
-                MessageBox.Show("下载 runtime 成功，请在Gamemaker Stuido 2 偏好设置 - 运行库管理中选择相应版本安装");
+                MessageBox.Show("下载 runtime 成功，请在 Gamemaker Stuido 2 偏好设置 - 运行库管理中选择相应版本安装");
             }
             catch (Exception exception)
             {
@@ -296,6 +297,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
 
         private void RefreshInstalledRuntime(object sender, RoutedEventArgs e)
         {
+            Log.WriteLog(Log.LogLevel.信息, "刷新已安装或已下载 Runtime");
             DirectoryInfo Dir = new DirectoryInfo(GMS2runtimesPath);
             DirectoryInfo[] DirSub = Dir.GetDirectories();
             List<string[]> installedRuntimeList = new List<string[]>();
@@ -317,6 +319,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 删除操作！", "警告");
                 return;
             }
+            Log.WriteLog(Log.LogLevel.信息, "删除选择的 Runtime");
             var DialogResult = MessageBox.Show("确定要删除 " + ((string[])DataGridInstalledRuntime.SelectedCells[1].Item)[0] + " 版本runtime吗？",
                 "警告", MessageBoxButton.OKCancel);
             var runtimePath = ((string[])DataGridInstalledRuntime.SelectedCells[1].Item)[1];

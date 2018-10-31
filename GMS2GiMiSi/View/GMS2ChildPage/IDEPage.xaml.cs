@@ -305,15 +305,18 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// </summary>
         private async void CopyTransFileAsync()
         {
+            Log.WriteLog(Log.LogLevel.信息,"开始复制 IDE 汉化文件");
             await Network.DownloadFileAsync();
             var sourcePath = @".\latest\chinese.csv";
             var targetPath = TextInstallDir.Text + @"\Languages\chinese.csv";
             if (File.Exists(sourcePath))
             {
                 File.Copy(sourcePath, targetPath, true);
+                Log.WriteLog(Log.LogLevel.信息,"复制 IDE 汉化文件完毕");
             }
             else
             {
+                Log.WriteLog(Log.LogLevel.警告,"复制 IDE 汉化文件失败");
                 MessageBox.Show("汉化失败，未能找到对应版本的译文，请尝试更新后再汉化，如果还有问题，请联系QQ群或作者QQ", "译文缺失", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }

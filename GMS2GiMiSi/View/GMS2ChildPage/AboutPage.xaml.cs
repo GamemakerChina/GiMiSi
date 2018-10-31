@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.String;
 using Version = GMS2GiMiSi.Class.Version;
 
 namespace GMS2GiMiSi.View.GMS2ChildPage
@@ -33,7 +34,17 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         public AboutPage()
         {
             InitializeComponent();
-            VersionDisplay.Text = String.Format(VersionDisplay.Text, version); // 该软件版本
+            VersionDisplay.Text = Format(VersionDisplay.Text, version); // 该软件版本
+        }
+
+        /// <summary>
+        /// 打开日志
+        /// </summary>
+        private void LogHyperlink_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((Hyperlink)sender).NavigateUri = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                                                    @"\GMS2GiMiSi\Log", UriKind.Absolute);
+            Process.Start(((Hyperlink)sender)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
         }
 
         /// <summary>
@@ -51,5 +62,6 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         {
             Process.Start("http://www.52gmk.com/");
         }
+
     }
 }

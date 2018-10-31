@@ -42,7 +42,12 @@ namespace GMS2GiMiSi
             // 窗口缩放
             SourceInitialized += delegate (object sender, EventArgs e) { _hwndSource = PresentationSource.FromVisual((Visual)sender) as HwndSource; };
             MouseMove += Window_MouseMove;
+            Global.MainWindow = this;
             Global.DownloadFileName = DownloadFileName;
+            Global.ProgressBarDownload = ProgressBarDownload;
+            Global.DownloadRowDefinition = DownloadRowDefinition;
+            Network.webClient.DownloadProgressChanged += Network.WebClient_DownloadProgressChangedHandler;
+            Network.webClient.DownloadFileCompleted += Network.WebClient_DownloadFileCompletedHandler;
         }
 
         private void Window_Loaded(object sender, EventArgs e)
