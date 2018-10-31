@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -70,14 +71,56 @@ namespace GMS2GiMiSi
             private static void App_Startup(object sender, StartupEventArgs e)
             {
                 //添加资源字典
-                ResourceDictionary GuiDictionary = new ResourceDictionary
+                var resourceDictionaries = new Collection<ResourceDictionary>
                 {
-                    Source = new Uri(
-                        "pack://application:,,,/GMS2GiMiSi;component/Resources/Dictionary.xaml",
-                        UriKind.Absolute)
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/ButtonDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/CheckBoxDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/ComboBoxDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/DataGridDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/ListBoxItemDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/ProgressBarDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/TextBoxDictionary.xaml",
+                            UriKind.Absolute)
+                    }
                 };
-                Current.Resources.MergedDictionaries.Add(GuiDictionary);
-
+                foreach (var resourceDictionary in resourceDictionaries)
+                {
+                    Current.Resources.MergedDictionaries.Add(resourceDictionary);
+                }
+                
                 var mainWindowShow = new MainWindow();
                 mainWindowShow.InitializeComponent();
                 mainWindowShow.Show();
