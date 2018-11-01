@@ -41,8 +41,7 @@ namespace GMS2GiMiSi
             {
                 try
                 {
-                    var logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                        @"\GMS2GiMiSi\Log\"; //设置文件夹位置
+                    var logFilePath = Environment.CurrentDirectory + @"\GiMiSiTemp\Log\"; ; //设置文件夹位置
                     if (Directory.Exists(logFilePath) == false) //若文件夹不存在
                     {
                         Directory.CreateDirectory(logFilePath);
@@ -106,6 +105,12 @@ namespace GMS2GiMiSi
                     {
                         Source = new Uri(
                             "pack://application:,,,/GMS2GiMiSi;component/Dictionary/ProgressBarDictionary.xaml",
+                            UriKind.Absolute)
+                    },
+                    new ResourceDictionary
+                    {
+                        Source = new Uri(
+                            "pack://application:,,,/GMS2GiMiSi;component/Dictionary/RadioButtonDictionary.xaml",
                             UriKind.Absolute)
                     },
                     new ResourceDictionary

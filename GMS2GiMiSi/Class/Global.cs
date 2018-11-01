@@ -14,6 +14,16 @@ namespace GMS2GiMiSi.Class
     public static class Global
     {
         /// <summary>
+        /// GMS2RuntimeRss下载状态
+        /// </summary>
+        public static bool GMS2RuntimeRssDownloading = false;
+
+        /// <summary>
+        /// RootFrame
+        /// </summary>
+        public static Frame RootFrame = null;
+
+        /// <summary>
         /// 日志文件名
         /// </summary>
         public static string logfileName = DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("HHmmss") + ".log";
@@ -28,10 +38,22 @@ namespace GMS2GiMiSi.Class
         /// </summary>
         public static Window MainWindow = null;
 
+        #region 设置
+
+        /// <summary>
+        /// GMS2RuntimeRss 订阅源
+        /// </summary>
+        public static Uri GMS2RuntimeRss = new Uri("https://gms.magecorn.com/Zeus-Runtime.rss");
+
+
+        #endregion
+
+        #region 下载
         /// <summary>
         /// 下载文件名 TextBlock
         /// </summary>
         public static TextBlock DownloadFileName = null;
+
         /// <summary>
         ///  下载进度条 ProgressBar
         /// </summary>
@@ -55,16 +77,12 @@ namespace GMS2GiMiSi.Class
                 MainWindow.Height -= 92;
             }
         }
+        #endregion
 
         /// <summary>
         /// 页面管理 Page 数组
         /// </summary>
-        public static Page[,] PageManager = {
-            { new IDEPage(), new RuntimePage(), null},
-            { null, null, null},
-            { new SettingPage(), null, null},
-            { new AboutPage(), null, null}
-        };
+        public static Page[,] PageManager = null;
 
         /// <summary>
         /// 判断GMS2进程是否存在

@@ -26,8 +26,7 @@ namespace GMS2GiMiSi.Class
         {
             try
             {
-                var logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                                  @"\GMS2GiMiSi\Log\"; //设置文件夹位置
+                var logFilePath = Environment.CurrentDirectory + @"\GiMiSiTemp\Log\"; //设置文件夹位置
                 if (Directory.Exists(logFilePath) == false) //若文件夹不存在
                 {
                     Directory.CreateDirectory(logFilePath);

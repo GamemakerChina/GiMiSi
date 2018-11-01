@@ -8,7 +8,7 @@
       Title="RuntimePage" Width="535" Height="376.693">
 
     <Grid VerticalAlignment="Top" Height="377" Margin="0,0,0.2,-0.2">
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" ><Run Text="选择要安装的 runtime 版本及 GMS2 版本 - 来源于 LiarOnce 的 "/><Hyperlink x:Name="Link2RuntimeMirrorSite" FontWeight="Bold" NavigateUri="https://gms.magecorn.com/?tdsourcetag=s_pcqq_aiomsg#/README" Click="Link2RuntimeMirrorSite_Click"><Run Text="Runtime 国内镜像站" /></Hyperlink></TextBlock>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Text="选择要安装的 runtime 版本及 GMS2 版本"/>
         <ComboBox x:Name="ComboBoxRuntimeVersion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Margin="10,31,0,0" Cursor="Hand"/>
         <ComboBox x:Name="ComboBoxGms2Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="375" Margin="97,30,0,0" SelectedIndex="0" Cursor="Hand">
             <TextBlock Text="GameMaker Studio 2 Desktop（包含 windows、mac、linux）"/>

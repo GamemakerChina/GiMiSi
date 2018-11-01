@@ -56,7 +56,7 @@ namespace GMS2GiMiSi
         private void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var positionUiGrid = e.GetPosition(UiGrid);
-            var positionRightGridFrame = e.GetPosition(RightFrame);
+            var positionRightGridFrame = e.GetPosition(MainFrame);
             var inUiGrid = false;
             var inRightGridFrame = false;
             var inDedicatedServerFrame = false;
@@ -64,7 +64,7 @@ namespace GMS2GiMiSi
             {
                 inUiGrid = true;
             }
-            if (positionRightGridFrame.X >= 0 && positionRightGridFrame.X < RightFrame.ActualWidth && positionRightGridFrame.Y >= 0 && positionRightGridFrame.Y < RightFrame.ActualHeight)
+            if (positionRightGridFrame.X >= 0 && positionRightGridFrame.X < MainFrame.ActualWidth && positionRightGridFrame.Y >= 0 && positionRightGridFrame.Y < MainFrame.ActualHeight)
             {
                 inRightGridFrame = true;
             }

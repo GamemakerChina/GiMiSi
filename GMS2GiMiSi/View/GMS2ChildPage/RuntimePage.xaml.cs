@@ -23,20 +23,25 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
     /// </summary>
     public partial class RuntimePage : Page
     {
+
+        public void LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            if (Global.RootFrame != null)
+            {
+                if (Global.RootFrame.NavigationService.Content.ToString().Contains("RuntimePage"))
+                {
+                    // 下载 Runtime Rss 文件
+                    RuntimeRssDownloadTask();
+                    // 加载已安装 Runtime
+                    LoadInstalledRuntime();
+                }
+            }
+        }
+
         public RuntimePage()
         {
             InitializeComponent();
-            // 下载Runtime Rss文件
-            RuntimeRssDownloadTask();
-            LoadInstalledRuntime();
-        }
-
-        /// <summary>
-        /// Runtime 国内镜像站页面(来源于LiarOnce)
-        /// </summary>
-        private void Link2RuntimeMirrorSite_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start((sender as Hyperlink)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
+            Global.RootFrame.NavigationService.LoadCompleted += LoadCompleted;
         }
 
         /// <summary>
@@ -46,10 +51,11 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         private readonly string GMS2runtimesPath = GMS2ConfigFilePath + @"\Cache\runtimes";
         private List<Item> zeusRuntimeItem = new List<Item>();
 
-        #region 下载runtime
+        #region 下载 runtime
         private void RuntimeRssDownloadTask()
         {
-            // 异步加载runtime，不卡界面
+            Global.GMS2RuntimeRssDownloading = true;
+            // 异步加载 runtime，不卡界面
             Log.WriteLog(Log.LogLevel.信息, "异步更新 Zeus-Runtime.rss");
             Task task = new Task(tb => ActionRuntimeRssDownload(), ComboBoxRuntimeVersion);
             task.Start();
@@ -76,25 +82,32 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 {
                     Directory.CreateDirectory(GMS2runtimesPath);
                 }
-                if (File.Exists(@".\rss\Zeus-Runtime.rss"))
+                if (File.Exists(@".\GiMiSiTemp\rss\Zeus-Runtime.rss"))
                 {
-                    File.Delete(@".\rss\Zeus-Runtime.rss");
+                    File.Delete(@".\GiMiSiTemp\rss\Zeus-Runtime.rss");
                 }
                 await Network.DownloadRssFileAsync();
                 // 打开文件
-                FileStream fileStream = new FileStream(@".\rss\Zeus-Runtime.rss", FileMode.Open, FileAccess.Read, FileShare.Read);
+                FileStream fileStream = new FileStream(@".\GiMiSiTemp\rss\Zeus-Runtime.rss", FileMode.Open, FileAccess.Read, FileShare.Read);
                 // 读取文件的 byte[]
                 byte[] bytes = new byte[fileStream.Length];
                 fileStream.Read(bytes, 0, bytes.Length);
                 fileStream.Close();
                 // 把 byte[] 转换成 Stream
                 Stream stream = new MemoryStream(bytes);
-                var rssStr = new StreamReader(stream, Encoding.UTF8).ReadToEnd();
-                Rss zeusRuntime = (Rss)XmlHelper.Deserialize(typeof(Rss), rssStr);
+                var rssString = new StreamReader(stream, Encoding.UTF8).ReadToEnd();
+                stream.Close();
+                Rss zeusRuntime = (Rss)XmlHelper.Deserialize(typeof(Rss), rssString);
                 // item节
                 zeusRuntimeItem = zeusRuntime.Channel.Item;
+                // 逆序（使高版本在上）
                 zeusRuntimeItem.Reverse();
-                zeusRuntimeItem = zeusRuntimeItem.GetRange(0, zeusRuntimeItem.Count > 3 ? 3 : zeusRuntimeItem.Count);
+                // 如果为LiarOnce国内镜像则截取前三
+                if (Global.GMS2RuntimeRss.ToString() == "https://gms.magecorn.com/Zeus-Runtime.rss"|| Global.GMS2RuntimeRss.ToString() == "https://gms.jilcky.cn/Zeus-Runtime.rss")
+                {
+                    zeusRuntimeItem = zeusRuntimeItem.GetRange(0, zeusRuntimeItem.Count > 3 ? 3 : zeusRuntimeItem.Count);
+                }
+                ComboBoxRuntimeVersion.Items.Clear();
                 foreach (var item in zeusRuntimeItem)
                 {
                     ComboBoxRuntimeVersion.Items.Add(item.Title.Replace("Version ", ""));
@@ -105,6 +118,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             {
                 ComboBoxRuntimeVersion.IsEnabled = false;
                 ButtonRuntimeDownload.IsEnabled = false;
+                Log.WriteLog(Log.LogLevel.警告, e.ToString());
                 if (e.ToString().Contains("\r\n"))
                 {
                     //GroupBoxRuntime.Header = "Rumtime 安装 - " + e.ToString().Substring(0, e.ToString().IndexOf("\r\n", StringComparison.Ordinal));
@@ -114,8 +128,9 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                     //GroupBoxRuntime.Header = "Rumtime 安装 - " + e;
                 }
             }
+            Global.GMS2RuntimeRssDownloading = false;
         }
-
+        #endregion
 
         private async void ButtonRuntimeDownload_Click(object sender, RoutedEventArgs e)
         {
@@ -124,7 +139,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 MessageBox.Show("检测到 GameMaker Studio 2 进程，请关闭程序后进行 runtime 下载操作！", "警告");
                 return;
             }
-            //GroupBoxIDE.IsEnabled = false;
+            // TODO 防止误操作？
             string runtimeVersion = ComboBoxRuntimeVersion.Text;
             int gms2Version = ComboBoxGms2Version.SelectedIndex;
             string runtimeVersionPath = GMS2runtimesPath + @"\runtime-" + runtimeVersion;
@@ -247,35 +262,6 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             }
         }
 
-        /*/// <summary>
-        /// um文档反序列化 - 获取用户id以获取用户配置文件夹名
-        /// </summary>
-        private string umDeserialize()
-        {
-            if (!Directory.Exists(GMS2ConfigFilePath))
-            {
-                throw new Exception("GameMaker Studio 2 配置文件夹不存在");
-            }
-            var filePath = GMS2ConfigFilePath + @"\um.json";
-            if (!File.Exists(filePath))
-            {
-                throw new Exception("GameMaker Studio 2 配置文件不存在");
-            }
-            // 打开文件 
-            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            // 读取文件的 byte[] 
-            byte[] bytes = new byte[fileStream.Length];
-            fileStream.Read(bytes, 0, bytes.Length);
-            fileStream.Close();
-            // 把 byte[] 转换成 Stream 
-            Stream stream = new MemoryStream(bytes);
-            var umStr = new StreamReader(stream, Encoding.UTF8).ReadToEnd();
-            var um = JsonConvert.DeserializeObject<umRootObject>(umStr);
-            // 获取userID以确认文件夹名
-            return um.userID;
-        }*/
-        #endregion
-
         #region 加载已安装runtime
 
         private void LoadInstalledRuntime()
@@ -333,8 +319,34 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             }
         }
 
+
+        /*/// <summary>
+        /// um文档反序列化 - 获取用户id以获取用户配置文件夹名
+        /// </summary>
+        private string umDeserialize()
+        {
+            if (!Directory.Exists(GMS2ConfigFilePath))
+            {
+                throw new Exception("GameMaker Studio 2 配置文件夹不存在");
+            }
+            var filePath = GMS2ConfigFilePath + @"\um.json";
+            if (!File.Exists(filePath))
+            {
+                throw new Exception("GameMaker Studio 2 配置文件不存在");
+            }
+            // 打开文件 
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            // 读取文件的 byte[] 
+            byte[] bytes = new byte[fileStream.Length];
+            fileStream.Read(bytes, 0, bytes.Length);
+            fileStream.Close();
+            // 把 byte[] 转换成 Stream 
+            Stream stream = new MemoryStream(bytes);
+            var umStr = new StreamReader(stream, Encoding.UTF8).ReadToEnd();
+            var um = JsonConvert.DeserializeObject<umRootObject>(umStr);
+            // 获取userID以确认文件夹名
+            return um.userID;
+        }*/
         #endregion
-
-
     }
 }

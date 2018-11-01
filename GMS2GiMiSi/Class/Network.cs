@@ -9,6 +9,8 @@ using System.Web;
 using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
+using GMS2GiMiSi.View;
+using GMS2GiMiSi.View.GMS2ChildPage;
 
 namespace GMS2GiMiSi.Class
 {
@@ -72,15 +74,15 @@ namespace GMS2GiMiSi.Class
         public static async Task DownloadRssFileAsync()
         {
             Log.WriteLog(Log.LogLevel.信息, "开始下载 Zeus-Runtime.rss");
-            if (!Directory.Exists(@".\rss"))
+            if (!Directory.Exists(@".\GiMiSiTemp\rss"))
             {
-                Directory.CreateDirectory(@".\rss");
+                Directory.CreateDirectory(@".\GiMiSiTemp\rss");
             }
             try
             {
                 await Task.Delay(1);
                 Global.DownloadRowDefinitionVisible(true);
-                await webClient.DownloadFileTaskAsync(new Uri("https://gms.magecorn.com/Zeus-Runtime.rss"), @".\rss\Zeus-Runtime.rss");
+                await webClient.DownloadFileTaskAsync(Global.GMS2RuntimeRss, @".\GiMiSiTemp\rss\Zeus-Runtime.rss");
                 Global.DownloadRowDefinitionVisible(false);
                 Log.WriteLog(Log.LogLevel.信息, "下载 Zeus-Runtime.rss 完毕");
             }

@@ -52,8 +52,8 @@ namespace GMS2GiMiSi
 
         private void Window_Loaded(object sender, EventArgs e)
         {
-            RightFrame.Visibility = Visibility.Visible;
-            RightFrame.NavigationService.Navigate(new GMS2Page());
+            MainFrame.Visibility = Visibility.Visible;
+            MainFrame.NavigationService.Navigate(new GMS2Page());
         }
 
         #endregion

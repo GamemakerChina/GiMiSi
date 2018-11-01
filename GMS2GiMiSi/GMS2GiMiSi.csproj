@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppEntryPoint.cs" />
+    <Compile Include="Class\ConfigJson.cs" />
     <Compile Include="Class\default_macrosRootObject.cs" />
     <Compile Include="Class\Global.cs" />
     <Compile Include="Class\Log.cs" />
@@ -152,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionary\ProgressBarDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionary\RadioButtonDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

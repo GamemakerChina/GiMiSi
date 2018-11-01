@@ -661,14 +661,15 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                 {
                     writer.WriteLine(SerializeText);
                     writer.Close();
+                    MessageBox.Show("设置成功保存！");
+                    Log.WriteLog(Log.LogLevel.信息, "保存字体及字号设置完毕");
                 }
             }
             catch (Exception exception)
             {
+                Log.WriteLog(Log.LogLevel.警告, "保存字体及字号失败");
                 System.Windows.MessageBox.Show("文件写入失败！\r\n" + exception, "警告");
             }
-            MessageBox.Show("设置成功保存！");
-            Log.WriteLog(Log.LogLevel.信息, "保存字体及字号设置完毕");
         }
 
         #endregion

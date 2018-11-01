@@ -4,15 +4,30 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GMS2GiMiSi.View"
-      mc:Ignorable="d" d:DesignWidth="450"
-      Title="AboutPage" Height="400">
-
-    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Width="430" Height="380">
+      mc:Ignorable="d"
+      Title="AboutPage" Height="400" Width="531.219">
+    
+    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Width="511" Height="380">
         <StackPanel Margin="0,0,0,0">
             <TextBlock Text="软件日志" FontSize="20" Foreground="#FF3AB3E1"/>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Button Style="{StaticResource BtnInfoStyle}" x:Name ="OpenLogDirButton" Content="打开日志文件夹" Click="OpenLogDirButton_OnClick"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="93" Height="24"/>
                 <Button Style="{StaticResource BtnInfoStyle}" Margin="5,0,0,0" x:Name ="DelLogDirButton" Content="清除日志" Click="ClearLogDirButton_OnClick"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="24" Width="56"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="0,20,0,0" x:Name="GMS2RuntimeStackPanel">
+            <TextBlock Text="GameMaker Studio 2 Runtime Rss 订阅源" FontSize="20" Foreground="#FF3AB3E1"/>
+            <StackPanel Margin="0,5,0,0">
+                <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2RuntimeRssYoYoRadioButton" Content="YoYoGames 官方" GroupName="GMS2RuntimeRss" Style="{StaticResource RadioButtonStyle}"/>
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2RuntimeRssLiarOnceRadioButton" Content="LiarOnce 的国内镜像站（默认）" GroupName="GMS2RuntimeRss" Margin="0,5,0,0" Style="{StaticResource RadioButtonStyle}"/>
+                    <Button Margin="5,0,0,0" Style="{StaticResource BtnInfoStyle}" x:Name ="MirrorSiteButton" Content="访问镜像站" Click="Link2RuntimeMirrorSite_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="24"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2RuntimeRssCustomRadioButton" Content="自定义 URL" GroupName="GMS2RuntimeRss" VerticalAlignment="Center" Style="{StaticResource RadioButtonStyle}"/>
+                    <TextBox Padding="2,3,0,0" IsEnabled="False" x:Name="CustomURLTextBox" Margin="5,0,0,0" Style="{StaticResource TextBoxStyle}" Width="356"/>
+                    <Button Margin="5,0,0,0" Style="{StaticResource BtnInfoStyle}" IsEnabled="False" x:Name ="CustomURLButton" Content="验证" Click="CustomURLButton_OnClick"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="54" Height="24"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </StackPanel>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GMS2GiMiSi.Class;
+using GMS2GiMiSi.View.GMS2ChildPage;
 
 namespace GMS2GiMiSi.View
 {
@@ -24,6 +25,13 @@ namespace GMS2GiMiSi.View
         public GMS2Page()
         {
             InitializeComponent();
+            Global.RootFrame = RootFrame;
+            Global.PageManager= new Page[4, 3]{
+                { new IDEPage(), new RuntimePage(), null},
+                { null, null, null},
+                { new SettingPage(), null, null},
+                { new AboutPage(), null, null}
+            };
             RootFrame.Navigate(Global.PageManager[0, 0]);
             ResourceDictionary.Source =
                 new Uri("pack://application:,,,/GMS2GiMiSi;component/Dictionary/ListBoxItemDictionary.xaml",
