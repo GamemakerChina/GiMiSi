@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using GMS2GiMiSi.View;
 using GMS2GiMiSi.View.GMS2ChildPage;
 
 namespace GMS2GiMiSi.Class
@@ -58,10 +59,10 @@ namespace GMS2GiMiSi.Class
         /// <summary>
         /// 页面管理 Page 数组
         /// </summary>
-        public static Page[,] PageManager = new Page[3, 3]
-        {
+        public static Page[,] PageManager = {
             { new IDEPage(), new RuntimePage(), null},
             { null, null, null},
+            { new SettingPage(), null, null},
             { new AboutPage(), null, null}
         };
 

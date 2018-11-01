@@ -115,7 +115,7 @@
     <Compile Include="Class\umJson.cs" />
     <Compile Include="Class\Version.cs" />
     <Compile Include="MainWindowUI.cs" />
-    <Compile Include="View\GMS2ChildPage\AboutPage.xaml.cs">
+    <Compile Include="View\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GMS2ChildPage\IDEPage.xaml.cs">
@@ -127,6 +127,9 @@
     <Compile Include="Class\XmlHelper.cs" />
     <Compile Include="View\GMS2Page.xaml.cs">
       <DependentUpon>GMS2Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Dictionary\ButtonDictionary.xaml">
       <SubType>Designer</SubType>
@@ -164,7 +167,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\GMS2ChildPage\AboutPage.xaml">
+    <Page Include="View\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GMS2Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

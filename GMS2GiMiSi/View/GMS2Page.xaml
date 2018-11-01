@@ -26,6 +26,9 @@
             <ListBoxItem x:Name="GMS1BoxItem" Style="{StaticResource ListBoxItemStyle}" Visibility="Collapsed">
                 <TextBlock Text="GameMaker Studio 1" FontSize="13" VerticalAlignment="Center" Margin="7,0"/>
             </ListBoxItem>
+            <ListBoxItem x:Name="SettingBoxItem" Style="{StaticResource ListBoxItemStyle}">
+                <TextBlock Text="设置" FontSize="13" VerticalAlignment="Center" Margin="7,0"/>
+            </ListBoxItem>
             <ListBoxItem x:Name="AboutBoxItem" Style="{StaticResource ListBoxItemStyle}">
                 <TextBlock Text="关于" FontSize="13" VerticalAlignment="Center" Margin="7,0"/>
             </ListBoxItem>

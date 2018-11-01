@@ -36,17 +36,7 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
             InitializeComponent();
             VersionDisplay.Text = Format(VersionDisplay.Text, version); // 该软件版本
         }
-
-        /// <summary>
-        /// 打开日志
-        /// </summary>
-        private void LogHyperlink_OnClick(object sender, RoutedEventArgs e)
-        {
-            ((Hyperlink)sender).NavigateUri = new Uri(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                                                    @"\GMS2GiMiSi\Log", UriKind.Absolute);
-            Process.Start(((Hyperlink)sender)?.NavigateUri.AbsoluteUri ?? throw new InvalidOperationException());
-        }
-
+        
         /// <summary>
         /// 源码页面
         /// </summary>

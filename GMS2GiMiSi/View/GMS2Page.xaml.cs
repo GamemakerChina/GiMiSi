@@ -71,9 +71,14 @@ namespace GMS2GiMiSi.View
                         case "GMS1BoxItem":
                             // TODO
                             break;
-                        case "AboutBoxItem":
+                        case "SettingBoxItem":
                             // AboutPage
                             RootFrame.Navigate(Global.PageManager[2, 0]);
+                            SecondRowDefinition.Height = new GridLength(0);
+                            break;
+                        case "AboutBoxItem":
+                            // AboutPage
+                            RootFrame.Navigate(Global.PageManager[3, 0]);
                             SecondRowDefinition.Height = new GridLength(0);
                             break;
                         default:

@@ -111,18 +111,45 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
                     .GetRegistryKey(RegistryHive.CurrentUser, @"Software\GameMakerStudio2");
                 if (standaloneKey != null)
                 {
-                    // 官网安装板
+                    // 官网下载板
                     installedDictionary.Add("官网下载版", standaloneKey.GetValue("Install_Dir").ToString());
                     standaloneKey.Close();
                 }
-                Log.WriteLog(Log.LogLevel.信息, "搜索steam版安装路径");
-                RegistryKey steamKey = RegistryHelpers
+                Log.WriteLog(Log.LogLevel.信息, "搜索 steam Desktop 版安装路径");
+                RegistryKey steamDesktopKey = RegistryHelpers
                     .GetRegistryKey(RegistryHive.LocalMachine ,@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410");
-                if (steamKey != null)
+                if (steamDesktopKey != null)
                 {
-                    // 官网安装板
-                    installedDictionary.Add("Steam版", steamKey.GetValue("InstallLocation").ToString());
-                    steamKey.Close();
+                    // Steam Desktop 板
+                    installedDictionary.Add("Steam Desktop 版", steamDesktopKey.GetValue("InstallLocation").ToString());
+                    steamDesktopKey.Close();
+                }
+                Log.WriteLog(Log.LogLevel.信息, "搜索 steam Web 版安装路径");
+                RegistryKey steamWebKey = RegistryHelpers
+                    .GetRegistryKey(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585600");
+                if (steamWebKey != null)
+                {
+                    // Steam Web 版
+                    installedDictionary.Add("Steam Web 版", steamWebKey.GetValue("InstallLocation").ToString());
+                    steamWebKey.Close();
+                }
+                Log.WriteLog(Log.LogLevel.信息, "搜索 steam UWP 版安装路径");
+                RegistryKey steamUwpKey = RegistryHelpers
+                    .GetRegistryKey(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585610");
+                if (steamUwpKey != null)
+                {
+                    // Steam UWP 版
+                    installedDictionary.Add("Steam UWP 版", steamUwpKey.GetValue("InstallLocation").ToString());
+                    steamUwpKey.Close();
+                }
+                Log.WriteLog(Log.LogLevel.信息, "搜索 steam Mobile 版安装路径");
+                RegistryKey steamMobileKey = RegistryHelpers
+                    .GetRegistryKey(RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585620");
+                if (steamMobileKey != null)
+                {
+                    // Steam Mobile 版
+                    installedDictionary.Add("Steam Mobile 版", steamMobileKey.GetValue("InstallLocation").ToString());
+                    steamMobileKey.Close();
                 }
                 Log.WriteLog(Log.LogLevel.信息, "搜索安装路径完毕");
             }

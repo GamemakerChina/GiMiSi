@@ -10,9 +10,9 @@
     <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="400">
         <Grid Width="535">
             <TextBlock TextWrapping="Wrap" Text="版本：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontWeight="Bold"/>
-            <TextBlock TextWrapping="Wrap" Text="安装路径：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="116,10,0,0" FontWeight="Bold"/>
-            <ComboBox x:Name="GMS2VersionComboBox" SelectionChanged="GMS2VersionComboBox_OnSelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101" Margin="10,30,0,0" Cursor="Hand" IsEnabled="False" Height="37"/>
-            <TextBox Style="{StaticResource TextBoxStyle}" Grid.Column="0" x:Name="TextInstallDir" Height="37" Margin="116,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="354"/>
+            <TextBlock TextWrapping="Wrap" Text="安装路径：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155,10,0,0" FontWeight="Bold"/>
+            <ComboBox x:Name="GMS2VersionComboBox" SelectionChanged="GMS2VersionComboBox_OnSelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="10,30,0,0" Cursor="Hand" IsEnabled="False" Height="37"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" Grid.Column="0" x:Name="TextInstallDir" Height="37" Margin="155,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" TextChanged="TextInstallDir_Changed" HorizontalAlignment="Left" Width="315"/>
             <Button Style="{StaticResource BtnStartStyle}" x:Name ="BtnInstallDirBrowse" Content="浏览……" Height="37" Margin="475,30,0,0" VerticalAlignment="Top" Click="BtnInstallDir_Click" HorizontalAlignment="Left" Width="50"/>
             <Button Style="{StaticResource BtnStartStyle}" x:Name ="AutoSearchDirButton" Content="自动查找" Height="37" Margin="10,72,0,0" VerticalAlignment="Top" Click="AutoSearchDirBrowse_OnClick"  HorizontalAlignment="Left" Width="515"/>
             <Button Style="{StaticResource BtnInfoStyle}" Grid.Column="0" x:Name="BtnInstallCHN" Content="安装汉化界面文件&#xA;（CHN）" Height="130" Margin="10,114,0,0" VerticalAlignment="Top" FontSize="18" Click="BtnInstallCHN_Click" HorizontalAlignment="Left" Width="250" IsEnabled="False"/>
