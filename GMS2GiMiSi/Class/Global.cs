@@ -15,7 +15,7 @@ namespace GMS2GiMiSi.Class
         /// <summary>
         /// 日志文件名
         /// </summary>
-        public static string logfileName = DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("hhmmss") + ".log";
+        public static string logfileName = DateTime.Now.ToString("yyyyMMdd") + "_" + DateTime.Now.ToString("HHmmss") + ".log";
 
         /// <summary>
         /// 系统盘盘符

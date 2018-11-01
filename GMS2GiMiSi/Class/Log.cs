@@ -41,7 +41,7 @@ namespace GMS2GiMiSi.Class
                 }
                 var fileStream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
                 var streamWriter = new StreamWriter(fileStream);
-                streamWriter.WriteLine(DateTime.Now.ToString("[hh:mm.ss]") + "[" + logLevel + "]" + logText);
+                streamWriter.WriteLine(DateTime.Now.ToString("[HH:mm.ss]") + "[" + logLevel + "]" + logText);
                 streamWriter.Flush();
                 streamWriter.Close();
                 fileStream.Close();

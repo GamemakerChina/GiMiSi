@@ -102,21 +102,34 @@ namespace GMS2GiMiSi.View.GMS2ChildPage
         /// <returns>GMS2 安装路径</returns>
         private static void GetAutoSearchPath()
         {
-            Log.WriteLog(Log.LogLevel.信息, "从注册表获取GameMaker Studio 2安装路径");
-            installedDictionary.Clear();
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\GameMakerStudio2");
-            if (key != null)
+            try
             {
-                // 官网安装板
-                installedDictionary.Add("官网下载版", key.GetValue("Install_Dir").ToString());
-                key.Close();
+                Log.WriteLog(Log.LogLevel.信息, "从注册表获取GameMaker Studio 2安装路径");
+                installedDictionary.Clear();
+                Log.WriteLog(Log.LogLevel.信息, "搜索官网下载版安装路径");
+                RegistryKey standaloneKey = RegistryHelpers
+                    .GetRegistryKey(RegistryHive.CurrentUser, @"Software\GameMakerStudio2");
+                if (standaloneKey != null)
+                {
+                    // 官网安装板
+                    installedDictionary.Add("官网下载版", standaloneKey.GetValue("Install_Dir").ToString());
+                    standaloneKey.Close();
+                }
+                Log.WriteLog(Log.LogLevel.信息, "搜索steam版安装路径");
+                RegistryKey steamKey = RegistryHelpers
+                    .GetRegistryKey(RegistryHive.LocalMachine ,@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410");
+                if (steamKey != null)
+                {
+                    // 官网安装板
+                    installedDictionary.Add("Steam版", steamKey.GetValue("InstallLocation").ToString());
+                    steamKey.Close();
+                }
+                Log.WriteLog(Log.LogLevel.信息, "搜索安装路径完毕");
             }
-            var steamPath = RegistryHelpers
-                .GetRegistryKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 585410")
-                .GetValue("InstallLocation").ToString();
-            if (!string.IsNullOrEmpty(steamPath))
+            catch
             {
-                installedDictionary.Add("Steam版", steamPath);
+                Log.WriteLog(Log.LogLevel.警告, "搜索安装路径失败");
+                throw new Exception("搜索安装路径失败");
             }
         }
 

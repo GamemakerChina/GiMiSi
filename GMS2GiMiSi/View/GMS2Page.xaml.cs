@@ -66,6 +66,7 @@ namespace GMS2GiMiSi.View
                         case "GMS2BoxItem":
                             FillSecondListBox("IDEBoxItem", "IDE 汉化", true);
                             FillSecondListBox("RuntimeBoxItem", "Runtime 管理", true);
+                            SecondListBox.SelectedIndex = 0;
                             break;
                         case "GMS1BoxItem":
                             // TODO
