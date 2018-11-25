@@ -1,8 +1,6 @@
 # GiMiSi
 
-> prprprprprprpr~~~
+> Let us touch GiMiSi~!!!
 
-[Mac]()
-[Windows]()
-
-![](60103079_p0.jpg)
+[macOS](mac-sh)
+[Windows](https://github.com/GamemakerChina/GiMiSi/releases)
