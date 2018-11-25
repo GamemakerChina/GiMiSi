@@ -1,4 +1,4 @@
-# Welcome! ヾ (≧▽≦\*)o
+# GiMiSi
 
 Test
 
