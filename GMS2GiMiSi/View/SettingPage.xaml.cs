@@ -145,6 +145,12 @@ namespace GMS2GiMiSi.View
                 case "1":
                     gms2RuntimeRssLiarOnceRadioButton.IsChecked = true;
                     break;
+                case "2":
+                    gms2BetaRuntimeRssYoYoRadioButton.IsChecked = true;
+                    break;
+                case "3":
+                    gms2BetaRuntimeRssLiarOnceRadioButton.IsChecked = true;
+                    break;
                 default:
                     CustomURLTextBox.IsEnabled = true;
                     CustomURLButton.IsEnabled = true;
@@ -199,6 +205,22 @@ namespace GMS2GiMiSi.View
                     Log.WriteLog(Log.LogLevel.信息, "选择了 LiarOnce 提供的 runtime rss 订阅源国内镜像站");
                     configRootObject.GMS2RuntimeRss = "1";
                     Global.GMS2RuntimeRss = new Uri("https://gms.magecorn.com/Zeus-Runtime.rss");
+                    CustomURLTextBox.IsEnabled = false;
+                    CustomURLButton.IsEnabled = false;
+                    WriteConfigJson();
+                    break;
+                case "gms2BetaRuntimeRssYoYoRadioButton":
+                    Log.WriteLog(Log.LogLevel.信息, "选择了 YoYoGames 官方 runtime rss 订阅源（beta通道）");
+                    configRootObject.GMS2RuntimeRss = "2";
+                    Global.GMS2RuntimeRss = new Uri("http://gms.yoyogames.com/Zeus-Runtime-Beta.rss");
+                    CustomURLTextBox.IsEnabled = false;
+                    CustomURLButton.IsEnabled = false;
+                    WriteConfigJson();
+                    break;
+                case "gms2BetaRuntimeRssLiarOnceRadioButton":
+                    Log.WriteLog(Log.LogLevel.信息, "选择了 LiarOnce 提供的 runtime rss 订阅源国内镜像站（beta通道）");
+                    configRootObject.GMS2RuntimeRss = "3";
+                    Global.GMS2RuntimeRss = new Uri("https://gms.magecorn.com/Zeus-Runtime-Beta.rss");
                     CustomURLTextBox.IsEnabled = false;
                     CustomURLButton.IsEnabled = false;
                     WriteConfigJson();

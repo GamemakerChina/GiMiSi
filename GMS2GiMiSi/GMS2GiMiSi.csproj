@@ -72,7 +72,7 @@
     <ManifestKeyFile>GMS2GiMiSi_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>GMS2GiMiSi.App.EntryPoint</StartupObject>

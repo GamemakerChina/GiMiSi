@@ -19,9 +19,14 @@
             <TextBlock Text="GameMaker Studio 2 Runtime Rss 订阅源" FontSize="20" Foreground="#FF3AB3E1"/>
             <StackPanel Margin="0,5,0,0">
                 <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2RuntimeRssYoYoRadioButton" Content="YoYoGames 官方" GroupName="GMS2RuntimeRss" Style="{StaticResource RadioButtonStyle}"/>
+                <RadioButton Margin="0,5,0,0" Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2BetaRuntimeRssYoYoRadioButton" Content="YoYoGames 官方（Beta通道）" GroupName="GMS2RuntimeRss" Style="{StaticResource RadioButtonStyle}"/>
                 <StackPanel Orientation="Horizontal">
                     <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2RuntimeRssLiarOnceRadioButton" Content="LiarOnce 的国内镜像站（默认）" GroupName="GMS2RuntimeRss" Margin="0,5,0,0" Style="{StaticResource RadioButtonStyle}"/>
-                    <Button Margin="5,0,0,0" Style="{StaticResource BtnInfoStyle}" x:Name ="MirrorSiteButton" Content="访问镜像站" Click="Link2RuntimeMirrorSite_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="24"/>
+                    <Button Margin="5,0,0,0" Style="{StaticResource BtnInfoStyle}" Content="访问镜像站" Click="Link2RuntimeMirrorSite_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="24"/>
+                </StackPanel>
+                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                    <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2BetaRuntimeRssLiarOnceRadioButton" Content="LiarOnce 的国内镜像站（Beta通道）" GroupName="GMS2RuntimeRss" Margin="0,5,0,0" Style="{StaticResource RadioButtonStyle}"/>
+                    <Button Margin="5,0,0,0" Style="{StaticResource BtnInfoStyle}" Content="访问镜像站" Click="Link2RuntimeMirrorSite_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="24"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <RadioButton Checked="Gms2RuntimeRss_OnChecked" x:Name="gms2RuntimeRssCustomRadioButton" Content="自定义 URL" GroupName="GMS2RuntimeRss" VerticalAlignment="Center" Style="{StaticResource RadioButtonStyle}"/>
